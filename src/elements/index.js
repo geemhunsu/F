@@ -1,4 +1,5 @@
-import Grid from "./Grid";
-import Text from "./Text";
+import Grid from './Grid';
+import Text from './Text';
+import Image from './Image';
 
-export {Grid, Text}
+export { Grid, Text, Image };
