@@ -32,6 +32,7 @@ const Grid = props => {
     boxShadow,
     backgroundColor,
     lineHeight,
+    boxSizing,
   } = props;
 
   const styles = {
@@ -61,6 +62,7 @@ const Grid = props => {
     boxShadow,
     backgroundColor,
     lineHeight,
+    boxSizing,
   };
   return (
     <GridBox {...styles} onClick={_onClick}>
@@ -95,6 +97,7 @@ Grid.defaultProps = {
   minHeight: null,
   maxHeight: null,
   shadow: null,
+  boxSizing: null,
   _onClick: () => {},
 };
 
@@ -122,7 +125,8 @@ const GridBox = styled.div`
   min-height: ${props => props.minHeight};
   max-height: ${props => props.maxHeight};
   box-shadow: ${props => props.shadow};
-  background-color: ${props => props.backgroundColor}; ;
+  background-color: ${props => props.backgroundColor};
+  box-sizing: ${props => props.boxSizing};
 `;
 
 export default Grid;

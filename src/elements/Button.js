@@ -59,6 +59,7 @@ const ElButton = styled.button`
   font-weight: bold;
   border: none;
   ${props => (props.borderRadius ? `border-radius:${props.borderRadius}` : 'steelblue')};
+  background-color: ${props => props.backgroundColor}; ;
 `;
 
 const FloatButton = styled.div`

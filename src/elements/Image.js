@@ -22,13 +22,6 @@ const Image = props => {
     return <MainInner {...styles}></MainInner>;
   }
 
-  return (
-    <React.Fragment>
-      <OuterRect>
-        <InnerRect {...styles}></InnerRect>
-      </OuterRect>
-    </React.Fragment>
-  );
   if (shape === 'square') {
     return (
       <React.Fragment>
@@ -38,6 +31,14 @@ const Image = props => {
       </React.Fragment>
     );
   }
+
+  return (
+    <React.Fragment>
+      <OuterRect>
+        <InnerRect {...styles}></InnerRect>
+      </OuterRect>
+    </React.Fragment>
+  );
 };
 
 Image.defaultProps = {
