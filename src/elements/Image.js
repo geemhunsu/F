@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Image = (props) => {
+const Image = props => {
   const { shape, src, size } = props;
 
   const styles = {
@@ -15,6 +15,10 @@ const Image = (props) => {
         <ImageCircle {...styles}></ImageCircle>
       </React.Fragment>
     );
+  }
+
+  if (shape === 'TitleLogo') {
+    return <MainInner {...styles}></MainInner>;
   }
 
   return (
@@ -33,11 +37,11 @@ Image.defaultProps = {
 };
 
 const ImageCircle = styled.div`
-  --size: ${(props) => props.size}px;
+  --size: ${props => props.size}px;
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
-  background-image: url(${(props) => props.src});
+  background-image: url(${props => props.src});
   background-size: cover;
   margin: 4px;
 `;
@@ -51,7 +55,18 @@ const InnerRect = styled.div`
   position: relative;
   padding-top: 75%;
   overflow: hidden;
-  background-image: url(${(props) => props.src});
+  background-image: url(${props => props.src});
+  background-size: cover;
+`;
+
+const MainInner = styled.div`
+  width: 100%;
+  min-width: 25rem;
+  position: relative;
+  padding-top: 35%;
+  overflow: hidden;
+  background-image: url(${props => props.src});
+  background-position: left;
   background-size: cover;
 `;
 
