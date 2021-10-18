@@ -23,12 +23,17 @@ const Grid = (props) => {
     borderBottom,
     borderLeft,
     borderRight,
-    overflow,   
+    overflow,
     minWidth,
     maxWidth,
     minHeight,
     maxHeight,
-    boxShadow,    
+    boxShadow,
+    position,
+    top,
+    bottom,
+    left,
+    right,
   } = props;
 
   const styles = {
@@ -50,15 +55,20 @@ const Grid = (props) => {
     borderBottom,
     borderLeft,
     borderRight,
-    overflow,   
+    overflow,
     minWidth,
     maxWidth,
     minHeight,
     maxHeight,
-    boxShadow,    
+    boxShadow,
+    position,
+    top,
+    bottom,
+    left,
+    right,
   }
   return (
-    <GridBox {...styles} onClick={_onClick}>
+    <GridBox {...styles} onClick={_onClick} id={id}>
       {children}
     </GridBox>
   );
@@ -84,12 +94,17 @@ Grid.defaultProps = {
   borderBottom: null,
   borderLeft: null,
   borderRight: null,
-  overflow: null,    
+  overflow: null,
   minWidth: null,
   maxWidth: null,
   minHeight: null,
   maxHeight: null,
   shadow: null,
+  potision: null,
+  top: null,
+  bottom: null,
+  left: null,
+  right: null,
   _onClick: () => { },
 }
 
@@ -116,7 +131,23 @@ const GridBox = styled.div`
   min-height: ${props => props.minHeight};
   max-height: ${props => props.maxHeight};
   box-shadow: ${props => props.shadow};
+  position: ${props => props.position};
+  top: ${props => props.top};
+  bottom: ${props => props.bottom};
+  left: ${props => props.left};
+  right: ${props => props.right};
 
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 15px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 15px;
+  }
 `;
 
 export default Grid;
