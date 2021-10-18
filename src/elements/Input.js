@@ -5,14 +5,19 @@ import { Grid, Text } from './index';
 const Input = props => {
   const { label, placeholder, _onChange, type, multiLine, value, margin, width, padding, 
   height, border, borderRadius, bg, backgroundImage, } = props;
-
+  const styles = {
+    padding, height, border, borderRadius, bg, backgroundImage,
+  }
   if (multiLine) {
     return (
       <Grid>
         {label && <Text margin='0px'>{label}</Text>}
-        <ElTextarea value={value} rows={10} placeholder={placeholder} onChange={_onChange}
-        height={height} border={border} borderRadius={borderRadius} bg={bg} 
-        padding={padding} backgroundImage={backgroundImage}  />
+        <ElTextarea
+          value={value}
+          rows={10}
+          placeholder={placeholder}
+          onChange={_onChange}
+        ></ElTextarea>
       </Grid>
     );
   }
@@ -20,9 +25,14 @@ const Input = props => {
   return (
     <Grid>
       {label && <Text margin='0px'>{label}</Text>}
-      <ElInput width={width} margin={margin} type={type} placeholder={placeholder} onChange={_onChange} 
-      height={height} border={border} borderRadius={borderRadius} bg={bg} 
-      padding={padding} backgroundImage={backgroundImage}  />
+      <ElInput
+        {...styles}
+        width={width}
+        margin={margin}
+        type={type}
+        placeholder={placeholder}
+        onChange={_onChange}
+      />
     </Grid>
   );
 };
@@ -66,6 +76,10 @@ const ElInput = styled.input`
   padding: ${props => props.padding};
   backgroundImage: ${props => props.backgroundImage};
   box-sizing: border-box;
+  ${(props) => (props.bg ? `background-color: ${props.bg}` : '')};
+  ${(props) =>
+    props.borderRadius ? `border-radius: ${props.borderRadius}` : ''};
+  ${(props) => (props.border ? `border: ${props.border}` : '')};
 `;
 
 export default Input;

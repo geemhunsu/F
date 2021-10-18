@@ -12,10 +12,10 @@ const Grid = (props) => {
     height,
     bg,
     display,
-    flexDirection,    
-    flexWrap,
-    alignItems,
     justifyContent,
+    alignItems,
+    flexDirection,    
+    flexWrap,    
     textAlign,
     border,
     borderRadius,
@@ -45,10 +45,10 @@ const Grid = (props) => {
     height,
     bg,
     display,
-    flexDirection,    
-    flexWrap,
-    alignItems,
     justifyContent,
+    alignItems: alignItems,
+    flexDirection: flexDirection,
+    flexWrap,
     textAlign,
     border,
     borderRadius,
@@ -81,17 +81,17 @@ Grid.defaultProps = {
   id: null,
   margin: null,
   padding: null,
-  width: "100%",
-  height: "100%",
+  width: '100%',
+  height: '100%',
   bg: null,
   display: null,
-  flexDirection: null,  
-  flexWrap: null,
-  alignItems: null,
   justifyContent: null,
+  alignItems: false,
+  flexDirection: false,
+  flexWrap: null,
   textAlign: false,
   border: null,
-  borderRadius: null,
+  borderRadius: false,
   borderTop: null,
   borderBottom: null,
   borderLeft: null,
@@ -118,12 +118,15 @@ const GridBox = styled.div`
   height: ${props => props.height};
   background: ${props => props.bg};
   display: ${props => props.display};
-  flex-direction: ${props => props.flexDirection};  
+  ${(props) =>
+    props.flexDirection ? `flex-direction:${props.flexDirection}` : ''};
   flex-wrap: ${props => props.flexWrap};
   ${(props) => (props.alignItems ? `align-items: ${props.alignItems};` : '')}
   justify-content: ${props => props.justifyContent};
   text-align: ${props => props.textAlign};
-  border: ${props => props.border};
+  border: ${(props) => props.border};
+  ${(props) =>
+    props.borderRadius ? `border-radius: ${props.borderRadius}` : ''};
   border-top: ${props => props.borderTop};
   border-bottom: ${props => props.borderBottom};
   border-left: ${props => props.borderLeft};
