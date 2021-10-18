@@ -1,3 +1,8 @@
+import HeaderSub from "./HeaderSub"
+import HeaderCenter from "./HeaderCenter"
 import Post from './Post';
+import HeaderLeft from './HeaderLeft'
 
-export { Post };
+export {HeaderSub, HeaderCenter, Post, HeaderLeft, }
+
+
