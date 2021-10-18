@@ -12,10 +12,10 @@ const Grid = (props) => {
     height,
     bg,
     display,
-    flexDirection,
-    flexAlign,
+    flexDirection,    
     flexWrap,
-    flexItem,
+    alignItems,
+    justifyContent,
     textAlign,
     border,
     borderRadius,
@@ -34,6 +34,7 @@ const Grid = (props) => {
     bottom,
     left,
     right,
+    hover,
   } = props;
 
   const styles = {
@@ -44,10 +45,10 @@ const Grid = (props) => {
     height,
     bg,
     display,
-    flexDirection,
-    flexAlign,
+    flexDirection,    
     flexWrap,
-    flexItem,
+    alignItems,
+    justifyContent,
     textAlign,
     border,
     borderRadius,
@@ -66,6 +67,7 @@ const Grid = (props) => {
     bottom,
     left,
     right,
+    hover,
   }
   return (
     <GridBox {...styles} onClick={_onClick} id={id}>
@@ -83,10 +85,10 @@ Grid.defaultProps = {
   height: "100%",
   bg: null,
   display: null,
-  flexDirection: null,
-  flexAlign: null,
+  flexDirection: null,  
   flexWrap: null,
-  flexItem: null,
+  alignItems: null,
+  justifyContent: null,
   textAlign: false,
   border: null,
   borderRadius: null,
@@ -99,12 +101,13 @@ Grid.defaultProps = {
   maxWidth: null,
   minHeight: null,
   maxHeight: null,
-  shadow: null,
+  boxShadow: null,
   potision: null,
   top: null,
   bottom: null,
   left: null,
   right: null,
+  hover: null,
   _onClick: () => { },
 }
 
@@ -115,27 +118,35 @@ const GridBox = styled.div`
   height: ${props => props.height};
   background: ${props => props.bg};
   display: ${props => props.display};
-  flex-direction: ${props => props.flexDirection};
-  flex-align: ${props => props.flexAlign};
+  flex-direction: ${props => props.flexDirection};  
   flex-wrap: ${props => props.flexWrap};
-  flex-item: ${props => props.flexItem};
+  ${(props) => (props.alignItems ? `align-items: ${props.alignItems};` : '')}
+  justify-content: ${props => props.justifyContent};
   text-align: ${props => props.textAlign};
   border: ${props => props.border};
   border-top: ${props => props.borderTop};
   border-bottom: ${props => props.borderBottom};
   border-left: ${props => props.borderLeft};
   border-right: ${props => props.borderRight};
+  border-radius: ${props => props.borderRadius};
   overflow: ${props => props.overflow};
   min-width: ${props => props.minWidth};
   max-width: ${props => props.maxWidth};
   min-height: ${props => props.minHeight};
   max-height: ${props => props.maxHeight};
-  box-shadow: ${props => props.shadow};
+  box-shadow: ${props => props.boxShadow};
   position: ${props => props.position};
   top: ${props => props.top};
   bottom: ${props => props.bottom};
   left: ${props => props.left};
   right: ${props => props.right};
+
+  
+  :hover {
+    ${props => props.hover ? `background-color:${props.hover};
+  cursor: pointer;`: ""}
+     ${(props)=>(props.hover_font?`color : ${props.hover_font}`:null)}
+  }
 
   ::-webkit-scrollbar {
     width: 5px;
