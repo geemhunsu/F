@@ -12,6 +12,8 @@ const Grid = props => {
     height,
     bg,
     display,
+    justifyContent,
+    alignItems,
     flexDirection,
     flexWrap,
     AlignItem,
@@ -28,7 +30,6 @@ const Grid = props => {
     minHeight,
     maxHeight,
     boxShadow,
-    justifyContent,
     backgroundColor,
     lineHeight,
   } = props;
@@ -41,9 +42,10 @@ const Grid = props => {
     height,
     bg,
     display,
+    justifyContent,
+    alignItems,
     flexDirection,
     flexWrap,
-    AlignItem,
     textAlign,
     border,
     borderRadius,
@@ -57,7 +59,6 @@ const Grid = props => {
     minHeight,
     maxHeight,
     boxShadow,
-    justifyContent,
     backgroundColor,
     lineHeight,
   };
@@ -77,12 +78,13 @@ Grid.defaultProps = {
   height: '100%',
   bg: null,
   display: null,
-  flexDirection: null,
+  justifyContent: null,
+  alignItems: false,
+  flexDirection: false,
   flexWrap: null,
-  AlignItem: null,
   textAlign: false,
   border: null,
-  borderRadius: null,
+  borderRadius: false,
   borderTop: null,
   borderBottom: null,
   borderLeft: null,
@@ -93,9 +95,6 @@ Grid.defaultProps = {
   minHeight: null,
   maxHeight: null,
   shadow: null,
-  justifyContent: null,
-  backgroundColor: null,
-  lineHeight: null,
   _onClick: () => {},
 };
 
@@ -106,11 +105,13 @@ const GridBox = styled.div`
   height: ${props => props.height};
   background: ${props => props.bg};
   display: ${props => props.display};
-  flex-direction: ${props => props.flexDirection};
+  justify-content: ${props => props.justifyContent};
+  ${props => (props.alignItems ? `align-items: ${props.alignItems}` : '')};
+  ${props => (props.flexDirection ? `flex-direction:${props.flexDirection}` : '')};
   flex-wrap: ${props => props.flexWrap};
-  align-items: ${props => props.AlignItem};
   text-align: ${props => props.textAlign};
   border: ${props => props.border};
+  ${props => (props.borderRadius ? `border-radius: ${props.borderRadius}` : '')};
   border-top: ${props => props.borderTop};
   border-bottom: ${props => props.borderBottom};
   border-left: ${props => props.borderLeft};
@@ -121,10 +122,7 @@ const GridBox = styled.div`
   min-height: ${props => props.minHeight};
   max-height: ${props => props.maxHeight};
   box-shadow: ${props => props.shadow};
-  justify-content: ${props => props.justifyContent};
-  background-color: ${props => props.backgroundColor};
-  line-height: ${props => props.lineHeight};
-  border-radius: ${props => props.borderRadius};
+  background-color: ${props => props.backgroundColor}; ;
 `;
 
 export default Grid;

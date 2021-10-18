@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Image = props => {
-  const { shape, src, size } = props;
+  const { shape, src, size, margin } = props;
 
   const styles = {
     src: src,
     size: size,
+    margin: margin,
   };
 
   if (shape === 'circle') {
@@ -28,12 +29,22 @@ const Image = props => {
       </OuterRect>
     </React.Fragment>
   );
+  if (shape === 'square') {
+    return (
+      <React.Fragment>
+        <OuterRect>
+          <InnerRect {...styles}></InnerRect>
+        </OuterRect>
+      </React.Fragment>
+    );
+  }
 };
 
 Image.defaultProps = {
   shape: 'circle',
   src: 'https://district93.org/wp-content/uploads/2017/07/icon-user-default.png',
   size: 36,
+  margin: false,
 };
 
 const ImageCircle = styled.div`
@@ -43,7 +54,7 @@ const ImageCircle = styled.div`
   border-radius: var(--size);
   background-image: url(${props => props.src});
   background-size: cover;
-  margin: 4px;
+  ${props => (props.margin ? `margin: ${props.margin}` : 'margin: 4px')};
 `;
 
 const OuterRect = styled.div`
