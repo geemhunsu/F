@@ -12,6 +12,8 @@ const Grid = (props) => {
     height,
     bg,
     display,
+    justifyContent,
+    alignItems,
     flexDirection,
     flexAlign,
     flexWrap,
@@ -23,12 +25,12 @@ const Grid = (props) => {
     borderBottom,
     borderLeft,
     borderRight,
-    overflow,   
+    overflow,
     minWidth,
     maxWidth,
     minHeight,
     maxHeight,
-    boxShadow,    
+    boxShadow,
   } = props;
 
   const styles = {
@@ -39,10 +41,10 @@ const Grid = (props) => {
     height,
     bg,
     display,
-    flexDirection,
-    flexAlign,
+    justifyContent,
+    alignItems: alignItems,
+    flexDirection: flexDirection,
     flexWrap,
-    flexItem,
     textAlign,
     border,
     borderRadius,
@@ -50,13 +52,13 @@ const Grid = (props) => {
     borderBottom,
     borderLeft,
     borderRight,
-    overflow,   
+    overflow,
     minWidth,
     maxWidth,
     minHeight,
     maxHeight,
-    boxShadow,    
-  }
+    boxShadow,
+  };
   return (
     <GridBox {...styles} onClick={_onClick}>
       {children}
@@ -69,54 +71,56 @@ Grid.defaultProps = {
   id: null,
   margin: null,
   padding: null,
-  width: "100%",
-  height: "100%",
+  width: '100%',
+  height: '100%',
   bg: null,
   display: null,
-  flexDirection: null,
-  flexAlign: null,
+  justifyContent: null,
+  alignItems: false,
+  flexDirection: false,
   flexWrap: null,
-  flexItem: null,
   textAlign: false,
   border: null,
-  borderRadius: null,
+  borderRadius: false,
   borderTop: null,
   borderBottom: null,
   borderLeft: null,
   borderRight: null,
-  overflow: null,    
+  overflow: null,
   minWidth: null,
   maxWidth: null,
   minHeight: null,
   maxHeight: null,
   shadow: null,
-  _onClick: () => { },
-}
+  _onClick: () => {},
+};
 
 const GridBox = styled.div`
-  margin: ${props => props.margin};
-  padding: ${props => props.padding};
-  width: ${props => props.width};
-  height: ${props => props.height};
-  background: ${props => props.bg};
-  display: ${props => props.display};
-  flex-direction: ${props => props.flexDirection};
-  flex-align: ${props => props.flexAlign};
-  flex-wrap: ${props => props.flexWrap};
-  flex-item: ${props => props.flexItem};
-  text-align: ${props => props.textAlign};
-  border: ${props => props.border};
-  border-top: ${props => props.borderTop};
-  border-bottom: ${props => props.borderBottom};
-  border-left: ${props => props.borderLeft};
-  border-right: ${props => props.borderRight};
-  overflow: ${props => props.overflow};
-  min-width: ${props => props.minWidth};
-  max-width: ${props => props.maxWidth};
-  min-height: ${props => props.minHeight};
-  max-height: ${props => props.maxHeight};
-  box-shadow: ${props => props.shadow};
-
+  margin: ${(props) => props.margin};
+  padding: ${(props) => props.padding};
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  background: ${(props) => props.bg};
+  display: ${(props) => props.display};
+  justify-content: ${(props) => props.justifyContent};
+  ${(props) => (props.alignItems ? `align-items: ${props.alignItems}` : '')};
+  ${(props) =>
+    props.flexDirection ? `flex-direction:${props.flexDirection}` : ''};
+  flex-wrap: ${(props) => props.flexWrap};
+  text-align: ${(props) => props.textAlign};
+  border: ${(props) => props.border};
+  ${(props) =>
+    props.borderRadius ? `border-radius: ${props.borderRadius}` : ''};
+  border-top: ${(props) => props.borderTop};
+  border-bottom: ${(props) => props.borderBottom};
+  border-left: ${(props) => props.borderLeft};
+  border-right: ${(props) => props.borderRight};
+  overflow: ${(props) => props.overflow};
+  min-width: ${(props) => props.minWidth};
+  max-width: ${(props) => props.maxWidth};
+  min-height: ${(props) => props.minHeight};
+  max-height: ${(props) => props.maxHeight};
+  box-shadow: ${(props) => props.shadow};
 `;
 
 export default Grid;

@@ -1,8 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = props => {
-  const { color, text, _onClick, isFloat, children, margin, width, padding, backgroundColor, height, fontSize } = props;
+const Button = (props) => {
+  const {
+    color,
+    text,
+    _onClick,
+    isFloat,
+    children,
+    margin,
+    width,
+    padding,
+    backgroundColor,
+    height,
+    fontSize,
+    borderRadius,
+  } = props;
 
   if (isFloat) {
     return (
@@ -20,7 +33,7 @@ const Button = props => {
     color: color,
     height: height,
     fontSize: fontSize,
-    padding: padding,
+    borderRadius: borderRadius,
   };
 
   return (
@@ -43,28 +56,35 @@ Button.defaultProps = {
   padding: '12px 0px',
   color: 'white',
   height: '50px',
+  borderRadius: false,
+  backgroundColor: false,
 };
 
 const ElButton = styled.button`
-  width: ${props => props.width};
-  color: ${props => props.color};
-  padding: ${props => props.padding};
-  height: ${props => props.height};
-  font-size: ${props => props.fontSize};
-  margin: ${props => props.margin};
-  background-color: #166fe5;
+  width: ${(props) => props.width};
+  color: ${(props) => props.color};
+  padding: ${(props) => props.padding};
+  height: ${(props) => props.height};
+  font-size: ${(props) => props.fontSize};
+  margin: ${(props) => props.margin};
+  ${(props) =>
+    props.backgroundColor
+      ? `background-color:${props.backgroundColor}`
+      : '#blue'}
   box-sizing: border-box;
   border-radius: 5px;
   font-size: 17px;
   font-weight: bold;
   border: none;
+  ${(props) =>
+    props.borderRadius ? `border-radius:${props.borderRadius}` : 'steelblue'};
 `;
 
 const FloatButton = styled.div`
   width: 50px;
   height: 50px;
   background-color: #ffffff;
-  color: ${props => props.color};
+  color: ${(props) => props.color};
   box-sizing: border-box;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
   font-size: 36px;
