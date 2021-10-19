@@ -12,7 +12,8 @@ const UserInfoModal = (props) => {
     <Grid position='fixed' top='54px' right='20px' width='300px' height='350px' bg='white'
       borderRadius='10px' boxShadow='rgba(0, 0, 0, 0.2) 0px 10px 36px 0px, 
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px' padding='12px 12px 12px 6px'
-      display='flex' flexDirection='column' justifyContent='space-between'>
+      display='none' flexDirection='column' justifyContent='space-between'
+      id='userModal'>
       <Grid display='flex' alignItems='center' justifyContent='flex-start'
         hover='rgba(0, 0, 0, 0.05)' height='auto' borderRadius='10px'
         padding='6px 0 6px 6px'>

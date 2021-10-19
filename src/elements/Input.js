@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Grid, Text } from './index';
 
 const Input = props => {
-  const { label, placeholder, _onChange, type, multiLine, value, margin, width, padding, height, border, borderRadius, bg, backgroundImage, backgroundColor } = props;
+  const { label, placeholder, _onChange, type, multiLine, value, margin, width, padding, height, border, borderRadius, bg, backgroundImage, backgroundColor, innerRef } = props;
   const styles = {
     padding,
     height,
@@ -24,7 +24,7 @@ const Input = props => {
   return (
     <Grid>
       {label && <Text margin='0px'>{label}</Text>}
-      <ElInput {...styles} backgroundColor={backgroundColor} width={width} margin={margin} type={type} placeholder={placeholder} onChange={_onChange} />
+      <ElInput {...styles} backgroundColor={backgroundColor} width={width} margin={margin} type={type} placeholder={placeholder} onChange={_onChange} ref={innerRef} />
     </Grid>
   );
 };
