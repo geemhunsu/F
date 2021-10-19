@@ -19,6 +19,7 @@ const Input = (props) => {
     bg,
     backgroundImage,
     backgroundColor,
+    innerRef,
   } = props;
   const styles = {
     padding,
@@ -54,6 +55,7 @@ const Input = (props) => {
         type={type}
         placeholder={placeholder}
         onChange={_onChange}
+        ref={innerRef}
       />
     </Grid>
   );
