@@ -1,38 +1,27 @@
 import React from 'react';
 import { Grid, Image, Text, Button, Input } from '../elements/index';
 import styled from 'styled-components';
-import { AiOutlineLike } from 'react-icons/ai';
+import { AiOutlineLike, AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { RiShareForwardLine } from 'react-icons/ri';
 import { FaRegCommentDots } from 'react-icons/fa';
-import { BsThreeDots } from 'react-icons/bs';
 import { VscTriangleDown } from 'react-icons/vsc';
 
 const Post = () => {
+  const input = React.useRef();
+
   return (
     <React.Fragment>
       <PostWrapper>
-        {/* <Grid
-        // width='100%'
-        // height='100%'
-        // margin='20px auto'
-        // display='flex'
-        // flexDirection='column'
-        // borderRadius='10px'
-        // bg='white'
-        // boxShadow='rgba(0, 0, 0, 0.2) 0px 2px 3px;'
-        >
-
-        </Grid> */}
         <Grid
-          width='100%'
+          width='95%'
           height='50px'
           display='flex'
           justifyContent='space-between'
           alignItems='center'
-          padding='0px 10px'
+          padding='20px 10px'
         >
           <Image shape='circle' />
-          <Grid width='80%' height='100%'>
+          <Grid width='70%' height='100%'>
             <Text margin='5px 0px 0px 0px' bold>
               어쩌구저쩌구
             </Text>
@@ -40,15 +29,28 @@ const Post = () => {
               저쩌구 어쩌구
             </Text>
           </Grid>
-          <Button
-            width='30px'
-            height='30px'
-            padding='0px'
-            borderRadius='50%'
-            backgroundColor='white'
-          >
-            <BsThreeDots color='black' display='inline' />
-          </Button>
+          <Grid display='flex' justifyContent='flex-end' width='100%'>
+            <Button
+              width='30px'
+              height='30px'
+              padding='0px'
+              borderRadius='50%'
+              backgroundColor='white'
+              margin='5px'
+            >
+              <AiFillEdit color='black' display='inline' />
+            </Button>
+            <Button
+              width='30px'
+              height='30px'
+              padding='0px'
+              borderRadius='50%'
+              backgroundColor='white'
+              margin='5px'
+            >
+              <AiFillDelete color='black' display='inline' />
+            </Button>
+          </Grid>
         </Grid>
         <Grid width='100%' margin='0px'>
           <Image shape='square' />
@@ -79,47 +81,59 @@ const Post = () => {
         </Grid>
         <Line />
         <Grid
-          width='90%'
+          width='100%'
           height='40px'
           display='flex'
-          justifyContent='space-evenly'
+          justifyContent='center'
           alignItems='center'
-          padding='0px 10px'
+          padding='0px'
         >
           <Button
+            // width='25%'
             width='30%'
             height='40px'
             margin='5px'
             backgroundColor='white'
-            color='black'
+            color='gray'
             padding='0px'
             margin='0px'
+            borderRadius='5px'
           >
-            <AiOutlineLike color='black' />
+            <AiOutlineLike color='gray' />
             좋아요
           </Button>
           <Button
+            // width='25%'
             width='30%'
             height='40px'
             margin='5px'
             backgroundColor='white'
-            color='black'
+            color='gray'
             padding='0px'
             margin='0px'
+            borderRadius='5px'
+            _onClick={() => {
+              input.current.focus();
+            }}
           >
-            <FaRegCommentDots color='black' />
+            <FaRegCommentDots color='gray' />
             댓글달기
           </Button>
           <Button
+            // width='25%'
             width='30%'
             height='40px'
             margin='5px'
             backgroundColor='white'
-            color='black'
+            color='gray'
             padding='0px'
             margin='0px'
+            borderRadius='5px'
+            _onClick={() => {
+              alert('링크 복사 완료!');
+            }}
           >
-            <RiShareForwardLine color='black' />
+            <RiShareForwardLine color='gray' />
             공유하기
           </Button>
         </Grid>
@@ -170,6 +184,7 @@ const Post = () => {
               bg='whitesmoke'
               border='none'
               borderRadius='10px'
+              innerRef={input}
             />
           </Grid>
         </Grid>
