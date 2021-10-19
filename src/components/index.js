@@ -7,7 +7,7 @@ import SideBarBottom from './SideBarBottom'
 import SideBarTop from './SideBarTop'
 import UserInfoModal from './UserInfoModal'
 import Header from './Header';
-
+import UserList from './UserList'
 
 export {
   Header,
@@ -19,4 +19,5 @@ export {
   SideBarBottom,
   SideBarTop,
   UserInfoModal,
+  UserList,
 };

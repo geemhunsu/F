@@ -5,6 +5,17 @@ import styled from 'styled-components';
 
 // #e4e6eb
 const HeaderSub = (props) => {
+
+  const [modalDisplay, setModalDisplay] = React.useState('flex');  
+  // e7f3ff
+  const toggleModal = () => {
+    if(modalDisplay === 'none'){
+      setModalDisplay('flex');
+    } else {
+      setModalDisplay('none');
+    }
+    document.getElementById('userModal').style.display = modalDisplay;
+  }
   return (
     <Grid
       display='flex'
@@ -21,6 +32,7 @@ const HeaderSub = (props) => {
           hover='rgba(0, 0, 0, 0.05)'
           borderRadius='28px'
           padding='0 5px'
+          _onClick={toggleModal}
         >
           <Image
             size='28'
@@ -93,6 +105,7 @@ const HeaderSub = (props) => {
         justifyContent='center'
         bg='rgba(0, 0, 0, 0.05)'
         borderRadius='20px'
+        _onClick={toggleModal}
       >
         <i
           style={{
