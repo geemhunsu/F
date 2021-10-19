@@ -78,7 +78,7 @@ const Grid = props => {
     left,
     right,
     hover,
-  }
+  };
   return (
     <GridBox {...styles} onClick={_onClick} id={id}>
       {children}
@@ -120,8 +120,8 @@ Grid.defaultProps = {
   left: null,
   right: null,
   hover: null,
-  _onClick: () => { },
-}
+  _onClick: () => {},
+};
 
 const GridBox = styled.div`
   margin: ${props => props.margin};
@@ -130,15 +130,13 @@ const GridBox = styled.div`
   height: ${props => props.height};
   background: ${props => props.bg};
   display: ${props => props.display};
-  ${(props) =>
-    props.flexDirection ? `flex-direction:${props.flexDirection}` : ''};
+  ${props => (props.flexDirection ? `flex-direction:${props.flexDirection}` : '')};
   flex-wrap: ${props => props.flexWrap};
   ${(props) => (props.alignItems ? `align-items: ${props.alignItems};` : '')};
   justify-content: ${props => props.justifyContent};
   text-align: ${props => props.textAlign};
-  border: ${(props) => props.border};
-  ${(props) =>
-    props.borderRadius ? `border-radius: ${props.borderRadius}` : ''};
+  border: ${props => props.border};
+  ${props => (props.borderRadius ? `border-radius: ${props.borderRadius}` : '')};
   border-top: ${props => props.borderTop};
   border-bottom: ${props => props.borderBottom};
   border-left: ${props => props.borderLeft};
@@ -157,12 +155,16 @@ const GridBox = styled.div`
   top: ${props => props.top};
   bottom: ${props => props.bottom};
   left: ${props => props.left};
-  right: ${props => props.right};    
+  right: ${props => props.right};
+  background-color: ${props => props.backgroundColor};
 
   :hover {
-    ${props => props.hover ? `background-color:${props.hover};
-  cursor: pointer;`: ""}
-     ${(props) => (props.hover_font ? `color : ${props.hover_font};` : null)};
+    ${props =>
+      props.hover
+        ? `background-color:${props.hover};
+  cursor: pointer;`
+        : ''}
+    ${props => (props.hover_font ? `color : ${props.hover_font}` : null)}
   }
 
   ::-webkit-scrollbar {

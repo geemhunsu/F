@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Image = (props) => {
+const Image = props => {
   const { shape, src, size, margin, border } = props;
 
   const styles = {
@@ -51,16 +51,17 @@ Image.defaultProps = {
 };
 
 const ImageCircle = styled.div`
-  --size: ${(props) => props.size}px;
+  --size: ${props => props.size}px;
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
-  background-image: url(${(props) => props.src});
+  background-image: url(${props => props.src});
   background-size: cover;
-  ${(props) => (props.margin ? `margin: ${props.margin}` : 'margin: 4px')};
+  ${props => (props.margin ? `margin: ${props.margin}` : 'margin: 4px')};
   flex-shrink: 0;
-  ${(props) => (props.border ? `border: ${props.border};` : '')};
+  ${props => (props.border ? `border: ${props.border};` : '')};
   box-sizing: border-box;
+  margin: ${props => props.margin};
 `;
 
 const OuterRect = styled.div`
@@ -72,8 +73,9 @@ const InnerRect = styled.div`
   position: relative;
   padding-top: 75%;
   overflow: hidden;
-  background-image: url(${(props) => props.src});
+  background-image: url(${props => props.src});
   background-size: cover;
+  margin: ${props => props.margin};
 `;
 
 const MainInner = styled.div`
@@ -82,11 +84,12 @@ const MainInner = styled.div`
   position: relative;
   padding-top: 35%;
   overflow: hidden;
-  background-image: url(${(props) => props.src});
+  background-image: url(${props => props.src});
   background-position: left;
   background-size: cover;
-  ${(props) => (props.border ? `border: ${props.border};` : '')};
+  ${props => (props.border ? `border: ${props.border};` : '')};
   box-sizing: border-box;
+  margin: ${props => props.margin};
 `;
 
 export default Image;
