@@ -12,7 +12,7 @@ const HeaderCenter = (props) => {
   return (
     <HeaderWrapper>
       <Grid
-        width='558px'
+        width='558px'        
         display='flex'
         alignItems='center'
         justifyContent='space-around'
