@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = props => {
-  const { color, text, _onClick, isFloat, children, margin, width, padding, backgroundColor, height, fontSize } = props;
+  const { color, text, _onClick, isFloat, children, margin, width, padding, backgroundColor, height, fontSize, borderRadius } = props;
 
   if (isFloat) {
     return (
@@ -20,7 +20,7 @@ const Button = props => {
     color: color,
     height: height,
     fontSize: fontSize,
-    padding: padding,
+    borderRadius: borderRadius,
   };
 
   return (
@@ -46,18 +46,31 @@ Button.defaultProps = {
 };
 
 const ElButton = styled.button`
-  width: ${props => props.width};
-  color: ${props => props.color};
-  padding: ${props => props.padding};
-  height: ${props => props.height};
-  font-size: ${props => props.fontSize};
-  margin: ${props => props.margin};
-  background-color: #166fe5;
+  width: ${(props) => props.width};
+  color: ${(props) => props.color};
+  padding: ${(props) => props.padding};
+  height: ${(props) => props.height};
+  font-size: ${(props) => props.fontSize};
+  margin: ${(props) => props.margin};
+  ${(props) =>
+    props.backgroundColor
+      ? `background-color:${props.backgroundColor}`
+      : 'background-color: blue'};
   box-sizing: border-box;
   border-radius: 5px;
   font-size: 17px;
   font-weight: bold;
   border: none;
+  ${(props) =>
+    props.borderRadius
+      ? `border-radius:${props.borderRadius}`
+      : 'border-radius: 0px'};
+  cursor: pointer;
+  flex-shrink: 0;
+  &:hover {
+    background-color: whitesmoke;
+  }
+  vertical-align: middle;
 `;
 
 const FloatButton = styled.div`
