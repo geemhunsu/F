@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Post, Header, SideBar, UserList } from '../components';
 import { Grid } from '../elements';
+import PostWrite from '../components/PostWrite';
 
 const MainPage = () => {
   return (
@@ -15,6 +16,7 @@ const MainPage = () => {
         <HeaderWrapper>
           <Header />
         </HeaderWrapper>
+        <PostWrite />
         {/* <Post /> */}
       </Grid>
     </React.Fragment>
