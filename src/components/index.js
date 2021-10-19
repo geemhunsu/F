@@ -8,6 +8,7 @@ import SideBarTop from './SideBarTop'
 import UserInfoModal from './UserInfoModal'
 import Header from './Header';
 import UserList from './UserList'
+import ImageUpload from './ImageUpload'
 
 export {
   Header,
@@ -20,4 +21,5 @@ export {
   SideBarTop,
   UserInfoModal,
   UserList,
+  ImageUpload,
 };
