@@ -33,6 +33,13 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (success) => {
     console.log(success);
+    const response = success.data[0];
+    if (
+      response.statusCode === 200 &&
+      response.responseMessage === '게시글 조회 성공'
+    ) {
+      return response.posts;
+    }
     return success;
   },
   (error) => {
@@ -45,4 +52,9 @@ export const apis = {
   //회원가입 및 로그인 관련 api
   login: (loginInfo) => instance.post('/user/login', loginInfo),
   signup: (registerInfo) => instance.post('/user/register', registerInfo),
+
+  //포스트 관련 api
+  // getPost: () => instance.get(`/post?page=${page}`),
+  //data.json용
+  getPost: () => instance.get(`/post`),
 };
