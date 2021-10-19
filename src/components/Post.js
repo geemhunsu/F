@@ -8,15 +8,23 @@ import { postCreators } from '../redux/modules/post';
 import { AiOutlineLike, AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { RiShareForwardLine } from 'react-icons/ri';
 import { FaRegCommentDots } from 'react-icons/fa';
-import { VscTriangleDown } from 'react-icons/vsc';
+import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 
 const Post = () => {
   const inputs = React.useRef([]);
+
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware());
   }, []);
   const postList = useSelector((state) => state.post.postList);
+  const [shownComments, setShownComments] = React.useState({});
+  const toggleComment = (id) => {
+    setShownComments((prevShownComments) => ({
+      ...prevShownComments,
+      [id]: !prevShownComments[id],
+    }));
+  };
   console.log(postList);
   console.log(postList);
 
@@ -34,13 +42,13 @@ const Post = () => {
               alignItems='center'
               padding='20px 10px'
             >
-              <Image shape='circle' />
+              <Image shape='circle' src={val.userImageUrl} />
               <Grid width='70%' height='100%'>
                 <Text margin='5px 0px 0px 0px' bold>
                   {`${val.lastName}  ${val.firstName}`}
                 </Text>
                 <Text margin='0px 5px' size='12px'>
-                  {val.createdAt}
+                  {val.createdAt.split('T')[0]}
                 </Text>
               </Grid>
               <Grid display='flex' justifyContent='flex-end' width='100%'>
@@ -167,41 +175,91 @@ const Post = () => {
                 padding='0px 10px'
               >
                 <Text margin='5px'>댓글 {val.commentCount}개 더 보기</Text>
-                <Text margin='5px'>
-                  모든 댓글
-                  <VscTriangleDown />
+                <Text
+                  margin='5px'
+                  _onClick={() => {
+                    toggleComment(idx);
+                  }}
+                  cursor
+                >
+                  {shownComments[idx] ? (
+                    <div>
+                      댓글 숨기기
+                      <VscTriangleUp />
+                    </div>
+                  ) : (
+                    <div>
+                      모든 댓글
+                      <VscTriangleDown />
+                    </div>
+                  )}
                 </Text>
               </Grid>
-              {postList[idx].commentResponseDtoList.map((val, idx) => {
-                return (
-                  <Grid
-                    width='90%'
-                    display='flex'
-                    alignItems='center'
-                    padding='0px 10px'
-                    key={idx}
-                  >
-                    <Image shape='circle' margin='10px' />
+              {shownComments[idx] ? (
+                postList[idx].comments.map((val, idx) => {
+                  return (
                     <Grid
-                      width='100%'
-                      height='40px'
-                      margin='10px 0px 0px 0px'
-                      bg='whitesmoke'
-                      borderRadius='10px'
-                      padding='5px'
+                      width='90%'
+                      display='flex'
+                      alignItems='center'
+                      padding='0px 10px'
+                      key={idx}
                     >
-                      {val.content}
+                      <Image
+                        shape='circle'
+                        margin='10px'
+                        src={val.userImageUrl}
+                      />
+                      <Grid
+                        width='100%'
+                        height='40px'
+                        margin='10px 0px 0px 0px'
+                        bg='whitesmoke'
+                        borderRadius='10px'
+                        padding='5px'
+                      >
+                        {val.content}
+                      </Grid>
                     </Grid>
+                  );
+                })
+              ) : (
+                <Grid
+                  width='90%'
+                  display='flex'
+                  alignItems='center'
+                  padding='0px 10px'
+                >
+                  <Image
+                    shape='circle'
+                    margin='10px'
+                    src={
+                      postList[idx].comments[postList[idx].comments.length - 1]
+                        .userImageUrl
+                    }
+                  />
+                  <Grid
+                    width='100%'
+                    height='40px'
+                    margin='10px 0px 0px 0px'
+                    bg='whitesmoke'
+                    borderRadius='10px'
+                    padding='5px'
+                  >
+                    {
+                      postList[idx].comments[postList[idx].comments.length - 1]
+                        .content
+                    }
                   </Grid>
-                );
-              })}
+                </Grid>
+              )}
               <Grid
                 width='100%'
                 display='flex'
                 alignItems='center'
                 padding='0px 10px'
               >
-                <Image shape='circle' margin='10px' />
+                <Image shape='circle' margin='10px' src={val.userImageUrl} />
                 <Input
                   width='90%'
                   height='30px'
