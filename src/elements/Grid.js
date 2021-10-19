@@ -16,6 +16,7 @@ const Grid = props => {
     alignItems,
     flexDirection,
     flexWrap,
+    AlignItem,
     textAlign,
     border,
     borderRadius,
@@ -29,13 +30,15 @@ const Grid = props => {
     minHeight,
     maxHeight,
     boxShadow,
+    backgroundColor,
+    lineHeight,
+    boxSizing,
     position,
     top,
     bottom,
     left,
     right,
     hover,
-    backgroundColor,
   } = props;
 
   const styles = {
@@ -63,13 +66,15 @@ const Grid = props => {
     minHeight,
     maxHeight,
     boxShadow,
+    backgroundColor,
+    lineHeight,
+    boxSizing,
     position,
     top,
     bottom,
     left,
     right,
     hover,
-    backgroundColor,
   };
   return (
     <GridBox {...styles} onClick={_onClick} id={id}>
@@ -137,6 +142,8 @@ const GridBox = styled.div`
   max-width: ${props => props.maxWidth};
   min-height: ${props => props.minHeight};
   max-height: ${props => props.maxHeight};
+  background-color: ${props => props.backgroundColor};
+  box-sizing: ${props => props.boxSizing};
   box-shadow: ${props => props.boxShadow};
   position: ${props => props.position};
   top: ${props => props.top};
