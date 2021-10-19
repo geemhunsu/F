@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { Grid, Image, Text } from '../elements';
 
 import defaultUserImage from '../images/기본프로필사진.png'
@@ -15,7 +16,8 @@ import ChaeDragon from '../images/8.채용정보.png'
 import Current from '../images/최신글.png'
 import ShowMore from '../images/ttTXZ6XJuCZ.png'
 
-const SideBarTop = (props) => {
+const SideBarTop = (props) => {  
+
   return (
     <Grid>
       <Grid width='90%' height='46px' display='flex' alignItems='center' padding='0 8px'

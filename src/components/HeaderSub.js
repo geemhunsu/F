@@ -1,11 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import { Grid, Text, Image } from '../elements';
 import defaultUserImage from '../images/기본프로필사진.png';
-import styled from 'styled-components';
 
 // #e4e6eb
 const HeaderSub = (props) => {
-
+  
   const [modalDisplay, setModalDisplay] = React.useState('flex');  
   // e7f3ff
   const toggleModal = () => {

@@ -16,7 +16,6 @@ const Grid = props => {
     alignItems,
     flexDirection,
     flexWrap,
-    AlignItem,
     textAlign,
     border,
     borderRadius,
@@ -25,6 +24,8 @@ const Grid = props => {
     borderLeft,
     borderRight,
     overflow,
+    overflowX,
+    overflowY,
     minWidth,
     maxWidth,
     minHeight,
@@ -61,6 +62,8 @@ const Grid = props => {
     borderLeft,
     borderRight,
     overflow,
+    overflowX,
+    overflowY,
     minWidth,
     maxWidth,
     minHeight,
@@ -104,6 +107,8 @@ Grid.defaultProps = {
   borderLeft: null,
   borderRight: null,
   overflow: null,
+  overflowX: null,
+  overflowY: null,
   minWidth: null,
   maxWidth: null,
   minHeight: null,
@@ -127,7 +132,7 @@ const GridBox = styled.div`
   display: ${props => props.display};
   ${props => (props.flexDirection ? `flex-direction:${props.flexDirection}` : '')};
   flex-wrap: ${props => props.flexWrap};
-  ${props => (props.alignItems ? `align-items: ${props.alignItems};` : '')}
+  ${(props) => (props.alignItems ? `align-items: ${props.alignItems};` : '')};
   justify-content: ${props => props.justifyContent};
   text-align: ${props => props.textAlign};
   border: ${props => props.border};
@@ -136,7 +141,8 @@ const GridBox = styled.div`
   border-bottom: ${props => props.borderBottom};
   border-left: ${props => props.borderLeft};
   border-right: ${props => props.borderRight};
-  border-radius: ${props => props.borderRadius};
+  overflow-x: ${props => props.overflowX};
+  overflow-y: ${props => props.overflowY};
   overflow: ${props => props.overflow};
   min-width: ${props => props.minWidth};
   max-width: ${props => props.maxWidth};

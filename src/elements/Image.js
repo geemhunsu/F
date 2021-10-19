@@ -61,6 +61,7 @@ const ImageCircle = styled.div`
   flex-shrink: 0;
   ${props => (props.border ? `border: ${props.border};` : '')};
   box-sizing: border-box;
+  margin: ${props => props.margin};
 `;
 
 const OuterRect = styled.div`
@@ -74,6 +75,7 @@ const InnerRect = styled.div`
   overflow: hidden;
   background-image: url(${props => props.src});
   background-size: cover;
+  margin: ${props => props.margin};
 `;
 
 const MainInner = styled.div`
@@ -87,6 +89,7 @@ const MainInner = styled.div`
   background-size: cover;
   ${props => (props.border ? `border: ${props.border};` : '')};
   box-sizing: border-box;
+  margin: ${props => props.margin};
 `;
 
 export default Image;

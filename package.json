@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "aws-sdk": "^2.1010.0",
     "axios": "^0.23.0",
     "connected-react-router": "^6.9.1",
     "history": "^5.0.1",
