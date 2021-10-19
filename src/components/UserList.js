@@ -12,17 +12,25 @@ const userList = (props) => {
         <Grid display='flex' justifyContent='space-between' alignItems='center' height='auto'>
           <Text bold color='#75777b'>유저 목록</Text>
           <Grid width='40%' height='auto' display='flex' justifyContent='space-between'>
-            <NewRooms />
-            <Search />
-            <Option />
+            <Grid width='28px' height='28px' hover='rgba(0, 0, 0, 0.05)' borderRadius='20px'
+            display='flex' alignItems='center' justifyContent='center'>
+              <NewRooms />
+            </Grid>
+            <Grid width='28px' height='28px' hover='rgba(0, 0, 0, 0.05)' borderRadius='20px'
+            display='flex' alignItems='center' justifyContent='center'>
+              <Search />
+            </Grid>
+            <Grid width='28px' height='28px' hover='rgba(0, 0, 0, 0.05)' borderRadius='20px'
+            display='flex' alignItems='center' justifyContent='center'>
+              <Option />
+            </Grid>
           </Grid>
         </Grid>
-        <Grid display='flex' alignItems='center' height='auto'>
-          <Image src={defaultUserImage}/>
+        <Grid display='flex' alignItems='center' height='auto' hover='rgba(0, 0, 0, 0.05)'
+          borderRadius='10px'>
+          <Image src={defaultUserImage} />
           <Text margin='0 0 0 8px' size='0.85rem'>유저이름</Text>
         </Grid>
-        
-        
       </Grid>
     </React.Fragment>
   );
