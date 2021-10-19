@@ -10,18 +10,21 @@ import { VscTriangleDown } from 'react-icons/vsc';
 const Post = () => {
   return (
     <React.Fragment>
-      <Grid
-        width='595px'
-        height='100%'
-        margin='20px auto'
-        display='flex'
-        flexDirection='column'
-        borderRadius='10px'
-        bg='white'
-        boxShadow='rgba(0, 0, 0, 0.2) 0px 2px 3px;'
-      >
+      <PostWrapper>
+        {/* <Grid
+        // width='100%'
+        // height='100%'
+        // margin='20px auto'
+        // display='flex'
+        // flexDirection='column'
+        // borderRadius='10px'
+        // bg='white'
+        // boxShadow='rgba(0, 0, 0, 0.2) 0px 2px 3px;'
+        >
+
+        </Grid> */}
         <Grid
-          width='575px'
+          width='100%'
           height='50px'
           display='flex'
           justifyContent='space-between'
@@ -29,7 +32,7 @@ const Post = () => {
           padding='0px 10px'
         >
           <Image shape='circle' />
-          <Grid width='100%' height='100%'>
+          <Grid width='80%' height='100%'>
             <Text margin='5px 0px 0px 0px' bold>
               어쩌구저쩌구
             </Text>
@@ -51,7 +54,7 @@ const Post = () => {
           <Image shape='square' />
         </Grid>
         <Grid
-          width='575px'
+          width='95%'
           height='40px'
           display='flex'
           justifyContent='space-between'
@@ -76,7 +79,7 @@ const Post = () => {
         </Grid>
         <Line />
         <Grid
-          width='575px'
+          width='90%'
           height='40px'
           display='flex'
           justifyContent='space-evenly'
@@ -121,26 +124,56 @@ const Post = () => {
           </Button>
         </Grid>
         <Line />
-        <Grid width='595px' justifyContent='space-evenly' alignItems='center'>
-          <Grid width='575px' height='30px' display='flex' justifyContent='space-between' alignItems='center' padding='0px 10px'>
+        <Grid width='100%' justifyContent='space-evenly' alignItems='center'>
+          <Grid
+            width='95%'
+            height='30px'
+            display='flex'
+            justifyContent='space-between'
+            alignItems='center'
+            padding='0px 10px'
+          >
             <Text margin='5px'>댓글 1개 더 보기</Text>
             <Text margin='5px'>
               모든 댓글
               <VscTriangleDown />
             </Text>
           </Grid>
-          <Grid width='575px' display='flex' alignItems='center' padding='0px 10px'>
+          <Grid
+            width='90%'
+            display='flex'
+            alignItems='center'
+            padding='0px 10px'
+          >
             <Image shape='circle' margin='10px' />
-            <Grid width='400px' height='40px' margin='10px 0px 0px 0px' bg='whitesmoke' borderRadius='10px' padding='5px'>
+            <Grid
+              width='100%'
+              height='40px'
+              margin='10px 0px 0px 0px'
+              bg='whitesmoke'
+              borderRadius='10px'
+              padding='5px'
+            >
               댓글을 달아봅시다
             </Grid>
           </Grid>
-          <Grid width='575px' display='flex' alignItems='center' padding='0px 10px'>
+          <Grid
+            width='100%'
+            display='flex'
+            alignItems='center'
+            padding='0px 10px'
+          >
             <Image shape='circle' margin='10px' />
-            <Input width='500px' height='30px' bg='whitesmoke' border='none' borderRadius='10px' />
+            <Input
+              width='90%'
+              height='30px'
+              bg='whitesmoke'
+              border='none'
+              borderRadius='10px'
+            />
           </Grid>
         </Grid>
-      </Grid>
+      </PostWrapper>
     </React.Fragment>
   );
 };
@@ -154,6 +187,20 @@ const Line = styled.hr`
 const BtnWrapper = styled.div`
   display: flex;
   vertical-align: middle;
+`;
+
+const PostWrapper = styled.div`
+  width: 595px;
+  height: 100%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 3px;
+  @media screen and (max-width: 595px) {
+    width: 100%;
+  } ;
 `;
 
 export default Post;
