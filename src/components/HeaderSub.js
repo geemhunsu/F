@@ -3,6 +3,17 @@ import { Grid, Text, Image } from '../elements';
 import defaultUserImage from '../images/기본프로필사진.png'
 // #e4e6eb
 const HeaderSub = (props) => {
+
+  const [modalDisplay, setModalDisplay] = React.useState('flex');  
+  // e7f3ff
+  const toggleModal = () => {
+    if(modalDisplay === 'none'){
+      setModalDisplay('flex');
+    } else {
+      setModalDisplay('none');
+    }
+    document.getElementById('userModal').style.display = modalDisplay;
+  }
   return (
     <Grid display='flex' justifyContent="space-around" alignItems='center'
     width='307px'> 
@@ -32,11 +43,11 @@ const HeaderSub = (props) => {
         </svg>
       </Grid>
       <Grid height='40px' width='40px' display='flex' alignItems='center' hover='#e4e6eb' 
-      justifyContent='center'  bg='rgba(0, 0, 0, 0.05)' borderRadius='20px'>
+      justifyContent='center'  bg='rgba(0, 0, 0, 0.05)' borderRadius='20px' _onClick={toggleModal}>
         <i style={{
           backgroundImage: "url('https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/9hjSjlsfbAc.png')",
           backgroundPosition: '-168px -128px', backgroundSize: 'auto', width: '20px', height: '20px',
-          backgroundRepeat: 'no-repeat', display: 'inline-block'
+          backgroundRepeat: 'no-repeat', display: 'inline-block',
         }}></i>
       </Grid>
     </Grid>
