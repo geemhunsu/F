@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Grid, Text } from './index';
 
 const Input = props => {
-  const { label, placeholder, _onChange, type, multiLine, value, margin, width, borderRadius, border } = props;
+  const { label, placeholder, _onChange, type, multiLine, value, margin, width, borderRadius, border, backgroundColor } = props;
 
   if (multiLine) {
     return (
       <Grid>
         {label && <Text margin='0px'>{label}</Text>}
-        <ElTextarea value={value} rows={10} placeholder={placeholder} onChange={_onChange}></ElTextarea>
+        <ElTextarea backgroundColor={backgroundColor} value={value} rows={10} placeholder={placeholder} onChange={_onChange}></ElTextarea>
       </Grid>
     );
   }
@@ -17,7 +17,7 @@ const Input = props => {
   return (
     <Grid>
       {label && <Text margin='0px'>{label}</Text>}
-      <ElInput width={width} margin={margin} type={type} placeholder={placeholder} onChange={_onChange} />
+      <ElInput backgroundColor={backgroundColor} width={width} margin={margin} type={type} placeholder={placeholder} onChange={_onChange} />
     </Grid>
   );
 };
@@ -40,6 +40,7 @@ const ElTextarea = styled.textarea`
   width: ${props => props.width};
   padding: 12px 4px;
   box-sizing: border-box;
+  background-color: ${props => props.backgroundColor};
 `;
 
 const ElInput = styled.input`
@@ -50,6 +51,7 @@ const ElInput = styled.input`
   padding: 15px 10px;
   box-sizing: border-box;
   border-radius: 5px;
+  background-color: ${props => props.backgroundColor};
 `;
 
 export default Input;

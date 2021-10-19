@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import Logo from '../images/facebooklogo.png';
 import { Grid, Text, Input, Button, Image } from '../elements/index';
 import Modal from '../components/Modal';
 
@@ -8,11 +6,6 @@ const LoginPage = () => {
   const [showModal, setShowModal] = useState(false);
   const modalOpen = () => {
     setShowModal(true);
-  };
-
-  const modalClose = () => {
-    console.log('close');
-    setShowModal(false);
   };
   return (
     <>
@@ -30,9 +23,7 @@ const LoginPage = () => {
                 <Button backgroundColor='#1877F2'>로그인</Button>
                 <Text color='#1877f2'>비밀번호를 잊으셨나요?</Text>
                 <hr />
-                <Button _onClick={modalOpen} width='40%' margin='20px' backgroundColor='#42b72a'>
-                  새 계정 만들기
-                </Button>
+                <Button text='새 계정 만들기' _onClick={modalOpen} width='40%' margin='20px' backgroundColor='#42b72a' />
                 <Modal showModal={showModal} setShowModal={setShowModal} />
               </Grid>
               <Text textAlign='center' itemAlign='center'>
@@ -55,23 +46,5 @@ const LoginPage = () => {
     </>
   );
 };
-
-const LoginBackground = styled.div`
-  background-color: #eff2f5;
-`;
-
-const Loginlogo = styled.div`
-  object-fit: contain;
-  height: 250px;
-  padding: 200px 0px 0px 100px;
-`;
-
-const Title = styled.h2`
-  width: 600px;
-  padding: 20px 0px 0px 100px;
-  font-size: 27px;
-  font-weight: 550;
-  line-height: 0.8cm;
-`;
 
 export default LoginPage;
