@@ -1,21 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = (props) => {
-  const {
-    color,
-    text,
-    _onClick,
-    isFloat,
-    children,
-    margin,
-    width,
-    padding,
-    backgroundColor,
-    height,
-    fontSize,
-    borderRadius,
-  } = props;
+const Button = props => {
+  const { color, text, _onClick, isFloat, children, margin, width, padding, backgroundColor, height, fontSize, borderRadius } = props;
 
   if (isFloat) {
     return (
@@ -56,8 +43,6 @@ Button.defaultProps = {
   padding: '12px 0px',
   color: 'white',
   height: '50px',
-  borderRadius: false,
-  backgroundColor: false,
 };
 
 const ElButton = styled.button`
@@ -92,7 +77,7 @@ const FloatButton = styled.div`
   width: 50px;
   height: 50px;
   background-color: #ffffff;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
   box-sizing: border-box;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
   font-size: 36px;
