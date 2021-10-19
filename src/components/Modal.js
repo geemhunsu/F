@@ -29,11 +29,31 @@ const Modal = props => {
         <Grid padding='0px 20px 10px 20px'>
           <Grid clssName='이름상자' display='flex' justifyContent='center' flexDirection='column'>
             <Grid display='flex' flexDirection='row' width='430px'>
-              <Input backgroundColor='#F5F6F7' placeholder='성(姓)' width='190px' padding='10px' height='10px' borderRadius='5px' />
-              <Input backgroundColor='#F5F6F7' placeholder='이름(성은 제외)' width='190px' padding='10px' height='10px' borderRadius='5px' />
+              <Input border='1px solid #ddd' margin='8px 0;' padding='15px 10px' backgroundColor='#F5F6F7' placeholder='성(姓)' width='190px' padding='10px' height='10px' borderRadius='5px' />
+              <Input
+                border='1px solid #ddd'
+                margin='8px 0;'
+                padding='15px 10px'
+                backgroundColor='#F5F6F7'
+                placeholder='이름(성은 제외)'
+                width='190px'
+                padding='10px'
+                height='10px'
+                borderRadius='5px'
+              />
             </Grid>
-            <Input backgroundColor='#F5F6F7' placeholder='휴대폰 번호 또는 이메일' width='405px' padding='10px' height='10px' borderRadius='5px' />
-            <Input backgroundColor='#F5F6F7' placeholder='새 비밀번호' width='405px' padding='10px' height='10px' borderRadius='5px' />
+            <Input
+              border='1px solid #ddd'
+              margin='8px 0;'
+              padding='15px 10px'
+              backgroundColor='#F5F6F7'
+              placeholder='휴대폰 번호 또는 이메일'
+              width='405px'
+              padding='10px'
+              height='10px'
+              borderRadius='5px'
+            />
+            <Input border='1px solid #ddd' margin='8px 0;' padding='15px 10px' backgroundColor='#F5F6F7' placeholder='새 비밀번호' width='405px' padding='10px' height='10px' borderRadius='5px' />
             <Grid margin='0 0 -30px 0'>
               <Grid display='flex' flexDirection='row' justifyContent='flex-start' alignItems='center'>
                 <Text size='12px'>생일</Text>
