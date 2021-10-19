@@ -8,7 +8,7 @@ const HeaderSub = (props) => {
     width='307px'> 
       <Grid display='flex' width='auto' height='36px' alignItems='center' hover='rgba(0, 0, 0, 0.05)'
        borderRadius='28px' padding='0 5px'>
-        <Image size='28' src={defaultUserImage} margin='0 4px 0 0'/>
+        <Image size='28' src={defaultUserImage} margin='0 4px 0 0' border='1px solid gray'/>
         <Text margin='0' bold size='.9rem' >사용자</Text>
       </Grid>
       <Grid height='40px' width='40px' display='flex' alignItems='center' hover='#e4e6eb' 
