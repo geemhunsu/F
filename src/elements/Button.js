@@ -70,14 +70,22 @@ const ElButton = styled.button`
   ${(props) =>
     props.backgroundColor
       ? `background-color:${props.backgroundColor}`
-      : '#blue'}
+      : 'background-color: blue'};
   box-sizing: border-box;
   border-radius: 5px;
   font-size: 17px;
   font-weight: bold;
   border: none;
   ${(props) =>
-    props.borderRadius ? `border-radius:${props.borderRadius}` : 'steelblue'};
+    props.borderRadius
+      ? `border-radius:${props.borderRadius}`
+      : 'border-radius: 0px'};
+  cursor: pointer;
+  flex-shrink: 0;
+  &:hover {
+    background-color: whitesmoke;
+  }
+  vertical-align: middle;
 `;
 
 const FloatButton = styled.div`

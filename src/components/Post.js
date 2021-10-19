@@ -18,7 +18,7 @@ const Post = () => {
         flexDirection='column'
         borderRadius='10px'
         bg='white'
-        borderRadius='10px'
+        boxShadow='rgba(0, 0, 0, 0.2) 0px 2px 3px;'
       >
         <Grid
           width='575px'
@@ -42,9 +42,9 @@ const Post = () => {
             height='30px'
             padding='0px'
             borderRadius='50%'
-            backgroundColor='whitesmoke'
+            backgroundColor='white'
           >
-            <BsThreeDots />
+            <BsThreeDots color='black' display='inline' />
           </Button>
         </Grid>
         <Grid width='100%' margin='0px'>
@@ -58,9 +58,17 @@ const Post = () => {
           alignItems='center'
           padding='0px 10px'
         >
-          <Button width='30px' height='30px' padding='0px'>
-            👍
-          </Button>
+          <BtnWrapper>
+            <Button
+              width='30px'
+              height='30px'
+              padding='0px'
+              backgroundColor='white'
+            >
+              👍
+            </Button>
+            <p>2</p>
+          </BtnWrapper>
           <Grid display='flex' justifyContent='flex-end'>
             <Text margin='10px'>좋아요 2개</Text>
             <Text margin='10px'>댓글 6개</Text>
@@ -69,24 +77,48 @@ const Post = () => {
         <Line />
         <Grid
           width='575px'
-          height='30px'
+          height='40px'
           display='flex'
           justifyContent='space-evenly'
           alignItems='center'
           padding='0px 10px'
         >
-          <Text margin='5px'>
-            <AiOutlineLike />
+          <Button
+            width='30%'
+            height='40px'
+            margin='5px'
+            backgroundColor='white'
+            color='black'
+            padding='0px'
+            margin='0px'
+          >
+            <AiOutlineLike color='black' />
             좋아요
-          </Text>
-          <Text margin='5px'>
-            <FaRegCommentDots />
+          </Button>
+          <Button
+            width='30%'
+            height='40px'
+            margin='5px'
+            backgroundColor='white'
+            color='black'
+            padding='0px'
+            margin='0px'
+          >
+            <FaRegCommentDots color='black' />
             댓글달기
-          </Text>
-          <Text margin='5px'>
-            <RiShareForwardLine />
+          </Button>
+          <Button
+            width='30%'
+            height='40px'
+            margin='5px'
+            backgroundColor='white'
+            color='black'
+            padding='0px'
+            margin='0px'
+          >
+            <RiShareForwardLine color='black' />
             공유하기
-          </Text>
+          </Button>
         </Grid>
         <Line />
         <Grid width='595px' justifyContent='space-evenly' alignItems='center'>
@@ -144,7 +176,14 @@ const Post = () => {
 };
 
 const Line = styled.hr`
-  width: 90%;
+  margin: 1px 4%;
+  width: 92%;
+  background-color: whitesmoke;
+`;
+
+const BtnWrapper = styled.div`
+  display: flex;
+  vertical-align: middle;
 `;
 
 export default Post;

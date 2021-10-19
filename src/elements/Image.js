@@ -46,8 +46,12 @@ const ImageCircle = styled.div`
   background-image: url(${(props) => props.src});
   background-size: cover;
   ${(props) => (props.margin ? `margin: ${props.margin}` : 'margin: 4px')};
+<<<<<<< HEAD
+  flex-shrink: 0;
+=======
   ${props => props.border ? `border: ${props.border};` : ''};
   box-sizing: border-box;
+>>>>>>> f245d382f897df8c279f5f1c3c0f61076e9f57d7
 `;
 
 const OuterRect = styled.div`
