@@ -6,12 +6,10 @@ import { Grid } from '../elements';
 import PostWrite from '../components/PostWrite';
 
 const MainPage = () => {
-  React.useEffect(() => {}, []);
-
   return (
     <React.Fragment>
       <ResponsiveSidebar>
-        <UserList/>
+        <UserList />
         <SideBar />
       </ResponsiveSidebar>
       <Grid width='100%' height='100%' bg='whitesmoke' padding='60px 0 10px 0'>
@@ -19,9 +17,7 @@ const MainPage = () => {
           <Header />
         </HeaderWrapper>
         <PostWrite />
-        <Post />
-        <Post />
-        <Post />
+        {/* <Post /> */}
       </Grid>
     </React.Fragment>
   );
