@@ -24,7 +24,7 @@ const Input = props => {
   return (
     <Grid>
       {label && <Text margin='0px'>{label}</Text>}
-      <ElInput backgroundColor={backgroundColor} width={width} margin={margin} type={type} placeholder={placeholder} onChange={_onChange} />
+      <ElInput {...styles} backgroundColor={backgroundColor} width={width} margin={margin} type={type} placeholder={placeholder} onChange={_onChange} />
     </Grid>
   );
 };
