@@ -1,14 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Grid } from '../elements';
+import { Grid, Image, Text } from '../elements';
 import { actionCreators as imageActions } from '../redux/modules/image';
 
 const ImageUpload = () => {
   const dispatch = useDispatch();
+  const preview = useSelector(state => state.image.preview)
+
+  const [labelDisplay, setLabelDisplay] = React.useState('block');
 
   const selectFile = (e) => {
+    if(e.target.file === ""){
+      return;
+    }
     const fileName = e.target.files[0].name.split('.')[0];
     const fileType = e.target.files[0].name.split('.')[1];
     const fileFullName = e.target.files[0].name;
@@ -26,15 +32,25 @@ const ImageUpload = () => {
       <Grid>
         <Wrap>
           <label for='fileInput' id='inputLabel'>
-            <Grid width='auto' display='flex' alignItems='center' justifyContent='center'
-            flexDirection='column'>
-              <Grid width='40px'height='40px' bg='#e4e6eb' borderRadius='20px' margin='0 0 8px 0'
-              display='flex' alignItems='center' justifyContent='center'>
+            <Grid display='flex' alignItems='center' justifyContent='center'
+              flexDirection='column'>
+              <Grid width='40px' height='40px' bg='#e4e6eb' borderRadius='20px' margin='0 0 8px 0'
+                display='flex' alignItems='center' justifyContent='center'>
                 <ElI />
               </Grid>
               프로필 사진 변경
             </Grid>
           </label>
+          <Grid height='auto' display='relative' >
+            <Image src={preview} shape='rectangle' margin='0 0 5px 0' />
+            <label for='fileInput' id='inputLabelButton'>
+              <Grid display='flex' alignItems='center' justifyContent='center' 
+              hover='rgba(0, 0, 0, 0.05)' orderRadius='5px' width='auto' padding='5px 10px'>
+                <EditIcon/>
+                <Text bold margin='0' size='0.9rem' width='auto' >수정</Text>
+              </Grid>
+            </label>
+          </Grid>
           <input type='file' id='fileInput' onChange={selectFile} />
         </Wrap>
       </Grid>
@@ -43,9 +59,9 @@ const ImageUpload = () => {
 };
 
 const Wrap = styled.div`
-    label {    
+  #inputLabel {    
     display: block;
-    width: 270px;
+    width: calc(100% - 30px);
     height: 200px;
     padding: 15px;
     border-radius: 8px;
@@ -62,6 +78,11 @@ const Wrap = styled.div`
   input {
     display:none;
   }
+
+  inputLabelButton {
+    display: block;
+    
+  }
 `;
 
 const ElI = styled.i`  
@@ -72,6 +93,17 @@ const ElI = styled.i`
   height: 20px;
   background-repeat: no-repeat;
   display: inline-block;
+`;
+
+const EditIcon = styled.i`
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yW/r/ttTXZ6XJuCZ.png");
+  background-position: -119px -149px;
+  background-size: auto;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  margin-right: 5px;
 `;
 
 export default ImageUpload;

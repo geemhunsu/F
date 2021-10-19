@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 
 const Text = (props) => {
-  const { children, color, size, bold, align, margin, padding, family, border } = props;
-  const styles = {color, size, bold, align, margin, padding, family, border};
+  const { children, color, size, bold, align, margin, padding, family, border, width } = props;
+  const styles = {color, size, bold, align, margin, padding, family, border, width};
   return (
     <ElText {...styles}>
       {children}
@@ -22,6 +22,7 @@ Text.defaultProps = {
   padding: false,
   family: false, //폰트 타입
   border: null,
+  width: null,
 }
 
 const ElText = styled.p`
@@ -33,6 +34,7 @@ const ElText = styled.p`
   padding: ${props => props.padding};
   family: ${props => props.family};
   border: ${props => props.border};
+  width: ${props => props.width};  
 `;
 
 export default Text;

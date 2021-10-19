@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { IconContext } from "react-icons";
 import { ImExit } from 'react-icons/im';
@@ -11,20 +11,20 @@ import defaultUserImage from '../images/기본프로필사진.png'
 const UserInfoModal = (props) => {
   const preview = useSelector(state => state.image.preview);
 
-  
+
   return (
-    <Grid position='fixed' top='54px' right='20px' width='300px' height='auto' bg='white'
+    <Grid position='fixed' top='54px' right='20px' width='auto' height='auto' bg='white'
       borderRadius='10px' boxShadow='rgba(0, 0, 0, 0.2) 0px 10px 36px 0px, 
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px' padding='12px 12px 12px 6px'
       display='none' flexDirection='column' justifyContent='space-between'
-      id='userModal'>
+      id='userModal' maxHeight='80vh' overflowX='hidden' overflowY='auto'>
       <Grid display='flex' alignItems='center' justifyContent='flex-start'
-         height='auto' borderRadius='10px'
+        height='auto' borderRadius='10px'
         padding='6px 0 6px 6px'>
-        <Image src={preview ? preview : defaultUserImage} size='100' border='1px solid #ced0d4'
+        <Image src={defaultUserImage} size='100' border='1px solid #ced0d4'
           margin='0 10px 0 0' />
         <Grid width='auto' height='auto'>
-          <Text size='0.9rem' bold margin='0 0 5px 0'>사용자</Text>          
+          <Text size='0.9rem' bold margin='0 0 5px 0'>사용자</Text>
         </Grid>
       </Grid>
       <Grid border='1px solid #ced0d4' borderRadius='8px' padding='4px' margin='12px 0'>
@@ -34,14 +34,14 @@ const UserInfoModal = (props) => {
         padding='12px 0 6px 6px' display='flex' alignItems='center' >
         <Grid width='50px' height='50px' borderRadius='50px' bg='#e1e2e7' display='flex'
           alignItems='center' justifyContent='center'>
-          <IconContext.Provider value={{color: "black", size: '28', }}>
+          <IconContext.Provider value={{ color: "black", size: '28', }}>
             <ImExit />
           </IconContext.Provider>
         </Grid>
         <Text margin='0 0 0 8px'>로그아웃</Text>
       </Grid>
       <Grid height='auto'>
-        <SideBarBottom/>
+        <SideBarBottom />
       </Grid>
     </Grid>
   );

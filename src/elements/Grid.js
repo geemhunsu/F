@@ -15,7 +15,7 @@ const Grid = props => {
     justifyContent,
     alignItems,
     flexDirection,
-    flexWrap,    
+    flexWrap,
     textAlign,
     border,
     borderRadius,
@@ -24,6 +24,8 @@ const Grid = props => {
     borderLeft,
     borderRight,
     overflow,
+    overflowX,
+    overflowY,
     minWidth,
     maxWidth,
     minHeight,
@@ -60,6 +62,8 @@ const Grid = props => {
     borderLeft,
     borderRight,
     overflow,
+    overflowX,
+    overflowY,
     minWidth,
     maxWidth,
     minHeight,
@@ -103,6 +107,8 @@ Grid.defaultProps = {
   borderLeft: null,
   borderRight: null,
   overflow: null,
+  overflowX: null,
+  overflowY: null,
   minWidth: null,
   maxWidth: null,
   minHeight: null,
@@ -136,7 +142,9 @@ const GridBox = styled.div`
   border-top: ${props => props.borderTop};
   border-bottom: ${props => props.borderBottom};
   border-left: ${props => props.borderLeft};
-  border-right: ${props => props.borderRight};  
+  border-right: ${props => props.borderRight};
+  overflow-x: ${props => props.overflowX};
+  overflow-y: ${props => props.overflowY};
   overflow: ${props => props.overflow};
   min-width: ${props => props.minWidth};
   max-width: ${props => props.maxWidth};
@@ -149,13 +157,12 @@ const GridBox = styled.div`
   top: ${props => props.top};
   bottom: ${props => props.bottom};
   left: ${props => props.left};
-  right: ${props => props.right};
+  right: ${props => props.right};    
 
-  
   :hover {
     ${props => props.hover ? `background-color:${props.hover};
   cursor: pointer;`: ""}
-     ${(props)=>(props.hover_font?`color : ${props.hover_font};`:null)};
+     ${(props) => (props.hover_font ? `color : ${props.hover_font};` : null)};
   }
 
   ::-webkit-scrollbar {
