@@ -7,7 +7,9 @@ import { Grid } from '../elements';
 const MainPage = () => {
   return (
     <React.Fragment>
-      <SideBar />
+      <ResponsiveSidebar>
+        <SideBar />
+      </ResponsiveSidebar>
       <Grid width='100%' height='100%' bg='whitesmoke' padding='0 0 10px 0'>
         <HeaderWrapper>
           <Header />
@@ -25,6 +27,12 @@ const HeaderWrapper = styled.div`
   position: sticky;
   top: 0px;
   background: white;
+`;
+
+const ResponsiveSidebar = styled.div`
+  @media screen and (max-width: 1175px) {
+    display: none;
+  } ;
 `;
 
 export default MainPage;
