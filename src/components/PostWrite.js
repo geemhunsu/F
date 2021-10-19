@@ -8,7 +8,6 @@ import { BsEmojiSmileFill } from 'react-icons/bs';
 
 const PostWrite = () => {
   const [openModal, setModal] = useState(false);
-
   const modalOpen = () => {
     setModal(true);
   };
@@ -18,10 +17,10 @@ const PostWrite = () => {
         <Grid>
           <Grid display='flex' flexDirection='row' alignItems='center' margin='10px' padding='0 30px 0 0'>
             <Image />
-            <Button width='520px' backgroundColor='#ddd' borderRadius='30px' _onClick={modalOpen}>
+            <Button width='520px' backgroundColor='#ddd' color='#111' borderRadius='30px' _onClick={modalOpen}>
               누구님, 무슨 생각을 하고 계신가요?
-              <PostWriteModal openModal={openModal} setModal={setModal} />
             </Button>
+            <PostWriteModal openModal={openModal} setModal={setModal} />
           </Grid>
         </Grid>
         <Grid>

@@ -22,7 +22,7 @@ const LogInModal = props => {
                 빠르고 쉽습니다.
               </Text>
             </Grid>
-            <Button _onClick={() => setShowModal(false)} backgroundColor='#fff' color='black' text='X' width='20%'></Button>
+            <Button _onClick={() => setShowModal(false)} backgroundColor='#fff' color='black' text='X' width='10%' margin='0'></Button>
           </Grid>
         </Grid>
         <hr />

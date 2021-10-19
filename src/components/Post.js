@@ -26,7 +26,7 @@ const Post = () => {
             <Button width='30px' height='30px' padding='0px' borderRadius='50%' backgroundColor='white' margin='5px'>
               <AiFillEdit color='black' display='inline' />
             </Button>
-            <Button width='30px' height='30px' padding='0px' borderRadius='50%' backgroundColor='white' margin='5px'>
+            <Button width='30px' height='30px' padding='0px' borderRadius='50%' backgroundColor='white' margin='40px'>
               <AiFillDelete color='black' display='inline' />
             </Button>
           </Grid>

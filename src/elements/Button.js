@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = props => {
-  const { color, text, _onClick, isFloat, children, margin, width, padding, backgroundColor, height, fontSize, borderRadius } = props;
+  const { color, text, _onClick, isFloat, children, margin, width, padding, backgroundColor, height, fontSize, borderRadius, top, bottom, left, right } = props;
 
   if (isFloat) {
     return (
@@ -13,14 +13,18 @@ const Button = props => {
   }
 
   const styles = {
-    margin: margin,
-    width: width,
-    padding: padding,
-    backgroundColor: backgroundColor,
-    color: color,
-    height: height,
-    fontSize: fontSize,
-    borderRadius: borderRadius,
+    margin,
+    width,
+    padding,
+    backgroundColor,
+    color,
+    height,
+    fontSize,
+    borderRadius,
+    top,
+    bottom,
+    left,
+    right,
   };
 
   return (
@@ -43,6 +47,10 @@ Button.defaultProps = {
   padding: '12px 0px',
   color: 'white',
   height: '50px',
+  top: null,
+  bottom: null,
+  left: null,
+  right: null,
 };
 
 const ElButton = styled.button`
@@ -55,7 +63,6 @@ const ElButton = styled.button`
   ${props => (props.backgroundColor ? `background-color:${props.backgroundColor}` : 'background-color: blue')};
   box-sizing: border-box;
   border-radius: 5px;
-  font-size: 17px;
   font-weight: bold;
   border: none;
   ${props => (props.borderRadius ? `border-radius:${props.borderRadius}` : 'border-radius: 0px')};
@@ -65,6 +72,11 @@ const ElButton = styled.button`
     background-color: whitesmoke;
   }
   vertical-align: middle;
+  top: ${props => props.top};
+  bottom: ${props => props.bottom};
+  left: ${props => props.left};
+  right: ${props => props.right};
+  position: ${props => props.position};
 `;
 
 const FloatButton = styled.div`
