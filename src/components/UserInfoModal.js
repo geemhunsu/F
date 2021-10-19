@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { IconContext } from "react-icons";
 import { ImExit } from 'react-icons/im'
 
+import { SideBarBottom } from './'
 import { Grid, Text, Image } from '../elements';
 import defaultUserImage from '../images/기본프로필사진.png'
 
@@ -26,15 +27,17 @@ const UserInfoModal = (props) => {
         <hr style={{ borderWidth: '1px 0 0 0', borderStyle: '' }} />
       </Grid>
       <Grid hover='rgba(0, 0, 0, 0.05)' height='auto' borderRadius='10px'
-        padding='12px 0 6px 12px' display='flex' alignItems='center'>
+        padding='12px 0 6px 6px' display='flex' alignItems='center'>
         <Grid width='100px' height='100px' borderRadius='50px' bg='#e1e2e7' display='flex'
-        alignItems='center' justifyContent='center'>
-          <IconContext.Provider value={{ color: "black", size: '60', padding: '5px 0 0 5px' 
-        }}>
+          alignItems='center' justifyContent='center'>
+          <IconContext.Provider value={{color: "black", size: '60', }}>
             <ImExit />
           </IconContext.Provider>
         </Grid>
-        <Text margin='0'>로그아웃</Text>
+        <Text margin='0 0 0 8px'>로그아웃</Text>
+      </Grid>
+      <Grid height='auto'>
+        <SideBarBottom/>
       </Grid>
     </Grid>
   );
