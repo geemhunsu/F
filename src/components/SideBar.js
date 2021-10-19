@@ -12,7 +12,7 @@ const SideBar = (props) => {
           <SideBarTop/>
         </Grid>
         <Grid height='calc(20vh - 36px)' >
-          <SideBarBottom/>
+          <SideBarBottom position='fixed' bottom='0' />
         </Grid>
       </Grid>      
     </React.Fragment>

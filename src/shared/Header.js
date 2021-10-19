@@ -2,7 +2,7 @@ import React from 'react';
 import { BsFacebook } from 'react-icons/bs'
 import { IconContext } from "react-icons";
 import { Grid, Text, Image, Button, Input } from '../elements';
-import { HeaderSub, HeaderCenter, HeaderLeft } from "../components"
+import { HeaderSub, HeaderCenter, HeaderLeft, UserInfoModal } from "../components"
 
 const Header = (props) => {
   return (
@@ -20,6 +20,7 @@ const Header = (props) => {
           <HeaderSub />
         </Grid>
       </Grid>
+      <UserInfoModal/>
     </React.Fragment>
   );
 };
