@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Text, Input, Button, Image } from '../elements/index';
-import Modal from '../components/Modal';
+import LogInModal from '../components/LogInModal';
 
 const LoginPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +24,7 @@ const LoginPage = () => {
                 <Text color='#1877f2'>비밀번호를 잊으셨나요?</Text>
                 <hr />
                 <Button text='새 계정 만들기' _onClick={modalOpen} width='40%' margin='20px' backgroundColor='#42b72a' />
-                <Modal showModal={showModal} setShowModal={setShowModal} />
+                <LogInModal showModal={showModal} setShowModal={setShowModal} />
               </Grid>
               <Text textAlign='center' itemAlign='center'>
                 유명인, 밴드, 비즈니스를 위한 <b>페이지 만들기</b>

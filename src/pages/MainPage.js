@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Post, Header, SideBar } from '../components';
 import { Grid } from '../elements';
+import PostWrite from '../components/PostWrite';
 
 const MainPage = () => {
   return (
@@ -14,6 +15,7 @@ const MainPage = () => {
         <HeaderWrapper>
           <Header />
         </HeaderWrapper>
+        <PostWrite />
         <Post />
         <Post />
         <Post />
