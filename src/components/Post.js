@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Image, Text, Button, Input } from '../elements';
+import { Grid, Image, Text, Button, Input } from '../elements/index';
 import styled from 'styled-components';
 import { AiOutlineLike } from 'react-icons/ai';
 import { RiShareForwardLine } from 'react-icons/ri';
@@ -122,52 +122,22 @@ const Post = () => {
         </Grid>
         <Line />
         <Grid width='595px' justifyContent='space-evenly' alignItems='center'>
-          <Grid
-            width='575px'
-            height='30px'
-            display='flex'
-            justifyContent='space-between'
-            alignItems='center'
-            padding='0px 10px'
-          >
+          <Grid width='575px' height='30px' display='flex' justifyContent='space-between' alignItems='center' padding='0px 10px'>
             <Text margin='5px'>댓글 1개 더 보기</Text>
             <Text margin='5px'>
               모든 댓글
               <VscTriangleDown />
             </Text>
           </Grid>
-          <Grid
-            width='575px'
-            display='flex'
-            alignItems='center'
-            padding='0px 10px'
-          >
+          <Grid width='575px' display='flex' alignItems='center' padding='0px 10px'>
             <Image shape='circle' margin='10px' />
-            <Grid
-              width='400px'
-              height='40px'
-              margin='10px 0px 0px 0px'
-              bg='whitesmoke'
-              borderRadius='10px'
-              padding='5px'
-            >
+            <Grid width='400px' height='40px' margin='10px 0px 0px 0px' bg='whitesmoke' borderRadius='10px' padding='5px'>
               댓글을 달아봅시다
             </Grid>
           </Grid>
-          <Grid
-            width='575px'
-            display='flex'
-            alignItems='center'
-            padding='0px 10px'
-          >
+          <Grid width='575px' display='flex' alignItems='center' padding='0px 10px'>
             <Image shape='circle' margin='10px' />
-            <Input
-              width='500px'
-              height='30px'
-              bg='whitesmoke'
-              border='none'
-              borderRadius='10px'
-            />
+            <Input width='500px' height='30px' bg='whitesmoke' border='none' borderRadius='10px' />
           </Grid>
         </Grid>
       </Grid>

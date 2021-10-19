@@ -19,6 +19,10 @@ const Image = (props) => {
     );
   }
 
+  if (shape === 'TitleLogo') {
+    return <MainInner {...styles}></MainInner>;
+  }
+
   if (shape === 'square') {
     return (
       <React.Fragment>
@@ -28,6 +32,14 @@ const Image = (props) => {
       </React.Fragment>
     );
   }
+
+  return (
+    <React.Fragment>
+      <OuterRect>
+        <InnerRect {...styles}></InnerRect>
+      </OuterRect>
+    </React.Fragment>
+  );
 };
 
 Image.defaultProps = {
@@ -39,11 +51,11 @@ Image.defaultProps = {
 };
 
 const ImageCircle = styled.div`
-  --size: ${(props) => props.size}px;
+  --size: ${props => props.size}px;
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
-  background-image: url(${(props) => props.src});
+  background-image: url(${props => props.src});
   background-size: cover;
   ${(props) => (props.margin ? `margin: ${props.margin}` : 'margin: 4px')};
   flex-shrink: 0;
@@ -60,7 +72,18 @@ const InnerRect = styled.div`
   position: relative;
   padding-top: 75%;
   overflow: hidden;
-  background-image: url(${(props) => props.src});
+  background-image: url(${props => props.src});
+  background-size: cover;
+`;
+
+const MainInner = styled.div`
+  width: 100%;
+  min-width: 25rem;
+  position: relative;
+  padding-top: 35%;
+  overflow: hidden;
+  background-image: url(${props => props.src});
+  background-position: left;
   background-size: cover;
   ${props => props.border ? `border: ${props.border};` : ''};
   box-sizing: border-box;

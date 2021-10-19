@@ -4,7 +4,7 @@ import { Grid, Text } from './index';
 
 const Input = props => {
   const { label, placeholder, _onChange, type, multiLine, value, margin, width, padding, 
-  height, border, borderRadius, bg, backgroundImage, } = props;
+  height, border, borderRadius, bg, backgroundImage, backgroundColor } = props;
   const styles = {
     padding, height, border, borderRadius, bg, backgroundImage,
   }
@@ -12,12 +12,7 @@ const Input = props => {
     return (
       <Grid>
         {label && <Text margin='0px'>{label}</Text>}
-        <ElTextarea
-          value={value}
-          rows={10}
-          placeholder={placeholder}
-          onChange={_onChange}
-        ></ElTextarea>
+        <ElTextarea backgroundColor={backgroundColor} value={value} rows={10} placeholder={placeholder} onChange={_onChange}></ElTextarea>
       </Grid>
     );
   }
@@ -25,14 +20,7 @@ const Input = props => {
   return (
     <Grid>
       {label && <Text margin='0px'>{label}</Text>}
-      <ElInput
-        {...styles}
-        width={width}
-        margin={margin}
-        type={type}
-        placeholder={placeholder}
-        onChange={_onChange}
-      />
+      <ElInput backgroundColor={backgroundColor} width={width} margin={margin} type={type} placeholder={placeholder} onChange={_onChange} />
     </Grid>
   );
 };
@@ -64,6 +52,7 @@ const ElTextarea = styled.textarea`
   padding: ${props => props.padding};
   backgroundImage: ${props => props.backgroundImage};
   box-sizing: border-box;
+  background-color: ${props => props.backgroundColor};
 `;
 
 const ElInput = styled.input`
@@ -76,10 +65,8 @@ const ElInput = styled.input`
   padding: ${props => props.padding};
   backgroundImage: ${props => props.backgroundImage};
   box-sizing: border-box;
-  ${(props) => (props.bg ? `background-color: ${props.bg}` : '')};
-  ${(props) =>
-    props.borderRadius ? `border-radius: ${props.borderRadius}` : ''};
-  ${(props) => (props.border ? `border: ${props.border}` : '')};
+  border-radius: 5px;
+  background-color: ${props => props.backgroundColor};
 `;
 
 export default Input;

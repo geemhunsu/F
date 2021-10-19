@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Grid = (props) => {
+const Grid = props => {
   const {
     children,
     _onClick,
@@ -14,8 +14,9 @@ const Grid = (props) => {
     display,
     justifyContent,
     alignItems,
-    flexDirection,    
-    flexWrap,    
+    flexDirection,
+    flexWrap,
+    AlignItem,
     textAlign,
     border,
     borderRadius,
@@ -29,6 +30,9 @@ const Grid = (props) => {
     minHeight,
     maxHeight,
     boxShadow,
+    backgroundColor,
+    lineHeight,
+    boxSizing,
     position,
     top,
     bottom,
@@ -46,8 +50,8 @@ const Grid = (props) => {
     bg,
     display,
     justifyContent,
-    alignItems: alignItems,
-    flexDirection: flexDirection,
+    alignItems,
+    flexDirection,
     flexWrap,
     textAlign,
     border,
@@ -62,6 +66,9 @@ const Grid = (props) => {
     minHeight,
     maxHeight,
     boxShadow,
+    backgroundColor,
+    lineHeight,
+    boxSizing,
     position,
     top,
     bottom,
@@ -137,6 +144,8 @@ const GridBox = styled.div`
   max-width: ${props => props.maxWidth};
   min-height: ${props => props.minHeight};
   max-height: ${props => props.maxHeight};
+  background-color: ${props => props.backgroundColor};
+  box-sizing: ${props => props.boxSizing};
   box-shadow: ${props => props.boxShadow};
   position: ${props => props.position};
   top: ${props => props.top};
