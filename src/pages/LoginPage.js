@@ -26,7 +26,7 @@ const LoginPage = () => {
 
     const loginInfo = {
       userId: userId,
-      password: password,
+      pwd: password,
     };
     console.log(loginInfo);
     dispatch(userCreators.loginMiddleware(loginInfo));

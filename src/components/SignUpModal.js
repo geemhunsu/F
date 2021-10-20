@@ -4,6 +4,7 @@ import { Dialog } from '@material-ui/core';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { userCreators } from '../redux/modules/user';
+
 import styled from 'styled-components';
 import question from '../images/question.png';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -27,7 +28,9 @@ const SignUpModal = props => {
       firstName: firstName,
       lastName: lastName,
       userId: userId,
-      password: password,
+      pwd: password,
+      birth: '1992-01-30',
+      sex: 'man',
     };
     console.log(signupInfo);
     dispatch(userCreators.signupMiddleware(signupInfo));
@@ -157,7 +160,14 @@ const SignUpModal = props => {
                 가입하기 버튼을 클릭하면 Facebook의 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다. <br />
                 Facebook으로부터 SMS 알림을 받을 수 있으며 알림은 언제든지 옵트 아웃할 수 있습니다.
               </Text>
-              <Button _onClick={signUp()} text='가입하기' width='100px' backgroundColor='#00A400'></Button>
+              <Button
+                _onClick={() => {
+                  signUp();
+                }}
+                text='가입하기'
+                width='100px'
+                backgroundColor='#00A400'
+              ></Button>
             </Grid>
           </Grid>
         </Grid>

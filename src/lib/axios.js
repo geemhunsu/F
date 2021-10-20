@@ -35,9 +35,12 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   success => {
     console.log(success);
-    const response = success.data[0];
+    const response = success.data;
+    console.log(response.token);
+
     if (response.statusCode === 200 && response.responseMessage === '로그인 성공') {
-      let userCookie = success.data.token.split[''][1];
+      let userCookie = success.data.token;
+      console.log(userCookie);
       document.cookie = setCookie('user_id', userCookie, 3);
       window.alert('로그인성공');
       history.push('/main');
@@ -50,7 +53,7 @@ instance.interceptors.response.use(
     return success;
   },
   error => {
-    console.log(error.statusCode);
+    console.log(error.response);
     //비밀번호가 비워있을 떄
     if (error.statusCode === 400 && error.responseMessage === '비밀번호를 입력해주세요') {
       window.alert('비밀번호를 입력해주세요');
