@@ -17,10 +17,10 @@ const Post = () => {
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware());
   }, []);
-  const postList = useSelector((state) => state.post.postList);
+  const postList = useSelector(state => state.post.postList);
   const [shownComments, setShownComments] = React.useState({});
-  const toggleComment = (id) => {
-    setShownComments((prevShownComments) => ({
+  const toggleComment = id => {
+    setShownComments(prevShownComments => ({
       ...prevShownComments,
       [id]: !prevShownComments[id],
     }));
@@ -31,7 +31,7 @@ const Post = () => {
   return (
     // {postList.map((val, idx) => {})}
     <React.Fragment>
-      {postList.map((val, idx) => {
+      {/* {postList.map((val, idx) => {
         return (
           <PostWrapper key={idx}>
             <Grid
@@ -272,7 +272,7 @@ const Post = () => {
             </Grid>
           </PostWrapper>
         );
-      })}
+      })} */}
     </React.Fragment>
   );
 };
