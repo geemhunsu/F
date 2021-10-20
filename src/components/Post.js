@@ -52,10 +52,7 @@ const Post = () => {
                 alignItems='center'
                 padding='20px 10px'
               >
-                <Image
-                  shape='circle'
-                  // src={val.userImageUrl}
-                />
+                <Image shape='circle' src={val.userImageUrl} />
                 <Grid width='70%' height='100%'>
                   <Text margin='5px 0px 0px 0px' bold>
                     {`${val.lastName}  ${val.firstName}`}
@@ -225,7 +222,7 @@ const Post = () => {
                             <Image
                               shape='circle'
                               margin='10px'
-                              // src={val.userImageUrl}
+                              src={val.userImageUrl}
                             />
                             <Grid
                               width='100%'
@@ -280,11 +277,7 @@ const Post = () => {
                   alignItems='center'
                   padding='0px 10px'
                 >
-                  <Image
-                    shape='circle'
-                    margin='10px'
-                    // src={val.userImageUrl}
-                  />
+                  <Image shape='circle' margin='10px' src={val.userImageUrl} />
                   <Input
                     width='90%'
                     height='30px'
