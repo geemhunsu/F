@@ -2,25 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Grid, Text } from './index';
 
-const Input = (props) => {
-  const {
-    label,
-    placeholder,
-    _onChange,
-    type,
-    multiLine,
-    value,
-    margin,
-    width,
-    padding,
-    height,
-    border,
-    borderRadius,
-    bg,
-    backgroundImage,
-    backgroundColor,
-    innerRef,
-  } = props;
+const Input = props => {
+  const { label, placeholder, _onChange, type, multiLine, value, margin, width, padding, height, border, borderRadius, bg, backgroundImage, backgroundColor, innerRef } = props;
   const styles = {
     padding,
     height,
@@ -33,13 +16,7 @@ const Input = (props) => {
     return (
       <Grid>
         {label && <Text margin='0px'>{label}</Text>}
-        <ElTextarea
-          backgroundColor={backgroundColor}
-          value={value}
-          rows={10}
-          placeholder={placeholder}
-          onChange={_onChange}
-        ></ElTextarea>
+        <ElTextarea backgroundColor={backgroundColor} value={value} rows={10} placeholder={placeholder} onChange={_onChange}></ElTextarea>
       </Grid>
     );
   }
@@ -47,16 +24,7 @@ const Input = (props) => {
   return (
     <Grid>
       {label && <Text margin='0px'>{label}</Text>}
-      <ElInput
-        {...styles}
-        backgroundColor={backgroundColor}
-        width={width}
-        margin={margin}
-        type={type}
-        placeholder={placeholder}
-        onChange={_onChange}
-        ref={innerRef}
-      />
+      <ElInput {...styles} backgroundColor={backgroundColor} width={width} margin={margin} type={type} placeholder={placeholder} onChange={_onChange} ref={innerRef} />
     </Grid>
   );
 };
@@ -79,30 +47,30 @@ Input.defaultProps = {
 };
 
 const ElTextarea = styled.textarea`
-  margin: ${(props) => props.margin};
-  border: ${(props) => props.border};
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  border-radius: ${(props) => props.borderRadius};
-  background: ${(props) => props.bg};
-  padding: ${(props) => props.padding};
-  backgroundimage: ${(props) => props.backgroundImage};
+  margin: ${props => props.margin};
+  border: ${props => props.border};
+  width: ${props => props.width};
+  height: ${props => props.height};
+  border-radius: ${props => props.borderRadius};
+  background: ${props => props.bg};
+  padding: ${props => props.padding};
+  backgroundimage: ${props => props.backgroundImage};
   box-sizing: border-box;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${props => props.backgroundColor};
 `;
 
 const ElInput = styled.input`
-  margin: ${(props) => props.margin};
-  border: ${(props) => props.border};
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  border-radius: ${(props) => props.borderRadius};
-  background: ${(props) => props.bg};
-  padding: ${(props) => props.padding};
-  backgroundimage: ${(props) => props.backgroundImage};
+  margin: ${props => props.margin};
+  border: ${props => props.border};
+  width: ${props => props.width};
+  height: ${props => props.height};
+  border-radius: ${props => props.borderRadius};
+  background: ${props => props.bg};
+  padding: ${props => props.padding};
+  backgroundimage: ${props => props.backgroundImage};
   box-sizing: border-box;
   border-radius: 5px;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${props => props.backgroundColor};
 `;
 
 export default Input;

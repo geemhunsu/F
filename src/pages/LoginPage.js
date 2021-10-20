@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Text, Input, Button, Image } from '../elements/index';
-import Modal from '../components/Modal';
+import LogInModal from '../components/LogInModal';
 
 const LoginPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -9,7 +9,7 @@ const LoginPage = () => {
   };
   return (
     <>
-      <Grid className='백그라운드' display='block' width='100%' height='100%' fontSize='12px' backgroundColor='#fff' color='#1c1e21' lineHeight='normal'>
+      <Grid display='block' width='100%' height='100%' fontSize='12px' backgroundColor='#fff' color='#1c1e21' lineHeight='normal'>
         <Grid className='상단랩' display='flex' width='100%' height='75%' justifyContent='center' backgroundColor='#f0f2f5'>
           <Grid display='flex' padding='150px 0 150px 0' flexDirection='row' width='960px'>
             <Grid className='좌측타이틀' boxSizing='border-box;' width='400px' margin='100px 0px 0 0' padding='0 32px 0 0' textAlign='left' itemAlign='left'>
@@ -18,13 +18,13 @@ const LoginPage = () => {
             </Grid>
             <Grid display='flex' flexDirection='column' textAlign='center' margin='0px 50px' width='400px'>
               <Grid backgroundColor='#ffff' padding='20px' textAlign='center' borderRadius='8px' margin='auto'>
-                <Input borderRadius='5px' placeholder='이메일 또는 전화번호' />
+                <Input height='10px' borderRadius='5px' placeholder='이메일 또는 전화번호' />
                 <Input placeholder='비밀번호' />
                 <Button backgroundColor='#1877F2'>로그인</Button>
                 <Text color='#1877f2'>비밀번호를 잊으셨나요?</Text>
                 <hr />
                 <Button text='새 계정 만들기' _onClick={modalOpen} width='40%' margin='20px' backgroundColor='#42b72a' />
-                <Modal showModal={showModal} setShowModal={setShowModal} />
+                <LogInModal showModal={showModal} setShowModal={setShowModal} />
               </Grid>
               <Text textAlign='center' itemAlign='center'>
                 유명인, 밴드, 비즈니스를 위한 <b>페이지 만들기</b>
