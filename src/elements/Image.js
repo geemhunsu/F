@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Image = props => {
-  const { shape, src, size, margin, border, backgroundPosition, } = props;
+  const { shape, src, size, margin, border, backgroundPosition, id, _onMouseOver, _onMouseOut,
+  display, } = props;
 
   const styles = {
     src: src,
@@ -10,25 +11,26 @@ const Image = props => {
     margin: margin,
     border: border,
     backgroundPosition: backgroundPosition,
+    display: display,
   };
 
   if (shape === 'circle') {
     return (
       <React.Fragment>
-        <ImageCircle {...styles}></ImageCircle>
+        <ImageCircle {...styles} id={id} onMouseOver={_onMouseOver} onMouseOut={_onMouseOut} ></ImageCircle>
       </React.Fragment>
     );
   }
 
   if (shape === 'TitleLogo') {
-    return <MainInner {...styles}></MainInner>;
+    return <MainInner {...styles} id={id} onMouseOver={_onMouseOver} onMouseOut={_onMouseOut} ></MainInner>;
   }
 
   if (shape === 'square') {
     return (
       <React.Fragment>
         <OuterRect>
-          <InnerRect {...styles}></InnerRect>
+          <InnerRect {...styles} id={id} onMouseOver={_onMouseOver} onMouseOut={_onMouseOut} ></InnerRect>
         </OuterRect>
       </React.Fragment>
     );
@@ -37,7 +39,7 @@ const Image = props => {
   return (
     <React.Fragment>
       <OuterRect>
-        <InnerRect {...styles}></InnerRect>
+        <InnerRect {...styles} id={id} onMouseOver={_onMouseOver} onMouseOut={_onMouseOut} ></InnerRect>
       </OuterRect>
     </React.Fragment>
   );
@@ -49,7 +51,10 @@ Image.defaultProps = {
   size: 36,
   margin: false,
   border: false,
-  backgroundPosition: false,
+  backgroundPosition: false,  
+  _onMouseOver: () => {},
+  _onMouseOut: () => {},
+  display: null,
 };
 
 const ImageCircle = styled.div`
@@ -64,6 +69,7 @@ const ImageCircle = styled.div`
   flex-shrink: 0;
   ${props => (props.border ? `border: ${props.border};` : '')};
   box-sizing: border-box;  
+  display: ${props => props.display};
 `;
 
 const OuterRect = styled.div`
@@ -79,6 +85,7 @@ const InnerRect = styled.div`
   background-size: cover;
   background-position: ${props => props.backgroundPosition};
   margin: ${props => props.margin};
+  display: ${props => props.display};
 `;
 
 const MainInner = styled.div`
@@ -93,6 +100,7 @@ const MainInner = styled.div`
   ${props => (props.border ? `border: ${props.border};` : '')};
   box-sizing: border-box;
   margin: ${props => props.margin};
+  display: ${props => props.display};
 `;
 
 export default Image;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Text, Image } from '../elements';
@@ -6,11 +7,12 @@ import defaultUserImage from '../images/기본프로필사진.png';
 
 // #e4e6eb
 const HeaderSub = (props) => {
-  
-  const [modalDisplay, setModalDisplay] = React.useState('flex');  
+
+  const userInfo = useSelector(state => state.user);
+  const [modalDisplay, setModalDisplay] = React.useState('flex');
   // e7f3ff
   const toggleModal = () => {
-    if(modalDisplay === 'none'){
+    if (modalDisplay === 'none') {
       setModalDisplay('flex');
     } else {
       setModalDisplay('none');
@@ -37,12 +39,12 @@ const HeaderSub = (props) => {
         >
           <Image
             size='28'
-            src={defaultUserImage}
+            src={userInfo.imageUrl ? userInfo.imageUrl : defaultUserImage} 
             margin='0 4px 0 0'
             border='1px solid gray'
           />
           <Text margin='0' bold size='.9rem'>
-            사용자
+            {userInfo.firstName ? (userInfo.firstName + userInfo.lastName) : "사용자"}
           </Text>
         </Grid>
         <Grid

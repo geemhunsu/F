@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Image, Text } from '../elements';
@@ -18,12 +19,17 @@ import ShowMore from '../images/ttTXZ6XJuCZ.png'
 
 const SideBarTop = (props) => {  
 
+  const userInfo = useSelector(state => state.user);
+
   return (
     <Grid>
       <Grid width='90%' height='46px' display='flex' alignItems='center' padding='0 8px'
       hover='rgba(0, 0, 0, 0.05)' borderRadius='10px'>
-        <Image src={defaultUserImage} size='32' border='1px solid gray'/>
-        <Text size='0.93rem' margin='0 0 0 7px' >이름</Text>
+        <Image src={userInfo.imageUrl ? userInfo.imageUrl : defaultUserImage} 
+        size='32' border='1px solid gray'/>
+        <Text size='0.93rem' margin='0 0 0 7px' >
+          {userInfo.firstName ? (userInfo.firstName + userInfo.lastName) : "이름"}
+        </Text>
       </Grid>
       <Grid width='90%' height='46px' display='flex' alignItems='center' padding='0 8px'
       hover='rgba(0, 0, 0, 0.05)' borderRadius='10px'>

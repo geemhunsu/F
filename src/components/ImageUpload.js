@@ -8,10 +8,12 @@ import { IconContext } from 'react-icons';
 
 import { Grid, Image, Text, Button } from '../elements';
 import { actionCreators as imageActions } from '../redux/modules/image';
+import { userCreators } from '../redux/modules/user';
 
 
 const ImageUpload = () => {
   const dispatch = useDispatch();
+
   const preview = useSelector(state => state.image.preview)
   const previewName = useSelector(state => state.image.previewName)
   const previewType = useSelector(state => state.image.previewType)
@@ -20,6 +22,8 @@ const ImageUpload = () => {
 
   const [labelDisplay, setLabelDisplay] = React.useState('block');
   const [previewDisplay, setPreviewDisplay] = React.useState('none');
+  const [changeButton, setChangeButton] = React.useState('none');
+  const [editButton, setEditButton] = React.useState('none');
 
   const selectFile = (e) => {
     if (e.target.files === "") {
@@ -39,6 +43,16 @@ const ImageUpload = () => {
 
     setLabelDisplay('none');
     setPreviewDisplay('block');
+  }
+
+  const mouseOver = () => {
+    setChangeButton('block');
+    setEditButton('flex');
+  }
+
+  const mouseOut = () => {
+    setChangeButton('none');
+    setEditButton('none');
   }
 
   AWS.config.update({
@@ -62,6 +76,8 @@ const ImageUpload = () => {
       window.alert('업로드 성공')
     }).catch(err => {
       window.alert('업로드 실패')
+    }).then(data => {
+      dispatch(userCreators.updateProfileMW(`https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewFullName}`))
     })
   }
 
@@ -69,7 +85,7 @@ const ImageUpload = () => {
     <React.Fragment>
       <Grid>
         <Wrap>
-          <label for='fileInput' id='inputLabel' style={{ display: labelDisplay }}>
+          <label htmlFor='fileInput' id='inputLabel' style={{ display: labelDisplay }}>
             <Grid display='flex' alignItems='center' justifyContent='center'
               flexDirection='column'>
               <Grid width='40px' height='40px' bg='#e4e6eb' borderRadius='20px' margin='0 0 8px 0'
@@ -80,8 +96,9 @@ const ImageUpload = () => {
             </Grid>
           </label>
           <Grid height='auto' position='relative' display={previewDisplay}>
-            <Image src={preview} shape='rectangle' margin='0 0 5px 0' backgroundPosition='center' />
-            <label for='fileInput' id='inputLabelButton'>
+            <Image src={preview} shape='square' margin='0 0 5px 0' backgroundPosition='center'
+            _onMouseOver={mouseOver} _onMouseOut={mouseOut}/>
+            <label htmlFor='fileInput' id='inputLabelButton'>
               <Grid display='flex' alignItems='center' justifyContent='center' hover='#e1e2e7'
                 bg='white' borderRadius='5px' width='auto' padding='5px 10px'>
                 <EditIcon />
@@ -90,7 +107,7 @@ const ImageUpload = () => {
             </label>
             <Grid display='flex' position='absolute' top='10px' right='20px' hover='#e1e2e7'
               bg='white' width='auto' height='auto' padding='5px 10px' borderRadius='5px'
-              alignItems='center' _onClick={uploadToAws}>
+              alignItems='center' id='submitImage' _onClick={uploadToAws}>
               <IconContext.Provider value={{ color: 'black', size: '16', }}>
                 <FaCheck />
               </IconContext.Provider>
@@ -105,8 +122,7 @@ const ImageUpload = () => {
 };
 
 const Wrap = styled.div`
-  #inputLabel {    
-    
+  #inputLabel {        
     width: calc(100% - 30px);
     height: 200px;
     padding: 15px;
@@ -121,15 +137,15 @@ const Wrap = styled.div`
     }
   }
 
-  input {
-    display:none;
-  }
-
   #inputLabelButton {
     display: block;
     position: absolute;
     top: 10px;
     left: 20px;    
+  }
+  
+  input {
+    display:none;
   }
 `;
 

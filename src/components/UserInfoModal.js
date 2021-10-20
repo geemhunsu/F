@@ -7,10 +7,15 @@ import { ImExit } from 'react-icons/im';
 import { SideBarBottom, ImageUpload } from './'
 import { Grid, Text, Image } from '../elements';
 import defaultUserImage from '../images/기본프로필사진.png'
+import { deleteCookie } from '../shared/Cookie'
 
 const UserInfoModal = (props) => {
   const preview = useSelector(state => state.image.preview);
+  const userInfo = useSelector(state => state.user);
 
+  const logOut = () => {
+    console.log('로그아웃')
+  }
 
   return (
     <Grid position='fixed' top='54px' right='20px' width='auto' height='auto' bg='white'
@@ -21,24 +26,29 @@ const UserInfoModal = (props) => {
       <Grid display='flex' alignItems='center' justifyContent='flex-start'
         height='auto' borderRadius='10px'
         padding='6px 0 6px 6px'>
-        <Image src={defaultUserImage} size='100' border='1px solid #ced0d4'
+        <Image src={userInfo.imageUrl ? userInfo.imageUrl : defaultUserImage}
+          size='100' border='1px solid #ced0d4'
           margin='0 10px 0 0' />
         <Grid width='auto' height='auto'>
-          <Text size='0.9rem' bold margin='0 0 5px 0'>사용자</Text>
+          <Text size='0.9rem' bold margin='0 0 5px 0'>
+            {userInfo.firstName ? userInfo.firstName + userInfo.lastName : "사용자"}
+          </Text>
         </Grid>
       </Grid>
       <Grid border='1px solid #ced0d4' borderRadius='8px' padding='4px' margin='12px 0'>
         <ImageUpload />
       </Grid>
       <Grid hover='rgba(0, 0, 0, 0.05)' height='auto' borderRadius='10px'
-        padding='12px 0 6px 6px' display='flex' alignItems='center' >
+        padding='12px 0 6px 6px' display='flex' alignItems='center' _onClick={logOut} >
         <Grid width='50px' height='50px' borderRadius='50px' bg='#e1e2e7' display='flex'
           alignItems='center' justifyContent='center'>
           <IconContext.Provider value={{ color: "black", size: '28', }}>
             <ImExit />
           </IconContext.Provider>
         </Grid>
-        <Text margin='0 0 0 8px'>로그아웃</Text>
+        <Text margin='0 0 0 8px'>
+          로그아웃
+        </Text>
       </Grid>
       <Grid height='auto'>
         <SideBarBottom />
