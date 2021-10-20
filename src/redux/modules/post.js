@@ -12,10 +12,11 @@ const initialState = {
   postList: [],
 };
 
-const getPostMiddleware = () => {
+const getPostMiddleware = (page) => {
+  console.log(page);
   return (dispatch) => {
     apis
-      .getPost()
+      .getPost(page)
       .then((res) => {
         console.log(res);
         // const postArr = {

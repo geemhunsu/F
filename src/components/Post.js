@@ -13,11 +13,10 @@ import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 
 const Post = () => {
   const inputs = React.useRef([]);
-  let page = 1;
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(postCreators.getPostMiddleware(page));
-  }, [page]);
+    dispatch(postCreators.getPostMiddleware(1));
+  }, []);
   const postList = useSelector((state) => state.post.postList);
   const [shownComments, setShownComments] = React.useState({});
   const toggleComment = (id) => {
@@ -36,7 +35,7 @@ const Post = () => {
   };
 
   // console.log(postList);
-  // console.log(postList);
+  // return <React.Fragment>{console.log(postList)}</React.Fragment>;
 
   return (
     // {postList.map((val, idx) => {})}
@@ -53,7 +52,10 @@ const Post = () => {
                 alignItems='center'
                 padding='20px 10px'
               >
-                <Image shape='circle' src={val.userImageUrl} />
+                <Image
+                  shape='circle'
+                  // src={val.userImageUrl}
+                />
                 <Grid width='70%' height='100%'>
                   <Text margin='5px 0px 0px 0px' bold>
                     {`${val.lastName}  ${val.firstName}`}
@@ -209,73 +211,80 @@ const Post = () => {
                     )}
                   </Text>
                 </Grid>
-                {shownComments[idx] ? (
-                  postList[idx].comments.map((val, idx) => {
-                    return (
-                      <Grid
-                        width='90%'
-                        display='flex'
-                        alignItems='center'
-                        padding='0px 10px'
-                        key={val.postId + val.createdAt}
-                      >
-                        <Image
-                          shape='circle'
-                          margin='10px'
-                          src={val.userImageUrl}
-                        />
-                        <Grid
-                          width='100%'
-                          height='40px'
-                          margin='10px 0px 0px 0px'
-                          bg='whitesmoke'
-                          borderRadius='10px'
-                          padding='5px'
-                        >
-                          {val.content}
-                        </Grid>
-                      </Grid>
-                    );
-                  })
-                ) : (
-                  <Grid
-                    width='90%'
-                    display='flex'
-                    alignItems='center'
-                    padding='0px 10px'
-                  >
-                    <Image
-                      shape='circle'
-                      margin='10px'
-                      src={
-                        postList[idx].comments[
-                          postList[idx].comments.length - 1
-                        ].userImageUrl
-                      }
-                    />
-                    <Grid
-                      width='100%'
-                      height='40px'
-                      margin='10px 0px 0px 0px'
-                      bg='whitesmoke'
-                      borderRadius='10px'
-                      padding='5px'
-                    >
-                      {
-                        postList[idx].comments[
-                          postList[idx].comments.length - 1
-                        ].content
-                      }
-                    </Grid>
-                  </Grid>
-                )}
+                {
+                  shownComments[idx] && postList[idx]
+                    ? postList[idx].comments.map((val, idx) => {
+                        return (
+                          <Grid
+                            width='90%'
+                            display='flex'
+                            alignItems='center'
+                            padding='0px 10px'
+                            key={val.postId + val.createdAt}
+                          >
+                            <Image
+                              shape='circle'
+                              margin='10px'
+                              // src={val.userImageUrl}
+                            />
+                            <Grid
+                              width='100%'
+                              height='40px'
+                              margin='10px 0px 0px 0px'
+                              bg='whitesmoke'
+                              borderRadius='10px'
+                              padding='5px'
+                            >
+                              {val.content}
+                            </Grid>
+                          </Grid>
+                        );
+                      })
+                    : null
+                  // : (
+                  //   <Grid
+                  //     width='90%'
+                  //     display='flex'
+                  //     alignItems='center'
+                  //     padding='0px 10px'
+                  //   >
+                  //     <Image
+                  //       shape='circle'
+                  //       margin='10px'
+                  //       src={
+                  //         postList[idx].comments[
+                  //           postList[idx].comments.length - 1
+                  //         ].userImageUrl
+                  //       }
+                  //     />
+                  //     <Grid
+                  //       width='100%'
+                  //       height='40px'
+                  //       margin='10px 0px 0px 0px'
+                  //       bg='whitesmoke'
+                  //       borderRadius='10px'
+                  //       padding='5px'
+                  //     >
+                  //       {
+                  //         postList[idx].comments[
+                  //           postList[idx].comments.length - 1
+                  //         ].content
+                  //       }
+                  //     </Grid>
+                  //   </Grid>
+                  // )
+                }
                 <Grid
                   width='100%'
                   display='flex'
                   alignItems='center'
                   padding='0px 10px'
                 >
-                  <Image shape='circle' margin='10px' src={val.userImageUrl} />
+                  <Image
+                    shape='circle'
+                    margin='10px'
+                    // src={val.userImageUrl}
+                  />
                   <Input
                     width='90%'
                     height='30px'
