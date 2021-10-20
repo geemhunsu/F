@@ -2,7 +2,8 @@ import axios from 'axios';
 // import { history } from '../redux/ConfigureStore';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:4000',
+  // baseURL: 'http://localhost:4000',
+  baseURL: 'http://13.125.243.106:8080',
   headers: {
     'content-type': 'application/json; charset=UTF-8',
     accept: 'application/json',
@@ -54,7 +55,8 @@ export const apis = {
   signup: (registerInfo) => instance.post('/user/register', registerInfo),
 
   //포스트 관련 api
-  // getPost: () => instance.get(`/post?page=${page}`),
+  getPost: (page) => instance.get(`/post?page=${page}`),
   //data.json용
-  getPost: () => instance.get(`/post`),
+  // getPost: () => instance.get(`/post`),
+  deletePost: (postId) => instance.get(`post/${postId}`),
 };

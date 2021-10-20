@@ -44,10 +44,10 @@ Text.defaultProps = {
   family: false, //폰트 타입
   border: null,
   _onClick: () => {},
-  cursor: false,
+  cursor: null,
 };
 
-const ElText = styled.p`
+const ElText = styled.span`
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
   font-weight: ${(props) => (props.bold ? 'bold' : '400')};
@@ -56,7 +56,7 @@ const ElText = styled.p`
   padding: ${(props) => props.padding};
   family: ${(props) => props.family};
   border: ${(props) => props.border};
-  ${(props) => (props.cursor ? 'cursor: pointer' : '')};
+  cursor: ${(props) => props.cursor};
 `;
 
 export default Text;
