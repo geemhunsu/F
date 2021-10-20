@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Input, Text, Button, Image } from '../elements/index';
 import { Dialog, DialogContent, DialogTitle, Select } from '@material-ui/core';
 import styled from 'styled-components';
@@ -8,8 +9,12 @@ import writeTypeIcon from '../images/writetypeicon.png';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPhotos } from 'react-icons/io';
 import { IoEllipsisHorizontalSharp } from 'react-icons/io5';
+import { ImageUpload } from '.';
 
 const PostWriteModal = props => {
+  const dispatch = useDispatch();
+  const [content, setContent] = React.useState();
+
   const { openModal, setModal } = props;
   const modalClose = () => {
     setModal(false);
@@ -43,6 +48,9 @@ const PostWriteModal = props => {
           <Grid width='450px'>
             <TextArea placeholder='사용자 님, 무슨 생각을 하고 계신가요?'></TextArea>
           </Grid>
+          <Grid width='100%' margin='0 -10px'>
+            <ImageUpload />
+          </Grid>
           <Grid width='450px' display='flex' justifyContent='space-between' alignItems='center'>
             <Image src={writeTypeIcon} />
             <AiOutlineSmile size='30' />
@@ -70,15 +78,16 @@ const PostWriteModal = props => {
 const ModalWrap = styled.div`
   overflow: hidden;
   width: 500px;
+  padding: 10px;
 `;
 
 const TextArea = styled.textarea`
   height: 140px;
-  padding: 5px;
+  margin: 10px;
   width: 450px;
   border: none;
   outline: none;
-  word-spacing: -0.2em;
+  word-spacing: -0.4em;
   resize: none;
   overflow: auto;
   ::-webkit-scrollbar {

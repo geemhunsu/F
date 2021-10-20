@@ -17,18 +17,18 @@ const Post = () => {
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware(1));
   }, []);
-  const postList = useSelector((state) => state.post.postList);
+  const postList = useSelector(state => state.post.postList);
   const [shownComments, setShownComments] = React.useState({});
-  const toggleComment = (id) => {
-    setShownComments((prevShownComments) => ({
+  const toggleComment = id => {
+    setShownComments(prevShownComments => ({
       ...prevShownComments,
       [id]: !prevShownComments[id],
     }));
   };
 
   const [shownModal, setShownModal] = React.useState({});
-  const toggleDelete = (id) => {
-    setShownModal((prevShownModals) => ({
+  const toggleDelete = id => {
+    setShownModal(prevShownModals => ({
       ...prevShownModals,
       [id]: !prevShownModals[id],
     }));
@@ -44,14 +44,7 @@ const Post = () => {
         return (
           <div>
             <PostWrapper key={val.postId + val.createdAt}>
-              <Grid
-                width='95%'
-                height='50px'
-                display='flex'
-                justifyContent='space-between'
-                alignItems='center'
-                padding='20px 10px'
-              >
+              <Grid width='95%' height='50px' display='flex' justifyContent='space-between' alignItems='center' padding='20px 10px'>
                 <Image shape='circle' src={val.userImageUrl} />
                 <Grid width='70%' height='100%'>
                   <Text margin='5px 0px 0px 0px' bold>
@@ -62,14 +55,7 @@ const Post = () => {
                   </Text>
                 </Grid>
                 <Grid display='flex' justifyContent='flex-end' width='100%'>
-                  <Button
-                    width='30px'
-                    height='30px'
-                    padding='0px'
-                    borderRadius='50%'
-                    backgroundColor='white'
-                    margin='5px'
-                  >
+                  <Button width='30px' height='30px' padding='0px' borderRadius='50%' backgroundColor='white' margin='5px'>
                     <AiFillEdit color='black' display='inline' />
                   </Button>
                   <Button
@@ -91,21 +77,9 @@ const Post = () => {
                 <Text margin='0px 0px 0px 10px'>{val.content}</Text>
                 <Image shape='square' src={val.imageUrl} />
               </Grid>
-              <Grid
-                width='95%'
-                height='40px'
-                display='flex'
-                justifyContent='space-between'
-                alignItems='center'
-                padding='0px 10px'
-              >
+              <Grid width='95%' height='40px' display='flex' justifyContent='space-between' alignItems='center' padding='0px 10px'>
                 <BtnWrapper>
-                  <Button
-                    width='30px'
-                    height='30px'
-                    padding='0px'
-                    backgroundColor='white'
-                  >
+                  <Button width='30px' height='30px' padding='0px' backgroundColor='white'>
                     👍
                   </Button>
                   <span>{val.likeCount}</span>
@@ -116,14 +90,7 @@ const Post = () => {
                 </Grid>
               </Grid>
               <Line />
-              <Grid
-                width='100%'
-                height='40px'
-                display='flex'
-                justifyContent='center'
-                alignItems='center'
-                padding='0px'
-              >
+              <Grid width='100%' height='40px' display='flex' justifyContent='center' alignItems='center' padding='0px'>
                 <Button
                   // width='25%'
                   width='30%'
@@ -174,19 +141,8 @@ const Post = () => {
                 </Button>
               </Grid>
               <Line />
-              <Grid
-                width='100%'
-                justifyContent='space-evenly'
-                alignItems='center'
-              >
-                <Grid
-                  width='95%'
-                  height='30px'
-                  display='flex'
-                  justifyContent='space-between'
-                  alignItems='center'
-                  padding='0px 10px'
-                >
+              <Grid width='100%' justifyContent='space-evenly' alignItems='center'>
+                <Grid width='95%' height='30px' display='flex' justifyContent='space-between' alignItems='center' padding='0px 10px'>
                   <Text margin='5px'>댓글 {val.commentCount}개 더 보기</Text>
                   <Text
                     margin='5px'
@@ -212,26 +168,9 @@ const Post = () => {
                   shownComments[idx] && postList[idx]
                     ? postList[idx].comments.map((val, idx) => {
                         return (
-                          <Grid
-                            width='90%'
-                            display='flex'
-                            alignItems='center'
-                            padding='0px 10px'
-                            key={val.postId + val.createdAt}
-                          >
-                            <Image
-                              shape='circle'
-                              margin='10px'
-                              src={val.userImageUrl}
-                            />
-                            <Grid
-                              width='100%'
-                              height='40px'
-                              margin='10px 0px 0px 0px'
-                              bg='whitesmoke'
-                              borderRadius='10px'
-                              padding='5px'
-                            >
+                          <Grid width='90%' display='flex' alignItems='center' padding='0px 10px' key={val.postId + val.createdAt}>
+                            <Image shape='circle' margin='10px' src={val.userImageUrl} />
+                            <Grid width='100%' height='40px' margin='10px 0px 0px 0px' bg='whitesmoke' borderRadius='10px' padding='5px'>
                               {val.content}
                             </Grid>
                           </Grid>
@@ -271,21 +210,9 @@ const Post = () => {
                   //   </Grid>
                   // )
                 }
-                <Grid
-                  width='100%'
-                  display='flex'
-                  alignItems='center'
-                  padding='0px 10px'
-                >
+                <Grid width='100%' display='flex' alignItems='center' padding='0px 10px'>
                   <Image shape='circle' margin='10px' src={val.userImageUrl} />
-                  <Input
-                    width='90%'
-                    height='30px'
-                    bg='whitesmoke'
-                    border='none'
-                    borderRadius='10px'
-                    innerRef={(input) => (inputs.current[idx] = input)}
-                  />
+                  <Input width='90%' height='30px' bg='whitesmoke' border='none' borderRadius='10px' innerRef={input => (inputs.current[idx] = input)} />
                 </Grid>
               </Grid>
             </PostWrapper>

@@ -89,10 +89,8 @@ const InnerRect = styled.div`
 `;
 
 const MainInner = styled.div`
-  width: 100%;
-  min-width: 25rem;
-  position: relative;
-  padding-top: 35%;
+  width: 300px;
+  padding-top: 22%;
   overflow: hidden;
   background-image: url(${props => props.src});
   background-position: left;

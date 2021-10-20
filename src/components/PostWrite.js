@@ -11,6 +11,7 @@ const PostWrite = () => {
   const modalOpen = () => {
     setModal(true);
   };
+
   return (
     <>
       <PostWriteWrapper>
