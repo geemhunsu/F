@@ -2,13 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Image = props => {
-  const { shape, src, size, margin, border } = props;
+  const { shape, src, size, margin, border, backgroundPosition, } = props;
 
   const styles = {
     src: src,
     size: size,
     margin: margin,
     border: border,
+    backgroundPosition: backgroundPosition,
   };
 
   if (shape === 'circle') {
@@ -48,6 +49,7 @@ Image.defaultProps = {
   size: 36,
   margin: false,
   border: false,
+  backgroundPosition: false,
 };
 
 const ImageCircle = styled.div`
@@ -57,11 +59,11 @@ const ImageCircle = styled.div`
   border-radius: var(--size);
   background-image: url(${props => props.src});
   background-size: cover;
+  background-position: ${props => props.backgroundPosition};
   ${props => (props.margin ? `margin: ${props.margin}` : 'margin: 4px')};
   flex-shrink: 0;
   ${props => (props.border ? `border: ${props.border};` : '')};
-  box-sizing: border-box;
-  margin: ${props => props.margin};
+  box-sizing: border-box;  
 `;
 
 const OuterRect = styled.div`
@@ -75,6 +77,7 @@ const InnerRect = styled.div`
   overflow: hidden;
   background-image: url(${props => props.src});
   background-size: cover;
+  background-position: ${props => props.backgroundPosition};
   margin: ${props => props.margin};
 `;
 
