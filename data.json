@@ -7,20 +7,31 @@
         {
           "postId": 1,
           "content": "test content1",
+          "userImageUrl": "https://www.nicepng.com/png/full/281-2811031_spongebob-face-meme-pictures-to-pin-on-pinterest.png",
           "imageUrl": "https://dogemuchwow.com/wp-content/uploads/2020/12/bonk-it.jpg",
           "createdAt": "2021-10-19T09:13:33.982699",
           "firstName": "Jeong In",
           "lastName": "Lee",
           "likeCount": 0,
           "commentCount": 1,
-          "commentResponseDtoList": [
+          "comments": [
             {
               "commentId": 1,
-              "content": "이젠 끝내고싶어",
+              "content": "하나둘",
               "createdAt": "2021-10-19T09:15:17.120829",
               "userId": "rockintuna1@naver.com",
               "firstName": "Jeong In",
-              "lastName": "Lee"
+              "lastName": "Lee",
+              "userImageUrl": "https://www.nicepng.com/png/full/281-2811031_spongebob-face-meme-pictures-to-pin-on-pinterest.png"
+            },
+            {
+              "commentId": 2,
+              "content": "셋넷",
+              "createdAt": "2021-10-19T09:15:17.120829",
+              "userId": "rockintuna1@naver.com",
+              "firstName": "Jeong In",
+              "lastName": "Lee",
+              "userImageUrl": "https://www.nicepng.com/png/full/281-2811031_spongebob-face-meme-pictures-to-pin-on-pinterest.png"
             }
           ],
           "liked": false
@@ -28,20 +39,32 @@
         {
           "postId": 2,
           "content": "test content2",
+          "userImageUrl": "https://www.nicepng.com/png/full/281-2811031_spongebob-face-meme-pictures-to-pin-on-pinterest.png",
           "imageUrl": "https://www.nicepng.com/png/full/281-2811031_spongebob-face-meme-pictures-to-pin-on-pinterest.png",
+
           "createdAt": "2021-10-20T09:13:33.982699",
           "firstName": "Bob",
           "lastName": "Sponge",
           "likeCount": 0,
           "commentCount": 1,
-          "commentResponseDtoList": [
+          "comments": [
             {
               "commentId": 1,
-              "content": "이젠 끝내고싶어",
+              "content": "우와",
               "createdAt": "2021-10-19T09:15:17.120829",
               "userId": "rockintuna1@naver.com",
               "firstName": "Jeong In",
-              "lastName": "Lee"
+              "lastName": "Lee",
+              "userImageUrl": "https://www.nicepng.com/png/full/281-2811031_spongebob-face-meme-pictures-to-pin-on-pinterest.png"
+            },
+            {
+              "commentId": 2,
+              "content": "와우",
+              "createdAt": "2021-10-19T09:15:17.120829",
+              "userId": "rockintuna1@naver.com",
+              "firstName": "Jeong In",
+              "lastName": "Lee",
+              "userImageUrl": "https://www.nicepng.com/png/full/281-2811031_spongebob-face-meme-pictures-to-pin-on-pinterest.png"
             }
           ],
           "liked": false
@@ -49,20 +72,31 @@
         {
           "postId": 3,
           "content": "test content3",
+          "userImageUrl": "https://www.nicepng.com/png/full/281-2811031_spongebob-face-meme-pictures-to-pin-on-pinterest.png",
           "imageUrl": "https://i.redd.it/61pz1o0g8g111.jpg",
           "createdAt": "2021-10-21T09:13:33.982699",
           "firstName": "Patrick",
           "lastName": "Patrick",
           "likeCount": 0,
           "commentCount": 1,
-          "commentResponseDtoList": [
+          "comments": [
             {
               "commentId": 1,
               "content": "이젠 끝내고싶어",
               "createdAt": "2021-10-19T09:15:17.120829",
               "userId": "rockintuna1@naver.com",
               "firstName": "Jeong In",
-              "lastName": "Lee"
+              "lastName": "Lee",
+              "userImageUrl": "https://www.nicepng.com/png/full/281-2811031_spongebob-face-meme-pictures-to-pin-on-pinterest.png"
+            },
+            {
+              "commentId": 2,
+              "content": "자 이제 시작이야 내 꿈을~",
+              "createdAt": "2021-10-19T09:15:17.120829",
+              "userId": "rockintuna1@naver.com",
+              "firstName": "Jeong In",
+              "lastName": "Lee",
+              "userImageUrl": "https://www.nicepng.com/png/full/281-2811031_spongebob-face-meme-pictures-to-pin-on-pinterest.png"
             }
           ],
           "liked": false
