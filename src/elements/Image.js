@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Image = props => {
-  const { shape, src, size, margin, border, backgroundPosition, } = props;
+  const { shape, src, size, margin, border, backgroundPosition } = props;
 
   const styles = {
     src: src,
@@ -63,7 +63,7 @@ const ImageCircle = styled.div`
   ${props => (props.margin ? `margin: ${props.margin}` : 'margin: 4px')};
   flex-shrink: 0;
   ${props => (props.border ? `border: ${props.border};` : '')};
-  box-sizing: border-box;  
+  box-sizing: border-box;
 `;
 
 const OuterRect = styled.div`
@@ -82,10 +82,8 @@ const InnerRect = styled.div`
 `;
 
 const MainInner = styled.div`
-  width: 100%;
-  min-width: 25rem;
-  position: relative;
-  padding-top: 35%;
+  width: 300px;
+  padding-top: 22%;
   overflow: hidden;
   background-image: url(${props => props.src});
   background-position: left;
