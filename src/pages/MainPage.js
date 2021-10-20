@@ -17,7 +17,7 @@ const MainPage = () => {
           <Header />
         </HeaderWrapper>
         <PostWrite />
-        {/* <Post /> */}
+        <Post />
       </Grid>
     </React.Fragment>
   );
