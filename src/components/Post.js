@@ -34,23 +34,7 @@ const Post = () => {
     }));
   };
 
-  // const [clickLike, setClickLike] = React.useState({});
-  // const toggleLike = (id) => {
-  //   setClickLike((prevClickLikes) => ({
-  //     ...prevClickLikes,
-  //     [id]: !prevClickLikes[id],
-  //   }));
-  // };
-
-  const sendLike = (postId) => {
-    //dispatch
-  };
-
-  // console.log(postList);
-  // return <React.Fragment>{console.log(postList)}</React.Fragment>;
-
   return (
-    // {postList.map((val, idx) => {})}
     <React.Fragment>
       {postList.map((val, idx) => {
         return (

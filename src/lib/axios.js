@@ -29,7 +29,7 @@ instance.interceptors.request.use(
     config.headers = {
       'content-type': 'application/json;charset=UTF-8',
       accept: 'application/json',
-      Authorization: `Bearer ${cookieSplit}`,
+      Authorization: `Bearer ${cookie}`,
     };
     return config;
   },
@@ -110,4 +110,5 @@ export const apis = {
   // getPost: () => instance.get(`/post`),
   deletePost: (postId) => instance.delete(`/post/${postId}`),
   clickLike: (postId) => instance.post(`/post/${postId}/like`),
+  addPost: (postInfo) => instance.post(`/post`),
 };

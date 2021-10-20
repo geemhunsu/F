@@ -1,7 +1,9 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import { apis } from '../../lib/axios';
+import PostWrite from '../../components/PostWrite';
 
+const ADD_POST = 'ADD_POST';
 const GET_POST = 'GET_POST';
 const DELETE_POST = 'DELETE_POST';
 const CLICK_LIKE = 'CLICK_LIKE';
@@ -9,9 +11,24 @@ const CLICK_LIKE = 'CLICK_LIKE';
 const getPost = createAction(GET_POST, (posts) => ({ posts }));
 const deletePost = createAction(DELETE_POST, (postId) => ({ postId }));
 const clickLike = createAction(CLICK_LIKE, (postId) => ({ postId }));
+const addPost = createAction(ADD_POST, (post) => ({ post }));
 
 const initialState = {
   postList: [],
+};
+
+const addPostMiddleware = (postInfo) => {
+  console.log(postInfo);
+  return (dispatch) => {
+    apis
+      .addPost(postInfo)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 };
 
 const getPostMiddleware = (page) => {
@@ -63,6 +80,12 @@ const clickLikeMiddleware = (postId) => {
 
 export default handleActions(
   {
+    [ADD_POST]: (state, action) =>
+      produce(state, (draft) => {
+        console.log(action.payload);
+        draft.list.unshift(action.payload.posts.list);
+      }),
+
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
         console.log(action.payload.posts);
@@ -101,6 +124,7 @@ export default handleActions(
 );
 
 const postCreators = {
+  addPostMiddleware,
   getPostMiddleware,
   deletePostMiddleware,
   clickLikeMiddleware,

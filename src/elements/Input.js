@@ -3,7 +3,28 @@ import styled from 'styled-components';
 import { Grid, Text } from './index';
 
 const Input = props => {
-  const { label, placeholder, _onChange, type, multiLine, value, margin, width, padding, height, border, borderRadius, bg, backgroundImage, backgroundColor, innerRef } = props;
+  const {
+    label,
+    placeholder,
+    _onChange,
+    type,
+    multiLine,
+    value,
+    margin,
+    width,
+    padding,
+    height,
+    border,
+    borderRadius,
+    bg,
+    backgroundImage,
+    backgroundColor,
+    innerRef,
+    inputFocusOutline,
+    inputFocusBorder,
+    inputFocusBoxShadow,
+    fontSize,
+  } = props;
   const styles = {
     padding,
     height,
@@ -11,6 +32,10 @@ const Input = props => {
     borderRadius,
     bg,
     backgroundImage,
+    inputFocusOutline,
+    inputFocusBorder,
+    inputFocusBoxShadow,
+    fontSize,
   };
   if (multiLine) {
     return (
@@ -71,6 +96,12 @@ const ElInput = styled.input`
   box-sizing: border-box;
   border-radius: 5px;
   background-color: ${props => props.backgroundColor};
+  font-size: ${props => props.fontSize};
+  &:focus {
+    outline: ${props => props.inputFocusOutline};
+    border: ${props => props.inputFocusBorder};
+    box-shadow: ${props => props.inputFocusBoxShadow};
+  }
 `;
 
 export default Input;
