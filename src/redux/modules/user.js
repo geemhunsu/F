@@ -1,8 +1,9 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
-
+import { setCookie, deleteCookie } from '../../shared/Cookie';
 import { apis } from '../../lib/axios';
 
+//액션타입
 const SET_USER = 'SET_USER';
 const UPDATE_PROFILE = 'UPDATE_PROFILE';
 
@@ -18,6 +19,7 @@ const initialState = {
   userList: [],
 };
 
+// 프로필 사진 수정
 const updateProfileMW = (imageUrl) => {
   return function (dispatch, getState, {history}) {
     apis
@@ -31,16 +33,46 @@ const updateProfileMW = (imageUrl) => {
       })
   }
 }
+//로그인
+const loginMiddleware = loginInfo => {
+  return () => {
+    apis
+      .login(loginInfo)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+
+//회원가입
+const signupMiddleware = signupInfo => {
+  return () => {
+    apis
+      .signup(signupInfo)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
 
 export default handleActions(
   {
-    [SET_USER]: (state, action) => produce(state, (draft) => {}),
+    [SET_USER]: (state, action) => produce(state, draft => {}),
   },
   initialState
 );
 
 const userCreators = {
   updateProfileMW,
+  loginMiddleware,
+  signupMiddleware,
+  setUser,
 };
 
 export { userCreators };
