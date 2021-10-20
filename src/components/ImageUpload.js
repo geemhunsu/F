@@ -35,12 +35,10 @@ const ImageUpload = () => {
     reader.onloadend = () => {
       dispatch(imageActions.setPreview(reader.result, fileName, fileType, fileFullName, file));
     }
+    console.log('사진 변경')
 
-    if (preview !== null) {
-      setLabelDisplay('none');
-      setPreviewDisplay('block');
-    }
-
+    setLabelDisplay('none');
+    setPreviewDisplay('block');
   }
 
   AWS.config.update({
@@ -82,7 +80,7 @@ const ImageUpload = () => {
             </Grid>
           </label>
           <Grid height='auto' position='relative' display={previewDisplay}>
-            <Image src={preview} shape='rectangle' margin='0 0 5px 0' />
+            <Image src={preview} shape='rectangle' margin='0 0 5px 0' backgroundPosition='center' />
             <label for='fileInput' id='inputLabelButton'>
               <Grid display='flex' alignItems='center' justifyContent='center' hover='#e1e2e7'
                 bg='white' borderRadius='5px' width='auto' padding='5px 10px'>
@@ -91,8 +89,8 @@ const ImageUpload = () => {
               </Grid>
             </label>
             <Grid display='flex' position='absolute' top='10px' right='20px' hover='#e1e2e7'
-            bg='white' width='auto' height='auto' padding='5px 10px' borderRadius='5px' 
-            alignItems='center' _onClick={uploadToAws}>
+              bg='white' width='auto' height='auto' padding='5px 10px' borderRadius='5px'
+              alignItems='center' _onClick={uploadToAws}>
               <IconContext.Provider value={{ color: 'black', size: '16', }}>
                 <FaCheck />
               </IconContext.Provider>
