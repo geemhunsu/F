@@ -1,12 +1,37 @@
 import React, { useState } from 'react';
 import { Grid, Text, Input, Button, Image } from '../elements/index';
-import LogInModal from '../components/LogInModal';
+import LogInModal from '../components/SignUpModal';
+import { useDispatch } from 'react-redux';
+import { history } from '../redux/ConfigureStore';
+import { userCreators } from '../redux/modules/user';
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+
+  const [userId, setUserId] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const RegExUserId = /^[a-zA-Z0-9!@#$%^&*]{4,12}$/;
+  const RegExPassword = /^[a-zA-Z0-9!@#$%^&*]{6,18}$/;
+
   const [showModal, setShowModal] = useState(false);
   const modalOpen = () => {
     setShowModal(true);
   };
+
+  const login = () => {
+    if (userId === '' || password === '') {
+      window.alert('아이디 혹은 비밀번호가 공란입니다! 입력해주세요');
+    }
+
+    const loginInfo = {
+      userId: userId,
+      password: password,
+    };
+    console.log(loginInfo);
+    dispatch(userCreators.loginMiddleware(loginInfo));
+  };
+
   return (
     <>
       <Grid display='block' width='100%' height='100%' fontSize='12px' backgroundColor='#fff' color='#1c1e21' lineHeight='normal'>
@@ -18,9 +43,42 @@ const LoginPage = () => {
             </Grid>
             <Grid display='flex' flexDirection='column' textAlign='center' margin='0px 50px' width='400px'>
               <Grid backgroundColor='#ffff' padding='20px' textAlign='center' borderRadius='8px' margin='auto'>
-                <Input height='10px' borderRadius='5px' placeholder='이메일 또는 전화번호' />
-                <Input placeholder='비밀번호' />
-                <Button backgroundColor='#1877F2'>로그인</Button>
+                <Input
+                  height='50px'
+                  padding='14px 16px'
+                  border='1px solid #ddd'
+                  margin='10px 0'
+                  borderRadius='5px'
+                  placeholder='이메일 또는 전화번호'
+                  _onchange={e => {
+                    console.log(e.target.value);
+                    setUserId(e.target.value);
+                  }}
+                />
+                <Input
+                  height='50px'
+                  padding='14px 16px'
+                  border='1px solid #ddd'
+                  margin='10px 0'
+                  borderRadius='5px'
+                  placeholder='비밀번호'
+                  type='password'
+                  _onChange={e => {
+                    console.log(e.target.value);
+                    setPassword(e.target.value);
+                  }}
+                />
+                <Button
+                  margin='10px 0'
+                  fontSize='22px'
+                  borderRadius='5px'
+                  backgroundColor='#1877F2'
+                  _onClick={() => {
+                    login();
+                  }}
+                >
+                  로그인
+                </Button>
                 <Text color='#1877f2'>비밀번호를 잊으셨나요?</Text>
                 <hr />
                 <Button text='새 계정 만들기' _onClick={modalOpen} width='40%' margin='20px' backgroundColor='#42b72a' />
