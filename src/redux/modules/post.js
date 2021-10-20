@@ -4,9 +4,11 @@ import { apis } from '../../lib/axios';
 
 const GET_POST = 'GET_POST';
 const DELETE_POST = 'DELETE_POST';
+const CLICK_LIKE = 'CLICK_LIKE';
 
 const getPost = createAction(GET_POST, (posts) => ({ posts }));
 const deletePost = createAction(DELETE_POST, (postId) => ({ postId }));
+const clickLike = createAction(CLICK_LIKE, (postId) => ({ postId }));
 
 const initialState = {
   postList: [],
@@ -34,9 +36,24 @@ const getPostMiddleware = (page) => {
 const deletePostMiddleware = (postId) => {
   return (dispatch) => {
     apis
+      .deletePost(postId)
       .then((res) => {
         console.log(res);
         dispatch(deletePost(postId));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+const clickLikeMiddleware = (postId) => {
+  return (dispatch) => {
+    apis
+      .clickLike(postId)
+      .then((res) => {
+        console.log(res);
+        dispatch(clickLike(postId));
       })
       .catch((err) => {
         console.log(err);
@@ -62,6 +79,23 @@ export default handleActions(
         });
         draft.postList = editArr;
       }),
+    [CLICK_LIKE]: (state, action) =>
+      produce(state, (draft) => {
+        let numArr = [];
+        draft.postList.filter((val, idx) => {
+          if (val.postId === action.payload.postId) {
+            return numArr.push(idx);
+          }
+        });
+        console.log(numArr[0]);
+        if (draft.postList[numArr[0]].liked === true) {
+          draft.postList[numArr[0]].likeCount -= 1;
+          draft.postList[numArr[0]].liked = false;
+        } else {
+          draft.postList[numArr[0]].likeCount += 1;
+          draft.postList[numArr[0]].liked = true;
+        }
+      }),
   },
   initialState
 );
@@ -69,6 +103,7 @@ export default handleActions(
 const postCreators = {
   getPostMiddleware,
   deletePostMiddleware,
+  clickLikeMiddleware,
 };
 
 export { postCreators };

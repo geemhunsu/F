@@ -15,9 +15,15 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const cookie = document.cookie;
+    console.log(cookie);
     if (cookie === '') {
       return config;
     }
+    // const cookieSplitUndefined = cookie.split('=')[1];
+    // console.log(cookieSplitUndefined);
+    // const cookieSplit = cookieSplitUndefined.split(';')[0];
+    // console.log(cookieSplit);
+
     const cookieSplit = cookie.split('=')[1];
 
     config.headers = {
@@ -44,7 +50,7 @@ instance.interceptors.response.use(
     ) {
       let userCookie = success.data.token;
       console.log(userCookie);
-      document.cookie = setCookie('user_id', userCookie, 3);
+      setCookie('user_id', userCookie, 3);
       window.alert('로그인성공');
       history.push('/main');
     }
@@ -102,5 +108,6 @@ export const apis = {
   getPost: (page) => instance.get(`/post?page=${page}`),
   //data.json용
   // getPost: () => instance.get(`/post`),
-  deletePost: (postId) => instance.get(`post/${postId}`),
+  deletePost: (postId) => instance.delete(`/post/${postId}`),
+  clickLike: (postId) => instance.post(`/post/${postId}/like`),
 };

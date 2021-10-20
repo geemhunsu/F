@@ -34,6 +34,18 @@ const Post = () => {
     }));
   };
 
+  // const [clickLike, setClickLike] = React.useState({});
+  // const toggleLike = (id) => {
+  //   setClickLike((prevClickLikes) => ({
+  //     ...prevClickLikes,
+  //     [id]: !prevClickLikes[id],
+  //   }));
+  // };
+
+  const sendLike = (postId) => {
+    //dispatch
+  };
+
   // console.log(postList);
   // return <React.Fragment>{console.log(postList)}</React.Fragment>;
 
@@ -124,20 +136,43 @@ const Post = () => {
                 alignItems='center'
                 padding='0px'
               >
-                <Button
-                  // width='25%'
-                  width='30%'
-                  height='40px'
-                  margin='5px'
-                  backgroundColor='white'
-                  color='gray'
-                  padding='0px'
-                  margin='0px'
-                  borderRadius='5px'
-                >
-                  <AiOutlineLike color='gray' />
-                  좋아요
-                </Button>
+                {val.liked ? (
+                  <Button
+                    // width='25%'
+                    width='30%'
+                    height='40px'
+                    margin='5px'
+                    backgroundColor='white'
+                    color='blue'
+                    padding='0px'
+                    margin='0px'
+                    borderRadius='5px'
+                    _onClick={() => {
+                      dispatch(postCreators.clickLikeMiddleware(val.postId));
+                    }}
+                  >
+                    <AiOutlineLike color='blue' />
+                    좋아요
+                  </Button>
+                ) : (
+                  <Button
+                    // width='25%'
+                    width='30%'
+                    height='40px'
+                    margin='5px'
+                    backgroundColor='white'
+                    color='gray'
+                    padding='0px'
+                    margin='0px'
+                    borderRadius='5px'
+                    _onClick={() => {
+                      dispatch(postCreators.clickLikeMiddleware(val.postId));
+                    }}
+                  >
+                    <AiOutlineLike color='gray' />
+                    좋아요
+                  </Button>
+                )}
                 <Button
                   // width='25%'
                   width='30%'
