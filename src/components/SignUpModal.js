@@ -7,9 +7,7 @@ import { userCreators } from '../redux/modules/user';
 
 import styled from 'styled-components';
 import question from '../images/question.png';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 
 const SignUpModal = props => {
   const dispatch = useDispatch();
@@ -19,10 +17,44 @@ const SignUpModal = props => {
   const [userId, setUserId] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  // const [year, setYear] = React.useState(currentYear);
+  // const [month, setMonth] = React.useState(currentMonth);
+  // const [day, setDay] = React.useState(currentDay);
+
   const { showModal, setShowModal } = props;
   const modalClose = () => {
     setShowModal(false);
   };
+
+  // const generateYearOptions = () => {
+  //   const arr = [];
+  //   const startYear = 1900;
+  //   const endYear = new Date().getFullYear();
+  //   for (let i = endYear; i >= startYear; i--) {
+  //     arr.push(<option value={i}>{i}</option>);
+  //   }
+  //   return arr;
+  // };
+
+  // const generateMonthOptions = () => {
+  //   const arr = [];
+  //   const startMonth = 1;
+  //   const endMonth = 12;
+  //   for (let i = endMonth; i >= startMonth; i--) {
+  //     arr.push(<option value={i}>{i}월</option>);
+  //   }
+  //   return arr;
+  // };
+
+  // const generateDayOptions = () => {
+  //   const arr = [];
+  //   const startDay = 1;
+  //   const endDay = 31;
+  //   for (let i = endDay; i >= startDay; i--) {
+  //     arr.push(<option value={i}>{i}</option>);
+  //   }
+  //   return arr;
+  // };
   const signUp = () => {
     const signupInfo = {
       firstName: firstName,

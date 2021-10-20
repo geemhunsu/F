@@ -17,10 +17,10 @@ const Post = () => {
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware(1));
   }, []);
-  const postList = useSelector((state) => state.post.postList);
+  const postList = useSelector(state => state.post.postList);
   const [shownComments, setShownComments] = React.useState({});
-  const toggleComment = (id) => {
-    setShownComments((prevShownComments) => ({
+  const toggleComment = id => {
+    setShownComments(prevShownComments => ({
       ...prevShownComments,
       [id]: !prevShownComments[id],
     }));
@@ -40,7 +40,7 @@ const Post = () => {
   return (
     // {postList.map((val, idx) => {})}
     <React.Fragment>
-      {postList.map((val, idx) => {
+      {/* {postList.map((val, idx) => {
         return (
           <div>
             <PostWrapper key={val.postId + val.createdAt}>
@@ -299,7 +299,7 @@ const Post = () => {
             )}
           </div>
         );
-      })}
+      })} */}
     </React.Fragment>
   );
 };
