@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import AWS from "aws-sdk";
 
-import { FaCheck } from 'react-icons/fa'
 import { IconContext } from 'react-icons';
+import { FaCheck } from 'react-icons/fa'
+import { MdOutlineCancel } from 'react-icons/md'
 
 import { Grid, Image, Text, Button } from '../elements';
 import { actionCreators as imageActions } from '../redux/modules/image';
@@ -22,8 +23,8 @@ const ImageUpload = () => {
 
   const [labelDisplay, setLabelDisplay] = React.useState('block');
   const [previewDisplay, setPreviewDisplay] = React.useState('none');
-  const [changeButton, setChangeButton] = React.useState('none');
-  const [editButton, setEditButton] = React.useState('none');
+  // const [changeButton, setChangeButton] = React.useState('none');
+  // const [editButton, setEditButton] = React.useState('none');
 
   const selectFile = (e) => {
     if (e.target.files === "") {
@@ -45,16 +46,6 @@ const ImageUpload = () => {
     setPreviewDisplay('block');
   }
 
-  const mouseOver = () => {
-    setChangeButton('block');
-    setEditButton('flex');
-  }
-
-  const mouseOut = () => {
-    setChangeButton('none');
-    setEditButton('none');
-  }
-
   AWS.config.update({
     region: "ap-northeast-2",
     credentials: new AWS.CognitoIdentityCredentials({
@@ -73,12 +64,20 @@ const ImageUpload = () => {
     })
     const promise = awsUpload.promise();
     promise.then(data => {
-      window.alert('업로드 성공')
     }).catch(err => {
       window.alert('업로드 실패')
     }).then(data => {
-      dispatch(userCreators.updateProfileMW(`https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewFullName}`))
+      dispatch(userCreators.updateProfileMW({
+        imageUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewFullName}`
+      }));
+      setLabelDisplay('block');
+      setPreviewDisplay('none');
     })
+  }
+
+  const previewDelete = () => {
+    setLabelDisplay('block');
+    setPreviewDisplay('none');
   }
 
   return (
@@ -95,7 +94,7 @@ const ImageUpload = () => {
               프로필 사진 수정
             </Grid>
           </label>
-          <Grid height='auto' position='relative' display={previewDisplay}>
+          <Grid height='auto' position='relative' display={previewDisplay} id='previewBox'>
             <Image src={preview} shape='square' margin='0 0 5px 0' backgroundPosition='center'
             />
             <label htmlFor='fileInput' id='inputLabelButton' >
@@ -105,13 +104,20 @@ const ImageUpload = () => {
                 <Text bold margin='0' size='0.9rem' >사진 변경</Text>
               </Grid>
             </label>
-            <Grid display='flex' position='absolute' top='10px' right='20px' hover='#e1e2e7'
+            <Grid display='none' position='absolute' top='10px' left='45%' hover='#e1e2e7'
               bg='white' width='auto' height='auto' padding='5px 10px' borderRadius='5px'
               alignItems='center' id='submitImage' _onClick={uploadToAws}>
               <IconContext.Provider value={{ color: 'black', size: '16', }}>
                 <FaCheck />
               </IconContext.Provider>
               <Text bold margin='0' size='0.9rem' margin='0 0 0 5px'>수정하기</Text>
+            </Grid>
+            <Grid display='none' position='absolute' top='10px' right='5%' hover='#e1e2e7'
+              bg='white' width='auto' height='auto' padding='5px 10px' borderRadius='5px'
+              alignItems='center' id='deletePreview' _onClick={previewDelete}>
+              <IconContext.Provider value={{ color: 'black', size: '20', }}>
+                <MdOutlineCancel />
+              </IconContext.Provider>
             </Grid>
           </Grid>
           <input type='file' id='fileInput' onChange={selectFile} />
@@ -130,7 +136,7 @@ const Wrap = styled.div`
     background-color: #f7f8fa;    
     font-size: 0.875rem;    
     text-align: center;
-    
+      
     :hover {
       display:block;
       cursor: pointer;
@@ -138,10 +144,26 @@ const Wrap = styled.div`
     }
   }
 
-  #inputLabelButton {    
+  #previewBox {
+    :hover {
+      background-color: rgba(0, 0, 0, 0.1);      
+    }
+    :hover #inputLabelButton {
+      display: block;
+    }
+    :hover #submitImage {
+      display: flex;
+    }
+    :hover #deletePreview {
+      display: flex;
+    }
+  }
+
+  #inputLabelButton {
+    display: none;
     position: absolute;
     top: 10px;
-    left: 20px;    
+    left: 5%;    
   }
   
   input {

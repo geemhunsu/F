@@ -39,7 +39,8 @@ const HeaderSub = (props) => {
         >
           <Image
             size='28'
-            src={userInfo.imageUrl ? userInfo.imageUrl : defaultUserImage} 
+            src={userInfo.imageUrl ? userInfo.imageUrl : defaultUserImage}
+            backgroundPosition='center'
             margin='0 4px 0 0'
             border='1px solid gray'
           />

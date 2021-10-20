@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { history } from '../redux/ConfigureStore';
+
 import { IconContext } from "react-icons";
 import { ImExit } from 'react-icons/im';
 
@@ -14,7 +16,9 @@ const UserInfoModal = (props) => {
   const userInfo = useSelector(state => state.user);
 
   const logOut = () => {
-    console.log('로그아웃')
+    deleteCookie('user_id');    
+    history.replace('/');
+    window.alert('로그아웃 됐습니다');
   }
 
   return (
@@ -27,7 +31,7 @@ const UserInfoModal = (props) => {
         height='auto' borderRadius='10px'
         padding='6px 0 6px 6px'>
         <Image src={userInfo.imageUrl ? userInfo.imageUrl : defaultUserImage}
-          size='100' border='1px solid #ced0d4'
+          size='100' border='1px solid #ced0d4' backgroundPosition='center'
           margin='0 10px 0 0' />
         <Grid width='auto' height='auto'>
           <Text size='0.9rem' bold margin='0 0 5px 0'>

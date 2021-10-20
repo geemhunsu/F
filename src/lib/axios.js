@@ -44,7 +44,7 @@ instance.interceptors.response.use(
     ) {
       let userCookie = success.data.token;
       console.log(userCookie);
-      document.cookie = setCookie('user_id', userCookie, 3);
+      setCookie('user_id', userCookie, 3);
       window.alert('로그인성공');
       history.push('/main');
     }
@@ -97,7 +97,11 @@ export const apis = {
   //회원가입 및 로그인 관련 api
   login: (loginInfo) => instance.post('/user/login', loginInfo),
   signup: (registerInfo) => instance.post('/user/register', registerInfo),
+
+  // 유저 관련 api
   updateProfileImg: (imageUrl) => instance.put(`/user/image`, imageUrl),
+  getUserInfo: () => instance.get('/user/info'),
+  getAllUserList: () => instance.get('/user/list'),
 
   //포스트 관련 api
   getPost: (page) => instance.get(`/post?page=${page}`),

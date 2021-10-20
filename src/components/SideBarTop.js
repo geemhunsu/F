@@ -26,7 +26,7 @@ const SideBarTop = (props) => {
       <Grid width='90%' height='46px' display='flex' alignItems='center' padding='0 8px'
       hover='rgba(0, 0, 0, 0.05)' borderRadius='10px'>
         <Image src={userInfo.imageUrl ? userInfo.imageUrl : defaultUserImage} 
-        size='32' border='1px solid gray'/>
+        size='32' border='1px solid gray' backgroundPosition='center'/>
         <Text size='0.93rem' margin='0 0 0 7px' >
           {userInfo.firstName ? (userInfo.firstName + userInfo.lastName) : "이름"}
         </Text>

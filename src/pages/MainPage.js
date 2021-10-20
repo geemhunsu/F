@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { Post, Header, SideBar, UserList } from '../components';
 import { Grid } from '../elements';
 import PostWrite from '../components/PostWrite';
+import { userCreators } from '../redux/modules/user';
 
 const MainPage = () => {
+  const dispatch = useDispatch();
+  
+  // useEffect(() => {
+  //   dispatch(userCreators.setUserMiddleware());
+  // }, [])
+
   return (
     <React.Fragment>
       <ResponsiveSidebar>
