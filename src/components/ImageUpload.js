@@ -97,15 +97,15 @@ const ImageUpload = () => {
           </label>
           <Grid height='auto' position='relative' display={previewDisplay}>
             <Image src={preview} shape='square' margin='0 0 5px 0' backgroundPosition='center'
-            _onMouseOver={mouseOver} _onMouseOut={mouseOut}/>
-            <label htmlFor='fileInput' id='inputLabelButton' style={{ display: changeButton }}>
+            />
+            <label htmlFor='fileInput' id='inputLabelButton' >
               <Grid display='flex' alignItems='center' justifyContent='center' hover='#e1e2e7'
                 bg='white' borderRadius='5px' width='auto' padding='5px 10px'>
                 <EditIcon />
                 <Text bold margin='0' size='0.9rem' >사진 변경</Text>
               </Grid>
             </label>
-            <Grid display={editButton} position='absolute' top='10px' right='20px' hover='#e1e2e7'
+            <Grid display='flex' position='absolute' top='10px' right='20px' hover='#e1e2e7'
               bg='white' width='auto' height='auto' padding='5px 10px' borderRadius='5px'
               alignItems='center' id='submitImage' _onClick={uploadToAws}>
               <IconContext.Provider value={{ color: 'black', size: '16', }}>
@@ -132,6 +132,7 @@ const Wrap = styled.div`
     text-align: center;
     
     :hover {
+      display:block;
       cursor: pointer;
       background-color: #dee0e4;
     }

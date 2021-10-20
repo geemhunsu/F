@@ -34,28 +34,28 @@ const updateProfileMW = (imageUrl) => {
   }
 }
 //로그인
-const loginMiddleware = loginInfo => {
+const loginMiddleware = (loginInfo) => {
   return () => {
     apis
       .login(loginInfo)
-      .then(res => {
+      .then((res) => {
         console.log(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 };
 
 //회원가입
-const signupMiddleware = signupInfo => {
+const signupMiddleware = (signupInfo) => {
   return () => {
     apis
       .signup(signupInfo)
-      .then(res => {
+      .then((res) => {
         console.log(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -63,7 +63,7 @@ const signupMiddleware = signupInfo => {
 
 export default handleActions(
   {
-    [SET_USER]: (state, action) => produce(state, draft => {}),
+    [SET_USER]: (state, action) => produce(state, (draft) => {}),
   },
   initialState
 );

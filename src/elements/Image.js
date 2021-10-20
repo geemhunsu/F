@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Image = props => {
-  const { shape, src, size, margin, border, backgroundPosition, id, _onMouseOver, _onMouseOut,
+  const { shape, src, size, margin, border, backgroundPosition, id, _onMouseEnter, _onMouseLeave,
   display, } = props;
 
   const styles = {
@@ -17,20 +17,20 @@ const Image = props => {
   if (shape === 'circle') {
     return (
       <React.Fragment>
-        <ImageCircle {...styles} id={id} onMouseOver={_onMouseOver} onMouseOut={_onMouseOut} ></ImageCircle>
+        <ImageCircle {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave} ></ImageCircle>
       </React.Fragment>
     );
   }
 
   if (shape === 'TitleLogo') {
-    return <MainInner {...styles} id={id} onMouseOver={_onMouseOver} onMouseOut={_onMouseOut} ></MainInner>;
+    return <MainInner {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave} ></MainInner>;
   }
 
   if (shape === 'square') {
     return (
       <React.Fragment>
         <OuterRect>
-          <InnerRect {...styles} id={id} onMouseOver={_onMouseOver} onMouseOut={_onMouseOut} ></InnerRect>
+          <InnerRect {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave} ></InnerRect>
         </OuterRect>
       </React.Fragment>
     );
@@ -39,7 +39,7 @@ const Image = props => {
   return (
     <React.Fragment>
       <OuterRect>
-        <InnerRect {...styles} id={id} onMouseOver={_onMouseOver} onMouseOut={_onMouseOut} ></InnerRect>
+        <InnerRect {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave} ></InnerRect>
       </OuterRect>
     </React.Fragment>
   );
@@ -52,8 +52,8 @@ Image.defaultProps = {
   margin: false,
   border: false,
   backgroundPosition: false,  
-  _onMouseOver: () => {},
-  _onMouseOut: () => {},
+  _onMouseEnter: () => {},
+  _onMouseLeave: () => {},
   display: null,
 };
 
