@@ -50,7 +50,7 @@ const LoginPage = () => {
                   margin='10px 0'
                   borderRadius='5px'
                   placeholder='이메일 또는 전화번호'
-                  _onchange={e => {
+                  _onChange={e => {
                     console.log(e.target.value);
                     setUserId(e.target.value);
                   }}

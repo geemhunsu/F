@@ -64,7 +64,7 @@ const SignUpModal = props => {
                   padding='10px'
                   height='50px'
                   borderRadius='5px'
-                  _onchange={e => {
+                  _onChange={e => {
                     setfirstName(e.target.value);
                   }}
                 />
@@ -78,7 +78,7 @@ const SignUpModal = props => {
                   padding='10px'
                   height='50px'
                   borderRadius='5px'
-                  _onchange={e => {
+                  _onChange={e => {
                     setlastName(e.target.value);
                   }}
                 />
@@ -93,7 +93,7 @@ const SignUpModal = props => {
                 padding='10px'
                 height='50px'
                 borderRadius='5px'
-                _onchange={e => {
+                _onChange={e => {
                   setUserId(e.target.value);
                 }}
               />
@@ -107,7 +107,7 @@ const SignUpModal = props => {
                 padding='10px'
                 height='50px'
                 borderRadius='5px'
-                _onchange={e => {
+                _onChange={e => {
                   setPassword(e.target.value);
                 }}
               />
