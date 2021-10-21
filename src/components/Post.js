@@ -17,7 +17,7 @@ const Post = () => {
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware(1));
   }, []);
-  const postList = useSelector((state) => state.post.postList);
+  const postList = useSelector((state) => state.post?.postList);
   const [shownComments, setShownComments] = React.useState({});
   const toggleComment = (id) => {
     setShownComments((prevShownComments) => ({

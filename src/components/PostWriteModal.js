@@ -91,7 +91,7 @@ const PostWriteModal = props => {
   };
 
   return (
-    <Dialog maxWidth={'lg'} scroll='paper' open={openModal}>
+    <Dialog maxWidth={'lg'} scroll='body' open={openModal}>
       <ModalWrap>
         <Grid padding='20px 0'>
           <Grid alignItems='center' position='relative'>

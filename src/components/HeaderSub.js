@@ -21,8 +21,7 @@ const HeaderSub = (props) => {
       setModalDisplay('flex');
     } else {
       setModalDisplay('none');
-    }
-    console.log(is_token);
+    }    
     document.getElementById('userModal').style.display = modalDisplay;
   }
 
