@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { history } from '../redux/ConfigureStore';
+
 import styled from 'styled-components';
 import { Grid, Image, Button, Text } from '../elements/index';
 import PostWriteModal from './PostWriteModal';
 import { FaVideo } from 'react-icons/fa';
 import { MdPhotoLibrary } from 'react-icons/md';
 import { BsEmojiSmileFill } from 'react-icons/bs';
+import defaultUserImage from '../images/기본프로필사진.png';
 
 const PostWrite = () => {
+  const userInfo = useSelector(state => state.user);
   const [openModal, setModal] = useState(false);
   const modalOpen = () => {
+    if (!userInfo.is_login) {
+      window.alert('로그인이 필요합니다!');
+      history.push('/');
+    }
     setModal(true);
   };
 
@@ -17,9 +26,9 @@ const PostWrite = () => {
       <PostWriteWrapper>
         <Grid>
           <Grid display='flex' flexDirection='row' alignItems='center' margin='10px' padding='0 30px 0 0'>
-            <Image />
-            <Button width='520px' backgroundColor='#ddd' color='#111' borderRadius='30px' _onClick={modalOpen}>
-              누구님, 무슨 생각을 하고 계신가요?
+            <Image src={userInfo.imageUrl ? userInfo.imageUrl : defaultUserImage} />
+            <Button width='520px' backgroundColor='#eee' color='#111' borderRadius='30px' _onClick={modalOpen}>
+              <Text>{userInfo.firstName ? userInfo.firstName + userInfo.lastName : 'GUEST'}님, 무슨 생각을 하고 계신가요?</Text>
             </Button>
             <PostWriteModal openModal={openModal} setModal={setModal} />
           </Grid>

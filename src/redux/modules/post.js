@@ -1,42 +1,58 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import { apis } from '../../lib/axios';
-import PostWrite from '../../components/PostWrite';
 
 const ADD_POST = 'ADD_POST';
 const GET_POST = 'GET_POST';
 const DELETE_POST = 'DELETE_POST';
 const CLICK_LIKE = 'CLICK_LIKE';
 
-const getPost = createAction(GET_POST, (posts) => ({ posts }));
-const deletePost = createAction(DELETE_POST, (postId) => ({ postId }));
-const clickLike = createAction(CLICK_LIKE, (postId) => ({ postId }));
-const addPost = createAction(ADD_POST, (post) => ({ post }));
+const getPost = createAction(GET_POST, posts => ({ posts }));
+const deletePost = createAction(DELETE_POST, postId => ({ postId }));
+const clickLike = createAction(CLICK_LIKE, postId => ({ postId }));
+const addPost = createAction(ADD_POST, post => ({ post }));
 
 const initialState = {
   postList: [],
 };
 
-const addPostMiddleware = (postInfo) => {
+const addPostMiddleware = postInfo => {
   console.log(postInfo);
-  return (dispatch) => {
+  return (dispatch, getState, { history }) => {
+    // let _user = getState().user;
+    // console.log(_user);
+    // let post = {
+    //   postId: '',
+    //   commentCount: 0,
+    //   commnet: [],
+    //   content: postInfo.content,
+    //   createdAt: '',
+    //   firstName: _user.firstName,
+    //   lastName: _user.lastName,
+    //   image_url: postInfo.imageUrl,
+    //   likeCount: 0,
+    //   liked: false,
+    //   postId: '',
+    // };
     apis
       .addPost(postInfo)
-      .then((res) => {
-        console.log(res);
+      .then(res => {
+        console.log(res.data);
+        dispatch(addPost(res.data));
+        history.push('/main');
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 };
 
-const getPostMiddleware = (page) => {
+const getPostMiddleware = page => {
   console.log(page);
-  return (dispatch) => {
+  return dispatch => {
     apis
       .getPost(page)
-      .then((res) => {
+      .then(res => {
         console.log(res);
         // const postArr = {
         //   posts: res,
@@ -44,35 +60,35 @@ const getPostMiddleware = (page) => {
         dispatch(getPost(res));
         // console.log('finish');
       })
-      .catch((res) => {
+      .catch(res => {
         console.log(res);
       });
   };
 };
 
-const deletePostMiddleware = (postId) => {
-  return (dispatch) => {
+const deletePostMiddleware = postId => {
+  return dispatch => {
     apis
       .deletePost(postId)
-      .then((res) => {
+      .then(res => {
         console.log(res);
         dispatch(deletePost(postId));
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 };
 
-const clickLikeMiddleware = (postId) => {
-  return (dispatch) => {
+const clickLikeMiddleware = postId => {
+  return dispatch => {
     apis
       .clickLike(postId)
-      .then((res) => {
+      .then(res => {
         console.log(res);
         dispatch(clickLike(postId));
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -81,19 +97,19 @@ const clickLikeMiddleware = (postId) => {
 export default handleActions(
   {
     [ADD_POST]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         console.log(action.payload);
-        draft.list.unshift(action.payload.posts.list);
+        draft.postList.unshift(action.payload.post);
       }),
 
     [GET_POST]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         console.log(action.payload.posts);
         draft.postList = action.payload.posts;
         // console.log(draft.postList);
       }),
     [DELETE_POST]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         const editArr = [];
         draft.postList.filter((val, idx) => {
           if (val.postId !== action.payload.postId) {
@@ -103,7 +119,7 @@ export default handleActions(
         draft.postList = editArr;
       }),
     [CLICK_LIKE]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         let numArr = [];
         draft.postList.filter((val, idx) => {
           if (val.postId === action.payload.postId) {
