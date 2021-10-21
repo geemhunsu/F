@@ -10,6 +10,7 @@ const Input = props => {
     onSubmit,
     type,
     multiLine,
+    edit,
     value,
     margin,
     width,
@@ -43,6 +44,31 @@ const Input = props => {
       <Grid>
         {label && <Text margin='0px'>{label}</Text>}
         <ElTextarea backgroundColor={backgroundColor} value={value} rows={10} placeholder={placeholder} onChange={_onChange}></ElTextarea>
+      </Grid>
+    );
+  }
+
+  if (edit) {
+    return (
+      <Grid>
+        {label && <Text margin='0px'>{label}</Text>}
+        <ElInput
+          {...styles}
+          backgroundColor={backgroundColor}
+          width={width}
+          margin={margin}
+          type={type}
+          placeholder={placeholder}
+          onChange={_onChange}
+          ref={innerRef}
+          onKeyPress={(e) => {
+            console.log(e.key);
+            if (e.key === 'Enter') {
+              console.log('pass');
+              onSubmit(e);
+            }
+          }}
+        />
       </Grid>
     );
   }

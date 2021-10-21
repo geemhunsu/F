@@ -95,11 +95,13 @@ export const apis = {
   getAllUserList: () => instance.get('/user/list'),
 
   //포스트 관련 api
-  getPost: page => instance.get(`/post?page=${page}`),
+  getPost: () => instance.get('/post'),
   //data.json용
   // getPost: () => instance.get(`/post`),
-  addPost: postInfo => instance.post(`/post`, postInfo),
+  addPost: postInfo => instance.post(`/post`),
   deletePost: postId => instance.delete(`/post/${postId}`),
   clickLike: postId => instance.post(`/post/${postId}/like`),
-  addComment: commentInfo => instance.post('comment', commentInfo),
+  addComment: commentInfo => instance.post('/comment', commentInfo),
+  deleteComment: commentId => instance.delete(`/comment/${commentId}`),
+  editComment: (commentId, content) => instance.put(`/comment/${commentId}`, content),
 };

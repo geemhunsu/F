@@ -103,6 +103,7 @@ const ElButton = styled.button`
   left: ${(props) => props.left};
   right: ${(props) => props.right};
   position: ${(props) => props.position};
+  flex-shrink: 0;
 `;
 
 const FloatButton = styled.div`
