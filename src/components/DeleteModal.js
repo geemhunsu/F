@@ -25,13 +25,28 @@ const DeleteModal = (props) => {
 
   return (
     <React.Fragment>
-      <ModalBg>
-        <ModalWrapper>
+      <ModalBg onClick={onClose}>
+        <ModalWrapper
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <Grid display='flex' justifyContent='space-between'>
             <Text size='20px' margin='0px'>
               삭제하시겠어요?
             </Text>
-            <Button width='35px' height='35px' margin='0px' _onClick={onClose}>
+            <Button
+              width='35px'
+              height='35px'
+              margin='0px'
+              _onClick={onClose}
+              padding='0px'
+              borderRadius='50%'
+              backgroundColor='whitesmoke'
+              color='dimgray'
+              hover='lightgray'
+              fontSize='0.93rem'
+            >
               ✖
             </Button>
           </Grid>
@@ -40,6 +55,26 @@ const DeleteModal = (props) => {
               width='55px'
               height='36px'
               margin='0px 5px'
+              padding='0px'
+              backgroundColor='white'
+              borderRadius='5px'
+              color='dodgerblue'
+              hover='whitesmoke'
+              fontSize='0.93rem'
+              _onClick={onClose}
+            >
+              취소
+            </Button>
+            <Button
+              width='55px'
+              height='36px'
+              margin='0px 5px'
+              padding='0px'
+              backgroundColor='dodgerblue'
+              borderRadius='5px'
+              color='white'
+              hover='cornflowerblue'
+              fontSize='0.93rem'
               _onClick={() => {
                 console.log(postId);
                 dispatch(postCreators.deletePostMiddleware(postId));
@@ -47,9 +82,6 @@ const DeleteModal = (props) => {
               }}
             >
               확인
-            </Button>
-            <Button width='55px' height='36px' margin='0px 5px'>
-              취소
             </Button>
           </ButtonWrapper>
         </ModalWrapper>
@@ -75,9 +107,10 @@ const ModalWrapper = styled.div`
   width: 550px;
   height: 180px;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 3px;
+  box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 60px 5px;
   padding: 18px;
   position: relative;
+  border-radius: 10px;
 `;
 
 const ButtonWrapper = styled.div`
