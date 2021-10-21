@@ -94,7 +94,7 @@ const updatePostMiddleware = (postId, postInfo) => {
       .updatePost(postId, postInfo)
       .then(res => {
         console.log(res)
-        dispatch(updatePost(postId, postInfo))
+        dispatch(updatePost(postId, res.data.post));
       })
       .catch(err => {
         console.log(err)
@@ -191,7 +191,7 @@ export default handleActions(
     [UPDATE_POST]: (state, action) =>
       produce(state, draft => {
         let idx = draft.postList.indexOf(p => p.postId === action.payload.postId);
-        draft.postList[idx] = {...draft.postList[idx], ...action.payload.post};
+        draft.postList[idx + 1] = action.payload.post;
       }),
     [SET_DETAILPOSTID]: (state, action) =>
       produce(state, draft => {

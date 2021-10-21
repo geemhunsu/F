@@ -13,7 +13,7 @@ import { userCreators } from '../redux/modules/user';
 
 
 const ImageUpload = (props) => {
-  const {_uploadToAws} = props;
+  
   const dispatch = useDispatch();
 
   const profilePreview = useSelector(state => state.image.profilePreview)  

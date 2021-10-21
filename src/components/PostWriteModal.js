@@ -24,17 +24,17 @@ import { IconContext } from 'react-icons';
 import { FaCheck } from 'react-icons/fa';
 import { MdOutlineCancel } from 'react-icons/md';
 
-const PostWriteModal = (props) => {  
+const PostWriteModal = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user);
   const postPreview = useSelector((state) => state.image.postPreview);
   const postId = useSelector(state => state.post?.detailPostId);
   const postList = useSelector(state => state.post?.postList);
-  const detailPost = postList.find(post => post.postId === postId); 
-  const [content, setContent] = React.useState(detailPost?.content);
-  const [labelDisplay, setLabelDisplay] = React.useState(detailPost ? 'none' : 'block');
-  const [previewDisplay, setPreviewDisplay] = React.useState(detailPost ? 'block' : 'none');  
-  const imgUrl = useSelector((state) => state.image.previewFullName);  
+  const detailPost = postList.find(post => post.postId === postId);
+  const [content, setContent] = React.useState('');
+  const [labelDisplay, setLabelDisplay] = React.useState('');
+  const [previewDisplay, setPreviewDisplay] = React.useState('');
+  const imgUrl = useSelector((state) => state.image.previewFullName);
 
 
   React.useEffect(() => {
@@ -76,34 +76,43 @@ const PostWriteModal = (props) => {
   });
 
   const addPost = () => {
-    const awsUpload = new AWS.S3.ManagedUpload({
-      params: {
-        Bucket: 'hanghae-miniproject-team2-imagebucket',
-        Key: `${postPreview.fileName}.${postPreview.fileType}`,
-        Body: postPreview.file,
-        ACL: 'public-read',
-      },
-    });
-    const promise = awsUpload.promise();
-    promise
-      .then((data) => {})
-      .catch((err) => {
-        window.alert('업로드 실패');
-      })
-      .then((data) => {
-        const postInfo = {
-          content: content,
-          imageUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${postPreview.fileFullName}`,
-        };
-        if(detailPost === undefined){
-          dispatch(postCreators.addPostMiddleware(postInfo));
-        } else {
-          dispatch(postCreators.updatePostMiddleware(postId, postInfo))
-        }
-        modalClose();
-        setLabelDisplay('block');
-        setPreviewDisplay('none');
+    if (postPreview) {
+      const awsUpload = new AWS.S3.ManagedUpload({
+        params: {
+          Bucket: 'hanghae-miniproject-team2-imagebucket',
+          Key: `${postPreview.fileName}.${postPreview.fileType}`,
+          Body: postPreview.file,
+          ACL: 'public-read',
+        },
       });
+      const promise = awsUpload.promise();
+      promise
+        .then((data) => { })
+        .catch((err) => {
+          window.alert('업로드 실패');
+        })
+        .then((data) => {
+          const postInfo = {
+            content: content,
+            imageUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${postPreview.fileFullName}`,
+          };
+          if (detailPost === undefined) {
+            dispatch(postCreators.addPostMiddleware(postInfo));
+          } else {
+            dispatch(postCreators.updatePostMiddleware(postId, postInfo))
+          }          
+        });
+    } else {
+      const postInfo = {
+        content: content,
+        imageUrl: detailPost.imageUrl,
+      };
+      dispatch(postCreators.updatePostMiddleware(postId, postInfo))
+    }
+    modalClose();
+    setLabelDisplay('block');
+    setPreviewDisplay('none');
+
   };
 
   const previewDelete = () => {
@@ -113,7 +122,7 @@ const PostWriteModal = (props) => {
 
   //모달
   const { openModal, setModal } = props;
-  const modalClose = () => {    
+  const modalClose = () => {
     console.log(detailPost)
     setModal(false);
   };
@@ -210,7 +219,7 @@ const PostWriteModal = (props) => {
                   id='postPreviewBox'
                 >
                   <Image
-                    src={postPreview?.preview}
+                    src={postPreview ? postPreview.preview : detailPost?.imageUrl}
                     shape='square'
                     margin='0 0 5px 0'
                     backgroundPosition='center'
