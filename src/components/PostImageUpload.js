@@ -15,11 +15,7 @@ import { userCreators } from '../redux/modules/user';
 const PostImageUpload = () => {
   const dispatch = useDispatch();
 
-  const preview = useSelector(state => state.image.preview)
-  const previewName = useSelector(state => state.image.previewName)
-  const previewType = useSelector(state => state.image.previewType)
-  const previewFullName = useSelector(state => state.image.previewFullName)
-  const previewFile = useSelector(state => state.image.previewFile)
+  const postPreview = useSelector(state => state.image.postPreview);
 
   const [labelDisplay, setLabelDisplay] = React.useState('block');
   const [previewDisplay, setPreviewDisplay] = React.useState('none');
@@ -33,8 +29,8 @@ const PostImageUpload = () => {
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      dispatch(imageActions.setPreview(reader.result, fileName, fileType, fileFullName, file));
+    reader.onloadend = () => {      
+      dispatch(imageActions.setPostPreview({ preview: reader.result, fileName, fileType, fileFullName, file}));
     }
     console.log('사진 변경')
 
@@ -53,8 +49,8 @@ const PostImageUpload = () => {
     const awsUpload = new AWS.S3.ManagedUpload({
       params: {
         Bucket: 'hanghae-miniproject-team2-imagebucket',
-        Key: `${previewName}.${previewType}`,
-        Body: previewFile,
+        Key: `${postPreview.fileName}.${postPreview.fileType}`,
+        Body: postPreview.file,
         ACL: "public-read",
       }
     })
@@ -64,7 +60,7 @@ const PostImageUpload = () => {
       window.alert('업로드 실패')
     }).then(data => {
       dispatch(userCreators.updateProfileMW({
-        imageUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${previewFullName}`
+        imageUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${postPreview.fileFullName}`
       }));
       setLabelDisplay('block');
       setPreviewDisplay('none');
@@ -90,8 +86,8 @@ const PostImageUpload = () => {
               프로필 사진 수정
             </Grid>
           </label>
-          <Grid height='auto' position='relative' display={previewDisplay} id='previewBox'>
-            <Image src={preview} shape='square' margin='0 0 5px 0' backgroundPosition='center'
+          <Grid height='auto' position='relative' display={previewDisplay} id='postPreviewBox'>
+            <Image src={postPreview?.preview} shape='square' margin='0 0 5px 0' backgroundPosition='center'
             />
             <label htmlFor='postFileInput' id='inputLabelButton' >
               <Grid display='flex' alignItems='center' justifyContent='center' hover='#e1e2e7'
@@ -140,18 +136,28 @@ const Wrap = styled.div`
     }
   }
 
-  #previewBox {
-    :hover {
-      background-color: rgba(0, 0, 0, 0.1);      
+  #postPreviewBox {
+    :hover::after {
+      content: '';
+      display: block;
+      background-color: rgba(0, 0, 0, 0.1);
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
     :hover #inputLabelButton {
       display: block;
+      z-index: 1;
     }
     :hover #submitImage {
       display: flex;
+      z-index: 1;
     }
     :hover #deletePreview {
       display: flex;
+      z-index: 1;
     }
   }
 

@@ -29,7 +29,7 @@ instance.interceptors.request.use(
     config.headers = {
       'content-type': 'application/json;charset=UTF-8',
       accept: 'application/json',
-      Authorization: `Bearer ${cookie}`,
+      Authorization: `Bearer ${cookieSplit}`,
     };
     return config;
   },
