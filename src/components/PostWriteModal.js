@@ -86,6 +86,7 @@ const PostWriteModal = (props) => {
           imageUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${postPreview.fileFullName}`,
         };
         dispatch(postCreators.addPostMiddleware(postInfo));
+        modalClose();
         setLabelDisplay('block');
         setPreviewDisplay('none');
       });
@@ -343,6 +344,7 @@ const Wrap = styled.div`
     background-color: #f7f8fa;
     font-size: 0.875rem;
     text-align: center;
+    overflow: hidden;
 
     :hover {
       display: block;
