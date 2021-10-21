@@ -9,6 +9,7 @@ import UserInfoModal from './UserInfoModal';
 import Header from './Header';
 import UserList from './UserList';
 import ImageUpload from './ImageUpload';
+import PostImageUpload from './PostImageUpload'
 import DeleteModal from './DeleteModal';
 
 export {
@@ -23,5 +24,6 @@ export {
   UserInfoModal,
   UserList,
   ImageUpload,
+  PostImageUpload,
   DeleteModal,
 };
