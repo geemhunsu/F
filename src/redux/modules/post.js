@@ -1,7 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import { apis } from '../../lib/axios';
-import PostWrite from '../../components/PostWrite';
 
 const ADD_POST = 'ADD_POST';
 const GET_POST = 'GET_POST';
@@ -19,15 +18,27 @@ const initialState = {
 
 const addPostMiddleware = postInfo => {
   console.log(postInfo);
-
   return (dispatch, getState, { history }) => {
-    let _user = getState().user;
-    let post = {};
+    // let _user = getState().user;
+    // console.log(_user);
+    // let post = {
+    //   postId: '',
+    //   commentCount: 0,
+    //   commnet: [],
+    //   content: postInfo.content,
+    //   createdAt: '',
+    //   firstName: _user.firstName,
+    //   lastName: _user.lastName,
+    //   image_url: postInfo.imageUrl,
+    //   likeCount: 0,
+    //   liked: false,
+    //   postId: '',
+    // };
     apis
       .addPost(postInfo)
       .then(res => {
-        console.log(res);
-        dispatch(addPost(post));
+        console.log(res.data);
+        dispatch(addPost(res.data));
         history.push('/main');
       })
       .catch(err => {
@@ -88,7 +99,7 @@ export default handleActions(
     [ADD_POST]: (state, action) =>
       produce(state, draft => {
         console.log(action.payload);
-        draft.postList.unshift(action.payload.posts);
+        draft.postList.unshift(action.payload.post);
       }),
 
     [GET_POST]: (state, action) =>
