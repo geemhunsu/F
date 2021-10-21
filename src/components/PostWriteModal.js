@@ -18,7 +18,9 @@ import { PostImageUpload } from '.';
 const PostWriteModal = props => {
   const dispatch = useDispatch();
   const [content, setContent] = React.useState();
-  const [disable, setDisable] = React.useState();
+  const imgUrl = useSelector(state => state.image.previewFullName);
+  console.log(imgUrl);
+  // const [disable, setDisable] = React.useState();
 
   const { openModal, setModal } = props;
   const modalClose = () => {
@@ -30,7 +32,7 @@ const PostWriteModal = props => {
   const addPost = () => {
     const postInfo = {
       content: content,
-      imageUrl: 'https://images.unsplash.com/photo-1524650359799-842906ca1c06?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80',
+      imageUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${imgUrl}`,
     };
     console.log(postInfo);
     dispatch(postCreators.addPostMiddleware(postInfo));
@@ -43,7 +45,7 @@ const PostWriteModal = props => {
             <Grid position='absolute' top='-10px' right='20px' color='black' width='20px' padding='10px'>
               <AiFillCloseCircle size='30' color='#ddd' onClick={modalClose} />
             </Grid>
-            <Text align='center' size='20px' bold='800' margin='-10px 0' justifyContent='center'>
+            <Text align='center' size='20px' bold='800' margin='-10px 0'>
               게시물 만들기
             </Text>
           </Grid>
@@ -95,9 +97,11 @@ const PostWriteModal = props => {
           _onClick={() => {
             addPost();
           }}
-          backgroundColor='#F1F4F6'
-          color='#ddd'
+          margin='15px 0 5px 0'
+          backgroundColor='#1877f2'
+          color='#fff'
           text='게시'
+          fontSize='15px'
           borderRadius='5px'
         />
       </ModalWrap>
