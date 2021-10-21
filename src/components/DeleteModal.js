@@ -42,7 +42,7 @@ const DeleteModal = (props) => {
               margin='0px 5px'
               _onClick={() => {
                 console.log(postId);
-                // dispatch(postCreators.deletePostMiddleware(postId));
+                dispatch(postCreators.deletePostMiddleware(postId));
                 onClose();
               }}
             >
