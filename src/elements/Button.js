@@ -1,8 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = props => {
-  const { color, text, _onClick, isFloat, children, margin, width, padding, backgroundColor, height, fontSize, borderRadius, top, bottom, left, right } = props;
+const Button = (props) => {
+  const {
+    color,
+    text,
+    _onClick,
+    isFloat,
+    children,
+    margin,
+    width,
+    padding,
+    backgroundColor,
+    height,
+    fontSize,
+    borderRadius,
+    top,
+    bottom,
+    left,
+    right,
+    hover,
+  } = props;
 
   if (isFloat) {
     return (
@@ -25,6 +43,7 @@ const Button = props => {
     bottom,
     left,
     right,
+    hover,
   };
 
   return (
@@ -51,39 +70,46 @@ Button.defaultProps = {
   bottom: null,
   left: null,
   right: null,
+  hover: null,
 };
 
 const ElButton = styled.button`
-  width: ${props => props.width};
-  color: ${props => props.color};
-  padding: ${props => props.padding};
-  height: ${props => props.height};
-  font-size: ${props => props.fontSize};
-  margin: ${props => props.margin};
-  ${props => (props.backgroundColor ? `background-color:${props.backgroundColor}` : 'background-color: blue')};
+  width: ${(props) => props.width};
+  color: ${(props) => props.color};
+  padding: ${(props) => props.padding};
+  height: ${(props) => props.height};
+  font-size: ${(props) => props.fontSize};
+  margin: ${(props) => props.margin};
+  ${(props) =>
+    props.backgroundColor
+      ? `background-color:${props.backgroundColor}`
+      : 'background-color: blue'};
   box-sizing: border-box;
   border-radius: 5px;
   font-weight: bold;
   border: none;
-  ${props => (props.borderRadius ? `border-radius:${props.borderRadius}` : 'border-radius: 0px')};
+  ${(props) =>
+    props.borderRadius
+      ? `border-radius:${props.borderRadius}`
+      : 'border-radius: 0px'};
   cursor: pointer;
   flex-shrink: 0;
   &:hover {
-    background-color: whitesmoke;
+    background-color: ${(props) => props.hover};
   }
   vertical-align: middle;
-  top: ${props => props.top};
-  bottom: ${props => props.bottom};
-  left: ${props => props.left};
-  right: ${props => props.right};
-  position: ${props => props.position};
+  top: ${(props) => props.top};
+  bottom: ${(props) => props.bottom};
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
+  position: ${(props) => props.position};
 `;
 
 const FloatButton = styled.div`
   width: 50px;
   height: 50px;
   background-color: #ffffff;
-  color: ${props => props.color};
+  color: ${(props) => props.color};
   box-sizing: border-box;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
   font-size: 36px;
