@@ -8,7 +8,7 @@ import { Grid, Text, Button } from '../elements';
 const DeleteModal = (props) => {
   const dispatch = useDispatch();
 
-  const { onClose, postId } = props;
+  const { onClose, postId, commentId, type } = props;
 
   function useLockBodyScroll() {
     React.useLayoutEffect(() => {
@@ -22,6 +22,76 @@ const DeleteModal = (props) => {
   }
 
   useLockBodyScroll();
+
+  console.log(type);
+
+  if (type === 'comment') {
+    return (
+      <React.Fragment>
+        <ModalBg onClick={onClose}>
+          <ModalWrapper
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <Grid display='flex' justifyContent='space-between'>
+              <Text size='20px' margin='0px'>
+                삭제하시겠어요?
+              </Text>
+              <Button
+                width='35px'
+                height='35px'
+                margin='0px'
+                _onClick={onClose}
+                padding='0px'
+                borderRadius='50%'
+                backgroundColor='whitesmoke'
+                color='dimgray'
+                hover='lightgray'
+                fontSize='0.93rem'
+              >
+                ✖
+              </Button>
+            </Grid>
+            <ButtonWrapper>
+              <Button
+                width='55px'
+                height='36px'
+                margin='0px 5px'
+                padding='0px'
+                backgroundColor='white'
+                borderRadius='5px'
+                color='dodgerblue'
+                hover='whitesmoke'
+                fontSize='0.93rem'
+                _onClick={onClose}
+              >
+                취소
+              </Button>
+              <Button
+                width='55px'
+                height='36px'
+                margin='0px 5px'
+                padding='0px'
+                backgroundColor='dodgerblue'
+                borderRadius='5px'
+                color='white'
+                hover='cornflowerblue'
+                fontSize='0.93rem'
+                _onClick={() => {
+                  console.log(commentId);
+                  dispatch(postCreators.deleteCommentMiddleware(commentId));
+                  onClose();
+                }}
+              >
+                확인
+              </Button>
+            </ButtonWrapper>
+          </ModalWrapper>
+        </ModalBg>
+      </React.Fragment>
+    );
+  }
 
   return (
     <React.Fragment>

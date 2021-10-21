@@ -13,7 +13,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  config => {
+  (config) => {
     const cookie = document.cookie;
     console.log(cookie);
     if (cookie === '') {
@@ -33,18 +33,21 @@ instance.interceptors.request.use(
     };
     return config;
   },
-  err => {
+  (err) => {
     console.log(err);
   }
 );
 
 instance.interceptors.response.use(
-  success => {
+  (success) => {
     console.log(success);
     const response = success.data;
     console.log(response.token);
 
-    if (response.statusCode === 200 && response.responseMessage === '로그인 성공') {
+    if (
+      response.statusCode === 200 &&
+      response.responseMessage === '로그인 성공'
+    ) {
       let userCookie = success.data.token;
       console.log(userCookie);
       setCookie('user_id', userCookie, 3);
@@ -52,28 +55,43 @@ instance.interceptors.response.use(
       history.push('/main');
     }
 
-    if (response.statusCode === 200 && response.responseMessage === '게시글 조회 성공') {
+    if (
+      response.statusCode === 200 &&
+      response.responseMessage === '게시글 조회 성공'
+    ) {
       return response.posts;
     }
 
     return success;
   },
-  error => {
+  (error) => {
     console.log(error.response);
     //비밀번호가 비워있을 떄
-    if (error.statusCode === 400 && error.responseMessage === '비밀번호를 입력해주세요') {
+    if (
+      error.statusCode === 400 &&
+      error.responseMessage === '비밀번호를 입력해주세요'
+    ) {
       window.alert('비밀번호를 입력해주세요');
     }
 
-    if (error.statusCode === 400 && error.responseMessage === '이름을 입력해주세요') {
+    if (
+      error.statusCode === 400 &&
+      error.responseMessage === '이름을 입력해주세요'
+    ) {
       window.alert('이름을 입력해주세요');
     }
     //올바르지 않은 이메일 형식
-    if (error.statusCode === 400 && error.responseMessage === '이메일 형식이 올바르지 않습니다') {
+    if (
+      error.statusCode === 400 &&
+      error.responseMessage === '이메일 형식이 올바르지 않습니다'
+    ) {
       window.alert('이메일 형식이 올바르지 않습니다');
     }
 
-    if (error.statusCode === 400 && error.responseMessage === '비밀번호는 6~20자리로 해주세요') {
+    if (
+      error.statusCode === 400 &&
+      error.responseMessage === '비밀번호는 6~20자리로 해주세요'
+    ) {
       window.alert('비밀번호는 6~20자리로 해주세요');
     }
 
@@ -83,20 +101,23 @@ instance.interceptors.response.use(
 
 export const apis = {
   //회원가입 및 로그인 관련 api
-  login: loginInfo => instance.post('/user/login', loginInfo),
-  signup: registerInfo => instance.post('/user/register', registerInfo),
+  login: (loginInfo) => instance.post('/user/login', loginInfo),
+  signup: (registerInfo) => instance.post('/user/register', registerInfo),
 
   // 유저 관련 api
-  updateProfileImg: imageUrl => instance.put(`/user/image`, imageUrl),
+  updateProfileImg: (imageUrl) => instance.put(`/user/image`, imageUrl),
   getUserInfo: () => instance.get('/user/info'),
   getAllUserList: () => instance.get('/user/list'),
 
   //포스트 관련 api
-  getPost: page => instance.get(`/post?page=${page}`),
+  getPost: () => instance.get('/post'),
   //data.json용
   // getPost: () => instance.get(`/post`),
-  addPost: postInfo => instance.post(`/post`, postInfo),
-  deletePost: postId => instance.delete(`/post/${postId}`),
-  clickLike: postId => instance.post(`/post/${postId}/like`),
-  addComment: commentInfo => instance.post('comment', commentInfo),
+  addPost: (postInfo) => instance.post(`/post`),
+  deletePost: (postId) => instance.delete(`/post/${postId}`),
+  clickLike: (postId) => instance.post(`/post/${postId}/like`),
+  addComment: (commentInfo) => instance.post('/comment', commentInfo),
+  deleteComment: (commentId) => instance.delete(`/comment/${commentId}`),
+  editComment: (commentId, content) =>
+    instance.put(`/comment/${commentId}`, content),
 };

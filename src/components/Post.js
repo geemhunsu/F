@@ -14,8 +14,9 @@ import { VscRunAll, VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 const Post = () => {
   const inputs = React.useRef([]);
   const dispatch = useDispatch();
+  const loginInfo = useSelector((state) => state.user.userId);
   React.useEffect(() => {
-    dispatch(postCreators.getPostMiddleware(1));
+    dispatch(postCreators.getPostMiddleware());
   }, []);
   const postList = useSelector((state) => state.post.postList);
   const [shownComments, setShownComments] = React.useState({});
@@ -31,6 +32,22 @@ const Post = () => {
     setShownModal((prevShownModals) => ({
       ...prevShownModals,
       [id]: !prevShownModals[id],
+    }));
+  };
+
+  const [shownCommentModal, setShownCommentModal] = React.useState({});
+  const toggleCommentDelete = (id) => {
+    setShownCommentModal((prevShownCommentModals) => ({
+      ...prevShownCommentModals,
+      [id]: !prevShownCommentModals[id],
+    }));
+  };
+
+  const [editComment, setEditComment] = React.useState({});
+  const toggleEditComment = (id) => {
+    setEditComment((prevComments) => ({
+      ...prevComments,
+      [id]: !prevComments[id],
     }));
   };
 
@@ -224,7 +241,7 @@ const Post = () => {
                   alignItems='center'
                   padding='0px 10px'
                 >
-                  <Text margin='5px'>댓글 {val.commentCount}개 더 보기</Text>
+                  <Text margin='5px'>댓글 {val.commentCount}개</Text>
                   <Text
                     margin='5px'
                     _onClick={() => {
@@ -248,29 +265,133 @@ const Post = () => {
                 {shownComments[idx] ? (
                   postList[idx].comments.map((val, idx) => {
                     return (
-                      <Grid
-                        width='90%'
-                        display='flex'
-                        alignItems='center'
-                        padding='0px 10px'
-                        key={val.postId + val.createdAt}
-                      >
-                        <Image
-                          shape='circle'
-                          margin='10px'
-                          src={val.userImageUrl}
-                        />
-                        <Grid
-                          width='100%'
-                          height='40px'
-                          margin='10px 0px 0px 0px'
-                          bg='whitesmoke'
-                          borderRadius='10px'
-                          padding='5px'
-                        >
-                          {val.content}
-                        </Grid>
-                      </Grid>
+                      <div key={val.postId + val.createdAt}>
+                        {/* {console.log(loginInfo, val.userId, editComment[idx])} */}
+                        {loginInfo === val.userId && editComment[idx] ? (
+                          <Grid
+                            width='100%'
+                            display='flex'
+                            alignItems='center'
+                            padding='0px 10px'
+                          >
+                            <Image
+                              shape='circle'
+                              margin='10px'
+                              src={val.userImageUrl}
+                            />
+                            <Input
+                              width='90%'
+                              height='30px'
+                              bg='whitesmoke'
+                              border='none'
+                              borderRadius='10px'
+                              edit
+                              placeholder={val.content}
+                              innerRef={(input) =>
+                                (inputs.current[idx] = input)
+                              }
+                              _onChange={(e) => {
+                                // console.log(e.target.value);
+                                setComment(e.target.value);
+                              }}
+                              onSubmit={() => {
+                                console.log('onSubmit');
+                                if (comment === '') {
+                                  return;
+                                }
+                                setComment('');
+                                console.log(val.commentId, comment);
+                                const commentInfo = {
+                                  content: comment,
+                                };
+                                dispatch(
+                                  postCreators.editCommentMiddleware(
+                                    val.commentId,
+                                    commentInfo
+                                  )
+                                );
+
+                                inputs.current[idx].value = '';
+                                toggleEditComment(idx);
+                              }}
+                            />
+                          </Grid>
+                        ) : (
+                          <Grid
+                            width='90%'
+                            display='flex'
+                            alignItems='center'
+                            padding='0px 10px'
+                            margin='auto'
+                            justifyContent='space-between'
+                          >
+                            <Image
+                              shape='circle'
+                              margin='10px'
+                              src={val.userImageUrl}
+                            />
+                            <Grid
+                              width='70%'
+                              height='40px'
+                              margin='10px 0px 0px 0px'
+                              bg='whitesmoke'
+                              borderRadius='10px'
+                              padding='5px'
+                              display='flex'
+                              flexDirection='column'
+                            >
+                              <Text bold size='14px'>
+                                {val.lastName + val.firstName}
+                              </Text>
+                              {val.content}
+                            </Grid>
+                            <Grid
+                              display='flex'
+                              justifyContent='center'
+                              width='20%'
+                            >
+                              <Button
+                                width='30px'
+                                height='30px'
+                                padding='0px'
+                                borderRadius='50%'
+                                backgroundColor='white'
+                                margin='5px'
+                                hover='whitesmoke'
+                                _onClick={() => {
+                                  // setEditComment(true);
+                                  toggleEditComment(idx);
+                                }}
+                              >
+                                <AiFillEdit color='black' display='inline' />
+                              </Button>
+                              <Button
+                                width='30px'
+                                height='30px'
+                                padding='0px'
+                                borderRadius='50%'
+                                backgroundColor='white'
+                                margin='5px'
+                                hover='whitesmoke'
+                                _onClick={() => {
+                                  toggleCommentDelete(idx);
+                                }}
+                              >
+                                <AiFillDelete color='black' display='inline' />
+                              </Button>
+                            </Grid>
+                          </Grid>
+                        )}
+                        {shownCommentModal[idx] && (
+                          <DeleteModal
+                            onClose={() => {
+                              toggleCommentDelete(idx);
+                            }}
+                            commentId={val.commentId}
+                            type='comment'
+                          />
+                        )}
+                      </div>
                     );
                   })
                 ) : postList[idx].comments.length !== 0 ? (
@@ -278,6 +399,7 @@ const Post = () => {
                     width='90%'
                     display='flex'
                     alignItems='center'
+                    margin='auto'
                     padding='0px 10px'
                   >
                     <Image
@@ -290,19 +412,42 @@ const Post = () => {
                       }
                     />
                     <Grid
-                      width='100%'
+                      width='90%'
                       height='40px'
                       margin='10px 0px 0px 0px'
                       bg='whitesmoke'
                       borderRadius='10px'
                       padding='5px'
+                      display='flex'
+                      flexDirection='column'
                     >
+                      <Text bold size='14px'>
+                        {postList[idx].comments[
+                          postList[idx].comments.length - 1
+                        ].lastName +
+                          postList[idx].comments[
+                            postList[idx].comments.length - 1
+                          ].firstName}
+                      </Text>
                       {
                         postList[idx].comments[
                           postList[idx].comments.length - 1
                         ].content
                       }
                     </Grid>
+                    {shownCommentModal[idx] && (
+                      <DeleteModal
+                        onClose={() => {
+                          toggleCommentDelete(idx);
+                        }}
+                        commentId={
+                          postList[idx].comments[
+                            postList[idx].comments.length - 1
+                          ].commentId
+                        }
+                        type='comment'
+                      />
+                    )}
                   </Grid>
                 ) : null}
                 <Grid
