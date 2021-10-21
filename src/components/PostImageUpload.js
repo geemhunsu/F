@@ -12,7 +12,7 @@ import { actionCreators as imageActions } from '../redux/modules/image';
 import { userCreators } from '../redux/modules/user';
 
 
-const ImageUpload = () => {
+const PostImageUpload = () => {
   const dispatch = useDispatch();
 
   const preview = useSelector(state => state.image.preview)
@@ -80,7 +80,7 @@ const ImageUpload = () => {
     <React.Fragment>
       <Grid>
         <Wrap>
-          <label htmlFor='fileInput' id='inputLabel' style={{ display: labelDisplay }}>
+          <label htmlFor='postFileInput' id='inputLabel' style={{ display: labelDisplay }}>
             <Grid display='flex' alignItems='center' justifyContent='center'
               flexDirection='column'>
               <Grid width='40px' height='40px' bg='#e4e6eb' borderRadius='20px' margin='0 0 8px 0'
@@ -93,7 +93,7 @@ const ImageUpload = () => {
           <Grid height='auto' position='relative' display={previewDisplay} id='previewBox'>
             <Image src={preview} shape='square' margin='0 0 5px 0' backgroundPosition='center'
             />
-            <label htmlFor='fileInput' id='inputLabelButton' >
+            <label htmlFor='postFileInput' id='inputLabelButton' >
               <Grid display='flex' alignItems='center' justifyContent='center' hover='#e1e2e7'
                 bg='white' borderRadius='5px' width='auto' padding='5px 10px'>
                 <EditIcon />
@@ -116,7 +116,7 @@ const ImageUpload = () => {
               </IconContext.Provider>
             </Grid>
           </Grid>
-          <input type='file' id='fileInput' onChange={selectFile} />
+          <input type='file' id='postFileInput' onChange={selectFile} />
         </Wrap>
       </Grid>
     </React.Fragment>
@@ -188,4 +188,4 @@ const EditIcon = styled.i`
   margin-right: 5px;
 `;
 
-export default ImageUpload;
+export default PostImageUpload;

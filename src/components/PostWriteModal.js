@@ -13,6 +13,7 @@ import writeTypeIcon from '../images/writetypeicon.png';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPhotos } from 'react-icons/io';
 import { IoEllipsisHorizontalSharp } from 'react-icons/io5';
+import { PostImageUpload } from '.';
 
 const PostWriteModal = props => {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ const PostWriteModal = props => {
             />
           </Grid>
           <Grid width='100%' margin='0 -10px'>
-            <ImageUpload />
+            <PostImageUpload />
           </Grid>
           <Grid width='450px' display='flex' justifyContent='space-between' alignItems='center'>
             <Image src={writeTypeIcon} />

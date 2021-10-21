@@ -1,7 +1,5 @@
 import React from 'react';
-import { BsFacebook } from 'react-icons/bs'
-import { IconContext } from "react-icons";
-import { Grid, Text, Image, Button, Input } from '../elements';
+import { Grid } from '../elements';
 import { HeaderSub, HeaderCenter, HeaderLeft, UserInfoModal } from "../components"
 
 const Header = (props) => {
