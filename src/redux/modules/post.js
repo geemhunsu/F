@@ -10,6 +10,8 @@ const DELETE_POST = 'DELETE_POST';
 const CLICK_LIKE = 'CLICK_LIKE';
 const ADD_COMMENT = 'ADD_COMMENT';
 const SET_DETAILPOSTID = 'SET_DETAILPOSTID';
+const DELETE_COMMENT = 'DELETE_COMMENT';
+const EDIT_COMMENT = 'EDIT_COMMENT';
 
 const getPost = createAction(GET_POST, posts => ({ posts }));
 const addPost = createAction(ADD_POST, post => ({ post }));
@@ -21,6 +23,14 @@ const addComment = createAction(ADD_COMMENT, (commentInfo, postId) => ({
   postId,
 }));
 const setDetailPostId = createAction(SET_DETAILPOSTID, postId => ({ postId }));
+const deleteComment = createAction(DELETE_COMMENT, (commentId, postId) => ({
+  commentId,
+  postId,
+}));
+const editComment = createAction(EDIT_COMMENT, (commentInfo, postId) => ({
+  commentInfo,
+  postId,
+}));
 
 const initialState = {
   postList: [],
@@ -134,6 +144,36 @@ const addCommentMiddleware = commentInfo => {
   };
 };
 
+const deleteCommentMiddleware = (commentId) => {
+  return (dispatch) => {
+    apis
+      .deleteComment(commentId)
+      .then((res) => {
+        console.log(res);
+
+        dispatch(deleteComment(commentId, res.data.postId));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+const editCommentMiddleware = (commentId, contentInfo) => {
+  return (dispatch) => {
+    console.log(commentId, contentInfo);
+    apis
+      .editComment(commentId, contentInfo)
+      .then((res) => {
+        console.log(res);
+        dispatch(editComment(res.data.comment, res.data.postId));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 export default handleActions(
   {
     [GET_POST]: (state, action) =>
@@ -197,6 +237,40 @@ export default handleActions(
         draft.postList[numArr[0]].comments.push(action.payload.commentInfo);
         draft.postList[numArr[0]].commentCount += 1;
       }),
+    [DELETE_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        let numArr = [];
+        draft.postList.filter((val, idx) => {
+          if (val.postId === action.payload.postId) {
+            return numArr.push(idx);
+          }
+        });
+        let cleanArr = [];
+        draft.postList[numArr[0]].comments.filter((val, idx) => {
+          if (val.commentId !== action.payload.commentId) {
+            return cleanArr.push(val);
+          }
+        });
+        draft.postList[numArr[0]].comments = cleanArr;
+      }),
+    [EDIT_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        let numArr = [];
+        draft.postList.filter((val, idx) => {
+          if (val.postId === action.payload.postId) {
+            return numArr.push(idx);
+          }
+        });
+        let editArr = [];
+        draft.postList[numArr[0]].comments.filter((val, idx) => {
+          if (val.commentId === action.payload.commentInfo.commentId) {
+            editArr.push(action.payload.commentInfo);
+          } else {
+            editArr.push(val);
+          }
+        });
+        draft.postList[numArr[0]].comments = editArr;
+      }),
   },
   initialState
 );
@@ -209,6 +283,8 @@ const postCreators = {
   clickLikeMiddleware,
   addCommentMiddleware,
   setDetailPostId,
+  deleteCommentMiddleware,
+  editCommentMiddleware,
 };
 
 export { postCreators };
