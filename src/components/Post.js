@@ -9,7 +9,7 @@ import { postCreators } from '../redux/modules/post';
 import { AiOutlineLike, AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { RiShareForwardLine } from 'react-icons/ri';
 import { FaRegCommentDots } from 'react-icons/fa';
-import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
+import { VscRunAll, VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 
 const Post = () => {
   const inputs = React.useRef([]);
@@ -34,12 +34,14 @@ const Post = () => {
     }));
   };
 
+  const [comment, setComment] = React.useState('');
+
   return (
     <React.Fragment>
       {postList.map((val, idx) => {
         return (
-          <div key={val.postId + val.createdAt}>
-            <PostWrapper >
+          <div key={val.postId}>
+            <PostWrapper>
               <Grid
                 width='95%'
                 height='50px'
@@ -65,6 +67,7 @@ const Post = () => {
                     borderRadius='50%'
                     backgroundColor='white'
                     margin='5px'
+                    hover='whitesmoke'
                   >
                     <AiFillEdit color='black' display='inline' />
                   </Button>
@@ -75,6 +78,7 @@ const Post = () => {
                     borderRadius='50%'
                     backgroundColor='white'
                     margin='5px'
+                    hover='whitesmoke'
                     _onClick={() => {
                       toggleDelete(idx);
                     }}
@@ -85,7 +89,9 @@ const Post = () => {
               </Grid>
               <Grid width='100%' margin='0px'>
                 <Text margin='0px 0px 0px 10px'>{val.content}</Text>
-                <Image shape='square' src={val.imageUrl} />
+                {val.imageUrl ? (
+                  <Image shape='square' src={val.imageUrl} />
+                ) : null}
               </Grid>
               <Grid
                 width='95%'
@@ -101,6 +107,9 @@ const Post = () => {
                     height='30px'
                     padding='0px'
                     backgroundColor='white'
+                    _onClick={() => {
+                      dispatch(postCreators.clickLikeMiddleware(val.postId));
+                    }}
                   >
                     👍
                   </Button>
@@ -131,6 +140,8 @@ const Post = () => {
                     padding='0px'
                     margin='0px'
                     borderRadius='5px'
+                    hover='whitesmoke'
+                    fontSize='0.93rem'
                     _onClick={() => {
                       dispatch(postCreators.clickLikeMiddleware(val.postId));
                     }}
@@ -149,6 +160,8 @@ const Post = () => {
                     padding='0px'
                     margin='0px'
                     borderRadius='5px'
+                    hover='whitesmoke'
+                    fontSize='0.93rem'
                     _onClick={() => {
                       dispatch(postCreators.clickLikeMiddleware(val.postId));
                     }}
@@ -167,8 +180,11 @@ const Post = () => {
                   padding='0px'
                   margin='0px'
                   borderRadius='5px'
+                  hover='whitesmoke'
+                  fontSize='0.93rem'
                   _onClick={() => {
                     inputs.current[idx].focus();
+                    console.log(val.postId);
                   }}
                 >
                   <FaRegCommentDots color='gray' />
@@ -184,6 +200,8 @@ const Post = () => {
                   padding='0px'
                   margin='0px'
                   borderRadius='5px'
+                  hover='whitesmoke'
+                  fontSize='0.93rem'
                   _onClick={() => {
                     alert('링크 복사 완료!');
                   }}
@@ -214,7 +232,7 @@ const Post = () => {
                     }}
                     cursor='pointer'
                   >
-                    {shownComments[idx] ? (
+                    {shownComments[idx] && val.comments.length !== 0 ? (
                       <div>
                         댓글 숨기기
                         <VscTriangleUp />
@@ -227,69 +245,66 @@ const Post = () => {
                     )}
                   </Text>
                 </Grid>
-                {
-                  shownComments[idx] && postList[idx]
-                    ? postList[idx].comments.map((val, idx) => {
-                        return (
-                          <Grid
-                            width='90%'
-                            display='flex'
-                            alignItems='center'
-                            padding='0px 10px'
-                            key={val.postId + val.createdAt}
-                          >
-                            <Image
-                              shape='circle'
-                              margin='10px'
-                              src={val.userImageUrl}
-                            />
-                            <Grid
-                              width='100%'
-                              height='40px'
-                              margin='10px 0px 0px 0px'
-                              bg='whitesmoke'
-                              borderRadius='10px'
-                              padding='5px'
-                            >
-                              {val.content}
-                            </Grid>
-                          </Grid>
-                        );
-                      })
-                    : null
-                  // : (
-                  //   <Grid
-                  //     width='90%'
-                  //     display='flex'
-                  //     alignItems='center'
-                  //     padding='0px 10px'
-                  //   >
-                  //     <Image
-                  //       shape='circle'
-                  //       margin='10px'
-                  //       src={
-                  //         postList[idx].comments[
-                  //           postList[idx].comments.length - 1
-                  //         ].userImageUrl
-                  //       }
-                  //     />
-                  //     <Grid
-                  //       width='100%'
-                  //       height='40px'
-                  //       margin='10px 0px 0px 0px'
-                  //       bg='whitesmoke'
-                  //       borderRadius='10px'
-                  //       padding='5px'
-                  //     >
-                  //       {
-                  //         postList[idx].comments[
-                  //           postList[idx].comments.length - 1
-                  //         ].content
-                  //       }
-                  //     </Grid>
-                  //   </Grid>
-                  // )
-                }
+                {shownComments[idx] ? (
+                  postList[idx].comments.map((val, idx) => {
+                    return (
+                      <Grid
+                        width='90%'
+                        display='flex'
+                        alignItems='center'
+                        padding='0px 10px'
+                        key={val.postId + val.createdAt}
+                      >
+                        <Image
+                          shape='circle'
+                          margin='10px'
+                          src={val.userImageUrl}
+                        />
+                        <Grid
+                          width='100%'
+                          height='40px'
+                          margin='10px 0px 0px 0px'
+                          bg='whitesmoke'
+                          borderRadius='10px'
+                          padding='5px'
+                        >
+                          {val.content}
+                        </Grid>
+                      </Grid>
+                    );
+                  })
+                ) : postList[idx].comments.length !== 0 ? (
+                  <Grid
+                    width='90%'
+                    display='flex'
+                    alignItems='center'
+                    padding='0px 10px'
+                  >
+                    <Image
+                      shape='circle'
+                      margin='10px'
+                      src={
+                        postList[idx].comments[
+                          postList[idx].comments.length - 1
+                        ].userImageUrl
+                      }
+                    />
+                    <Grid
+                      width='100%'
+                      height='40px'
+                      margin='10px 0px 0px 0px'
+                      bg='whitesmoke'
+                      borderRadius='10px'
+                      padding='5px'
+                    >
+                      {
+                        postList[idx].comments[
+                          postList[idx].comments.length - 1
+                        ].content
+                      }
+                    </Grid>
+                  </Grid>
+                ) : null}
                 <Grid
                   width='100%'
                   display='flex'
@@ -304,6 +319,22 @@ const Post = () => {
                     border='none'
                     borderRadius='10px'
                     innerRef={(input) => (inputs.current[idx] = input)}
+                    _onChange={(e) => {
+                      setComment(e.target.value);
+                    }}
+                    onSubmit={() => {
+                      console.log('onSubmit');
+                      if (comment === '') {
+                        return;
+                      }
+                      setComment('');
+                      const commentInfo = {
+                        postId: val.postId,
+                        content: comment,
+                      };
+                      dispatch(postCreators.addCommentMiddleware(commentInfo));
+                      inputs.current[idx].value = '';
+                    }}
                   />
                 </Grid>
               </Grid>
