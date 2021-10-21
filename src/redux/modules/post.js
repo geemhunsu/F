@@ -63,6 +63,7 @@ const addPostMiddleware = postInfo => {
       .addPost(postInfo)
       .then(res => {
         console.log(res.data.post);
+        console.log(res.data);
         dispatch(addPost(res.data.post));
         history.push('/main');
       })
@@ -125,7 +126,8 @@ export default handleActions(
     [ADD_POST]: (state, action) =>
       produce(state, draft => {
         console.log(action.payload);
-        draft.list.unshift(action.payload.posts.list);
+        console.log(draft);
+        draft.postList.unshift(action.payload.post);
       }),
     [DELETE_POST]: (state, action) =>
       produce(state, draft => {
