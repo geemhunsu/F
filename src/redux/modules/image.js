@@ -12,7 +12,7 @@ const setPreview = createAction(SET_PREVIEW, (preview, name, type, full, file) =
 // 초기값
 const initialState = {
     imageUrl: '',
-    uploading: false,
+    uploading: false,    
     preview: null,
     previewName: null,
     previewType: null,
@@ -35,7 +35,7 @@ export default handleActions({
         draft.previewType = action.payload.type;
         draft.previewFullName = action.payload.full;
         draft.previewFile = action.payload.file;        
-    }),
+    }),    
 
 }, initialState);
 

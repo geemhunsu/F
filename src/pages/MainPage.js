@@ -22,7 +22,7 @@ const MainPage = () => {
       <ResponsiveUserList>
         <UserList />
       </ResponsiveUserList>
-      <Grid width='100%' height='100%' bg='whitesmoke' padding='60px 0 10px 0'>
+      <Grid height='100%' bg='whitesmoke' padding='60px 0 10px 0'>
         <HeaderWrapper>
           <Header />
         </HeaderWrapper>
