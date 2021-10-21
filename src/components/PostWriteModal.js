@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { userCreators } from '../redux/modules/user';
+import { postCreators } from '../redux/modules/post';
 
 import { ImageUpload } from '.';
 import { Grid, Input, Text, Button, Image } from '../elements/index';
@@ -17,11 +17,14 @@ import { IoEllipsisHorizontalSharp } from 'react-icons/io5';
 const PostWriteModal = props => {
   const dispatch = useDispatch();
   const [content, setContent] = React.useState();
+  const [disable, setDisable] = React.useState();
 
   const { openModal, setModal } = props;
   const modalClose = () => {
     setModal(false);
   };
+
+  const disabled = () => {};
 
   const addPost = () => {
     const postInfo = {
@@ -29,7 +32,7 @@ const PostWriteModal = props => {
       imageUrl: 'https://images.unsplash.com/photo-1524650359799-842906ca1c06?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80',
     };
     console.log(postInfo);
-    dispatch(userCreators.addPostMiddleware(postInfo));
+    dispatch(postCreators.addPostMiddleware(postInfo));
   };
   return (
     <Dialog maxWidth={'lg'} scroll='paper' open={openModal}>
@@ -58,7 +61,13 @@ const PostWriteModal = props => {
             </Grid>
           </Grid>
           <Grid width='450px'>
-            <TextArea placeholder='사용자 님, 무슨 생각을 하고 계신가요?'></TextArea>
+            <TextArea
+              placeholder='사용자 님, 무슨 생각을 하고 계신가요?'
+              onChange={e => {
+                console.log(e.target.value);
+                setContent(e.target.value);
+              }}
+            />
           </Grid>
           <Grid width='100%' margin='0 -10px'>
             <ImageUpload />
