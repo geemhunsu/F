@@ -37,8 +37,8 @@ const addPostMiddleware = postInfo => {
     apis
       .addPost(postInfo)
       .then(res => {
-        console.log(res.data);
-        dispatch(addPost(res.data));
+        console.log(res.data.post);
+        dispatch(addPost(res.data.post));
         history.push('/main');
       })
       .catch(err => {

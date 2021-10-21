@@ -74,6 +74,7 @@ const PostWriteModal = props => {
           imageUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${postPreview.fileFullName}`,
         };
         dispatch(postCreators.addPostMiddleware(postInfo));
+        modalClose();
         setLabelDisplay('block');
         setPreviewDisplay('none');
       });
@@ -91,7 +92,7 @@ const PostWriteModal = props => {
   };
 
   return (
-    <Dialog maxWidth={'lg'} scroll='paper' open={openModal}>
+    <Dialog maxWidth={'lg'} scroll='body' open={openModal}>
       <ModalWrap>
         <Grid padding='20px 0'>
           <Grid alignItems='center' position='relative'>
@@ -255,6 +256,7 @@ const Wrap = styled.div`
     background-color: #f7f8fa;
     font-size: 0.875rem;
     text-align: center;
+    overflow: hidden;
 
     :hover {
       display: block;
