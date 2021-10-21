@@ -5,20 +5,24 @@ import PostWrite from '../../components/PostWrite';
 
 const GET_POST = 'GET_POST';
 const ADD_POST = 'ADD_POST';
+const UPDATE_POST = 'UPDATE_POST';
 const DELETE_POST = 'DELETE_POST';
 const CLICK_LIKE = 'CLICK_LIKE';
 const ADD_COMMENT = 'ADD_COMMENT';
+const SET_DETAILPOSTID = 'SET_DETAILPOSTID';
 const DELETE_COMMENT = 'DELETE_COMMENT';
 const EDIT_COMMENT = 'EDIT_COMMENT';
 
 const getPost = createAction(GET_POST, posts => ({ posts }));
 const addPost = createAction(ADD_POST, post => ({ post }));
+const updatePost = createAction(UPDATE_POST, (postId, post) => ({ postId, post }));
 const deletePost = createAction(DELETE_POST, postId => ({ postId }));
 const clickLike = createAction(CLICK_LIKE, postId => ({ postId }));
 const addComment = createAction(ADD_COMMENT, (commentInfo, postId) => ({
   commentInfo,
   postId,
 }));
+const setDetailPostId = createAction(SET_DETAILPOSTID, postId => ({ postId }));
 const deleteComment = createAction(DELETE_COMMENT, (commentId, postId) => ({
   commentId,
   postId,
@@ -30,6 +34,7 @@ const editComment = createAction(EDIT_COMMENT, (commentInfo, postId) => ({
 
 const initialState = {
   postList: [],
+  detailPostId: null,
 };
 
 const getPostMiddleware = page => {
@@ -82,6 +87,20 @@ const addPostMiddleware = postInfo => {
       });
   };
 };
+
+const updatePostMiddleware = (postId, postInfo) => {
+  return dispatch => {
+    apis
+      .updatePost(postId, postInfo)
+      .then(res => {
+        console.log(res)
+        dispatch(updatePost(postId, res.data.post));
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+}
 
 const deletePostMiddleware = postId => {
   return dispatch => {
@@ -169,6 +188,15 @@ export default handleActions(
         console.log(draft);
         draft.postList.unshift(action.payload.post);
       }),
+    [UPDATE_POST]: (state, action) =>
+      produce(state, draft => {
+        let idx = draft.postList.indexOf(p => p.postId === action.payload.postId);
+        draft.postList[idx + 1] = action.payload.post;
+      }),
+    [SET_DETAILPOSTID]: (state, action) =>
+      produce(state, draft => {
+        draft.detailPostId = action.payload.postId;
+      }),
     [DELETE_POST]: (state, action) =>
       produce(state, draft => {
         const editArr = [];
@@ -250,9 +278,11 @@ export default handleActions(
 const postCreators = {
   getPostMiddleware,
   addPostMiddleware,
+  updatePostMiddleware,
   deletePostMiddleware,
   clickLikeMiddleware,
   addCommentMiddleware,
+  setDetailPostId,
   deleteCommentMiddleware,
   editCommentMiddleware,
 };

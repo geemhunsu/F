@@ -39,7 +39,7 @@ const UserList = (props) => {
         {users.map((user, idx) => {
           return (
             <Grid display='flex' alignItems='center' height='auto' hover='rgba(0, 0, 0, 0.05)'
-              borderRadius='10px'>
+              borderRadius='10px' key={user.userId}>
               <Image src={user.imageUrl ? user.imageUrl : defaultUserImage} />
               <Text margin='0 0 0 8px' size='0.85rem'>{user.firstName + user.lastName}</Text>
             </Grid>

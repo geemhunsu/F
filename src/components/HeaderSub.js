@@ -10,15 +10,44 @@ const HeaderSub = (props) => {
 
   const userInfo = useSelector(state => state.user);
   const [modalDisplay, setModalDisplay] = React.useState('flex');
-  // e7f3ff
+  const is_token = document.cookie.split('=')[1];
+  
   const toggleModal = () => {
+    if(is_token === undefined){
+      window.alert('로그인을 해주세요!');
+      return ;
+    }
     if (modalDisplay === 'none') {
       setModalDisplay('flex');
     } else {
       setModalDisplay('none');
-    }
+    }    
     document.getElementById('userModal').style.display = modalDisplay;
   }
+
+  // const closeModal = (e) => {    
+  //   if(modalDisplay === 'none') {
+  //     return ;
+  //   }
+  //   if(e.target === document.getElementById('userModal')){
+  //     return ;
+  //   }    
+  //   if(e.target === document.getElementById('userModal').querySelectorAll('div')){
+  //     return ;
+  //   }    
+  //   if(e.target === document.getElementById('userModal').querySelectorAll('input')){
+  //     return ;
+  //   }    
+  //   if(e.target === document.getElementById('userModal').querySelectorAll('ul')){
+  //     return ;
+  //   }    
+  //   console.log(e.target);
+  //   toggleModal();
+  // }
+  
+  // document.addEventListener('click' , closeModal);
+  
+
   return (
     <Grid
       display='flex'

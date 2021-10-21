@@ -50,7 +50,7 @@ instance.interceptors.response.use(
     ) {
       let userCookie = success.data.token;
       console.log(userCookie);
-      setCookie('user_id', userCookie, 3);
+      setCookie('user_id', userCookie, 30);
       window.alert('로그인성공');
       history.push('/main');
     }
@@ -113,7 +113,8 @@ export const apis = {
   getPost: () => instance.get('/post'),
   //data.json용
   // getPost: () => instance.get(`/post`),
-  addPost: (postInfo) => instance.post(`/post`),
+  addPost: (postInfo) => instance.post(`/post`, postInfo),
+  updatePost: (postId, postInfo) => instance.put(`/post/${postId}`, postInfo),
   deletePost: (postId) => instance.delete(`/post/${postId}`),
   clickLike: (postId) => instance.post(`/post/${postId}/like`),
   addComment: (commentInfo) => instance.post('/comment', commentInfo),

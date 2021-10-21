@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { DeleteModal } from '.';
+import PostWriteModal from './PostWriteModal';
 import { postCreators } from '../redux/modules/post';
 
 import { AiOutlineLike, AiFillEdit, AiFillDelete } from 'react-icons/ai';
@@ -18,7 +19,7 @@ const Post = () => {
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware());
   }, []);
-  const postList = useSelector((state) => state.post.postList);
+  const postList = useSelector((state) => state.post?.postList);
   const [shownComments, setShownComments] = React.useState({});
   const toggleComment = (id) => {
     setShownComments((prevShownComments) => ({
@@ -53,8 +54,15 @@ const Post = () => {
 
   const [comment, setComment] = React.useState('');
 
+  const [openModal, setModal] = React.useState(false);
+  const modalOpen = (postId) => {
+    dispatch(postCreators.setDetailPostId(postId));
+    setTimeout(setModal(true), 5000);    
+  };
+
   return (
     <React.Fragment>
+      <PostWriteModal openModal={openModal} setModal={setModal}  />
       {postList.map((val, idx) => {
         return (
           <div key={val.postId}>
@@ -85,6 +93,9 @@ const Post = () => {
                     backgroundColor='white'
                     margin='5px'
                     hover='whitesmoke'
+                    _onClick={() => {
+                      modalOpen(val.postId)
+                    }}
                   >
                     <AiFillEdit color='black' display='inline' />
                   </Button>
