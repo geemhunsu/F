@@ -64,7 +64,7 @@ const UserInfoModal = (props) => {
 };
 
 const Wrap = styled.div`
-
+ 
 `;
 
 export default UserInfoModal;

@@ -11,6 +11,7 @@ import UserList from './UserList';
 import ImageUpload from './ImageUpload';
 import PostImageUpload from './PostImageUpload'
 import DeleteModal from './DeleteModal';
+import PostEditModal from './PostEditModal'
 
 export {
   Header,
@@ -26,4 +27,5 @@ export {
   ImageUpload,
   PostImageUpload,
   DeleteModal,
+  PostEditModal,
 };

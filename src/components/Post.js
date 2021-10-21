@@ -38,8 +38,8 @@ const Post = () => {
     <React.Fragment>
       {postList.map((val, idx) => {
         return (
-          <div>
-            <PostWrapper key={val.postId + val.createdAt}>
+          <div key={val.postId + val.createdAt}>
+            <PostWrapper >
               <Grid
                 width='95%'
                 height='50px'

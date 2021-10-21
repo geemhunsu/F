@@ -50,7 +50,7 @@ instance.interceptors.response.use(
     ) {
       let userCookie = success.data.token;
       console.log(userCookie);
-      setCookie('user_id', userCookie, 3);
+      setCookie('user_id', userCookie, 30);
       window.alert('로그인성공');
       history.push('/main');
     }

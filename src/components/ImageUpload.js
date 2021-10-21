@@ -12,7 +12,8 @@ import { actionCreators as imageActions } from '../redux/modules/image';
 import { userCreators } from '../redux/modules/user';
 
 
-const ImageUpload = () => {
+const ImageUpload = (props) => {
+  const {_uploadToAws} = props;
   const dispatch = useDispatch();
 
   const profilePreview = useSelector(state => state.image.profilePreview)  
@@ -118,6 +119,10 @@ const ImageUpload = () => {
     </React.Fragment>
   );
 };
+
+ImageUpload.defaultProps = {
+  
+}
 
 const Wrap = styled.div`
   #inputLabel {        
