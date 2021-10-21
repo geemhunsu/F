@@ -4,20 +4,19 @@ import produce from "immer";
 // 액션
 const UPLOADING = "UPLOADING";
 const SET_PREVIEW = "SET_PREVIEW";
+const SET_POSTPREVIEW = "SET_POSTPREVIEW";
 
 // 액션 생성
 const uploading = createAction(UPLOADING, (uploading) => ({uploading}));
-const setPreview = createAction(SET_PREVIEW, (preview, name, type, full, file) => ({preview, name, type, full, file}));
+const setPreview = createAction(SET_PREVIEW, (profilePreview) => ({profilePreview}));
+const setPostPreview = createAction(SET_POSTPREVIEW, (postPreview) => ({postPreview}));
 
 // 초기값
 const initialState = {
     imageUrl: '',
     uploading: false,    
-    preview: null,
-    previewName: null,
-    previewType: null,
-    previewFullName: null,
-    previewFile: null,
+    profilePreview: null,
+    postPreview: null,
 }
 
 // 미들웨어
@@ -30,17 +29,17 @@ export default handleActions({
     }),
 
     [SET_PREVIEW]: (state, action) => produce(state, (draft) => {
-        draft.preview = action.payload.preview;
-        draft.previewName = action.payload.name;
-        draft.previewType = action.payload.type;
-        draft.previewFullName = action.payload.full;
-        draft.previewFile = action.payload.file;        
+        draft.profilePreview = action.payload.profilePreview;     
+    }),    
+    [SET_POSTPREVIEW]: (state, action) => produce(state, (draft) => {
+        draft.postPreview = action.payload.postPreview;        
     }),    
 
 }, initialState);
 
 const actionCreators = {
     setPreview,
+    setPostPreview,
 }
 
 export {actionCreators}
