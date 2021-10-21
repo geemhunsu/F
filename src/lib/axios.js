@@ -39,7 +39,7 @@ instance.interceptors.response.use(
     if (response.statusCode === 200 && response.responseMessage === '로그인 성공') {
       let userCookie = success.data.token;
       console.log(userCookie);
-      document.cookie = setCookie('user_id', userCookie, 3);
+      setCookie('user_id', userCookie, 3);
       window.alert('로그인성공');
       history.push('/main');
     }

@@ -1,15 +1,18 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import { userCreators } from '../redux/modules/user';
+
+import { ImageUpload } from '.';
 import { Grid, Input, Text, Button, Image } from '../elements/index';
 import { Dialog, DialogContent, DialogTitle, Select } from '@material-ui/core';
-import styled from 'styled-components';
+
 import { AiFillCloseCircle, AiFillCaretDown, AiOutlineSmile } from 'react-icons/ai';
 import { FaUserFriends, FaUserTag, FaMicrophone } from 'react-icons/fa';
 import writeTypeIcon from '../images/writetypeicon.png';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPhotos } from 'react-icons/io';
 import { IoEllipsisHorizontalSharp } from 'react-icons/io5';
-import { ImageUpload } from '.';
 
 const PostWriteModal = props => {
   const dispatch = useDispatch();
@@ -18,6 +21,15 @@ const PostWriteModal = props => {
   const { openModal, setModal } = props;
   const modalClose = () => {
     setModal(false);
+  };
+
+  const addPost = () => {
+    const postInfo = {
+      content: content,
+      imageUrl: 'https://images.unsplash.com/photo-1524650359799-842906ca1c06?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80',
+    };
+    console.log(postInfo);
+    dispatch(userCreators.addPostMiddleware(postInfo));
   };
   return (
     <Dialog maxWidth={'lg'} scroll='paper' open={openModal}>
@@ -69,7 +81,15 @@ const PostWriteModal = props => {
             <IoEllipsisHorizontalSharp size='30' color='#676e76' />
           </Grid>
         </Grid>
-        <Button backgroundColor='#F1F4F6' color='#ddd' text='게시' borderRadius='5px' />
+        <Button
+          _onClick={() => {
+            addPost();
+          }}
+          backgroundColor='#F1F4F6'
+          color='#ddd'
+          text='게시'
+          borderRadius='5px'
+        />
       </ModalWrap>
     </Dialog>
   );
