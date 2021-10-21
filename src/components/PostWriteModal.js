@@ -9,7 +9,11 @@ import AWS from 'aws-sdk';
 import { Grid, Input, Text, Button, Image } from '../elements/index';
 import { Dialog } from '@material-ui/core';
 
-import { AiFillCloseCircle, AiFillCaretDown, AiOutlineSmile } from 'react-icons/ai';
+import {
+  AiFillCloseCircle,
+  AiFillCaretDown,
+  AiOutlineSmile,
+} from 'react-icons/ai';
 import { FaUserFriends, FaUserTag, FaMicrophone } from 'react-icons/fa';
 import writeTypeIcon from '../images/writetypeicon.png';
 import { HiLocationMarker } from 'react-icons/hi';
@@ -20,16 +24,16 @@ import { IconContext } from 'react-icons';
 import { FaCheck } from 'react-icons/fa';
 import { MdOutlineCancel } from 'react-icons/md';
 
-const PostWriteModal = props => {
+const PostWriteModal = (props) => {
   const dispatch = useDispatch();
-  const userInfo = useSelector(state => state.user);
-  const postPreview = useSelector(state => state.image.postPreview);
+  const userInfo = useSelector((state) => state.user);
+  const postPreview = useSelector((state) => state.image.postPreview);
   const [content, setContent] = React.useState();
   const [labelDisplay, setLabelDisplay] = React.useState('block');
   const [previewDisplay, setPreviewDisplay] = React.useState('none');
-  const imgUrl = useSelector(state => state.image.previewFullName);
+  const imgUrl = useSelector((state) => state.image.previewFullName);
 
-  const selectFile = e => {
+  const selectFile = (e) => {
     const fileName = e.target.files[0].name.split('.')[0];
     const fileType = e.target.files[0].name.split('.')[1];
     const fileFullName = e.target.files[0].name;
@@ -38,7 +42,15 @@ const PostWriteModal = props => {
 
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      dispatch(imageActions.setPostPreview({ preview: reader.result, fileName, fileType, fileFullName, file }));
+      dispatch(
+        imageActions.setPostPreview({
+          preview: reader.result,
+          fileName,
+          fileType,
+          fileFullName,
+          file,
+        })
+      );
     };
     console.log('사진 변경');
 
@@ -64,11 +76,11 @@ const PostWriteModal = props => {
     });
     const promise = awsUpload.promise();
     promise
-      .then(data => {})
-      .catch(err => {
+      .then((data) => {})
+      .catch((err) => {
         window.alert('업로드 실패');
       })
-      .then(data => {
+      .then((data) => {
         const postInfo = {
           content: content,
           imageUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${postPreview.fileFullName}`,
@@ -91,11 +103,18 @@ const PostWriteModal = props => {
   };
 
   return (
-    <Dialog maxWidth={'lg'} scroll='paper' open={openModal}>
+    <Dialog maxWidth={'lg'} scroll='body' open={openModal}>
       <ModalWrap>
         <Grid padding='20px 0'>
           <Grid alignItems='center' position='relative'>
-            <Grid position='absolute' top='-10px' right='20px' color='black' width='20px' padding='10px'>
+            <Grid
+              position='absolute'
+              top='-10px'
+              right='20px'
+              color='black'
+              width='20px'
+              padding='10px'
+            >
               <AiFillCloseCircle size='30' color='#ddd' onClick={modalClose} />
             </Grid>
             <Text align='center' size='20px' bold='800' margin='-10px 0'>
@@ -108,8 +127,21 @@ const PostWriteModal = props => {
           <Grid display='flex' flexDirection='row'>
             <Image src={userInfo.imageUrl} />
             <Grid display='flex' flexDirection='column' margin='0 5px'>
-              <Text margin='0'>{userInfo.firstName ? userInfo.firstName + userInfo.lastName : 'GUEST'}</Text>
-              <Button height='20px' padding='0px' fontSize='12px' margin='0px' width='75px' backgroundColor='#eee' color='#111' borderRadius='5px'>
+              <Text margin='0'>
+                {userInfo.firstName
+                  ? userInfo.firstName + userInfo.lastName
+                  : 'GUEST'}
+              </Text>
+              <Button
+                height='20px'
+                padding='0px'
+                fontSize='12px'
+                margin='0px'
+                width='75px'
+                backgroundColor='#eee'
+                color='#111'
+                borderRadius='5px'
+              >
                 <FaUserFriends />
                 친구만
                 <AiFillCaretDown />
@@ -119,7 +151,7 @@ const PostWriteModal = props => {
           <Grid width='450px'>
             <TextArea
               placeholder='무슨 생각을 하고 계신가요?'
-              onChange={e => {
+              onChange={(e) => {
                 console.log(e.target.value);
                 setContent(e.target.value);
               }}
@@ -128,18 +160,55 @@ const PostWriteModal = props => {
           <Grid width='100%' margin='0 -10px'>
             <Grid>
               <Wrap>
-                <label htmlFor='postFileInput' id='inputLabel' style={{ display: labelDisplay }}>
-                  <Grid display='flex' alignItems='center' justifyContent='center' flexDirection='column'>
-                    <Grid width='40px' height='40px' bg='#e4e6eb' borderRadius='20px' margin='0 0 8px 0' display='flex' alignItems='center' justifyContent='center'>
+                <label
+                  htmlFor='postFileInput'
+                  id='inputLabel'
+                  style={{ display: labelDisplay }}
+                >
+                  <Grid
+                    display='flex'
+                    alignItems='center'
+                    justifyContent='center'
+                    flexDirection='column'
+                  >
+                    <Grid
+                      width='40px'
+                      height='40px'
+                      bg='#e4e6eb'
+                      borderRadius='20px'
+                      margin='0 0 8px 0'
+                      display='flex'
+                      alignItems='center'
+                      justifyContent='center'
+                    >
                       <ElI />
                     </Grid>
                     게시물 사진 등록
                   </Grid>
                 </label>
-                <Grid height='auto' position='relative' display={previewDisplay} id='postPreviewBox'>
-                  <Image src={postPreview?.preview} shape='square' margin='0 0 5px 0' backgroundPosition='center' />
+                <Grid
+                  height='auto'
+                  position='relative'
+                  display={previewDisplay}
+                  id='postPreviewBox'
+                >
+                  <Image
+                    src={postPreview?.preview}
+                    shape='square'
+                    margin='0 0 5px 0'
+                    backgroundPosition='center'
+                  />
                   <label htmlFor='postFileInput' id='inputLabelButton'>
-                    <Grid display='flex' alignItems='center' justifyContent='center' hover='#e1e2e7' bg='white' borderRadius='5px' width='auto' padding='5px 10px'>
+                    <Grid
+                      display='flex'
+                      alignItems='center'
+                      justifyContent='center'
+                      hover='#e1e2e7'
+                      bg='white'
+                      borderRadius='5px'
+                      width='auto'
+                      padding='5px 10px'
+                    >
                       <EditIcon />
                       <Text bold margin='0' size='0.9rem'>
                         사진 변경
@@ -183,7 +252,9 @@ const PostWriteModal = props => {
                     id='deletePreview'
                     _onClick={previewDelete}
                   >
-                    <IconContext.Provider value={{ color: 'black', size: '20' }}>
+                    <IconContext.Provider
+                      value={{ color: 'black', size: '20' }}
+                    >
                       <MdOutlineCancel />
                     </IconContext.Provider>
                   </Grid>
@@ -192,16 +263,33 @@ const PostWriteModal = props => {
               </Wrap>
             </Grid>
           </Grid>
-          <Grid width='450px' display='flex' justifyContent='space-between' alignItems='center'>
+          <Grid
+            width='450px'
+            display='flex'
+            justifyContent='space-between'
+            alignItems='center'
+          >
             <Image src={writeTypeIcon} />
             <AiOutlineSmile size='30' />
           </Grid>
         </Grid>
-        <Grid display='flex' flexDirection='row' alignItems='center' justifyContent='space-between' borderRadius='5px' border='1px solid #eee'>
+        <Grid
+          display='flex'
+          flexDirection='row'
+          alignItems='center'
+          justifyContent='space-between'
+          borderRadius='5px'
+          border='1px solid #eee'
+        >
           <Text width='30%' padding='12px' bold>
             게시물에 추가
           </Text>
-          <Grid width='300px' display='flex' justifyContent='flex-end' padding='0 20px 0 0'>
+          <Grid
+            width='300px'
+            display='flex'
+            justifyContent='flex-end'
+            padding='0 20px 0 0'
+          >
             <IoMdPhotos size='30' color='#45bd62' />
             <FaUserTag size='30' color='#1877f2' />
             <AiOutlineSmile size='30' color='#f7bd34' />

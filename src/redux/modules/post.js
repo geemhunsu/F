@@ -43,11 +43,28 @@ const getPostMiddleware = (page) => {
 
 const addPostMiddleware = (postInfo) => {
   console.log(postInfo);
-  return (dispatch) => {
+  return (dispatch, getState, { history }) => {
+    // let _user = getState().user;
+    // console.log(_user);
+    // let post = {
+    //   postId: '',
+    //   commentCount: 0,
+    //   commnet: [],
+    //   content: postInfo.content,
+    //   createdAt: '',
+    //   firstName: _user.firstName,
+    //   lastName: _user.lastName,
+    //   image_url: postInfo.imageUrl,
+    //   likeCount: 0,
+    //   liked: false,
+    //   postId: '',
+    // };
     apis
       .addPost(postInfo)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        dispatch(addPost(res.data));
+        history.push('/main');
       })
       .catch((err) => {
         console.log(err);
@@ -148,6 +165,7 @@ export default handleActions(
         console.log(numArr);
         // draft.postList[numArr[0]].comment.push(action.payload.commentInfo);
         draft.postList[numArr[0]].comments.push(action.payload.commentInfo);
+        draft.postList[numArr[0]].commentCount += 1;
       }),
   },
   initialState
