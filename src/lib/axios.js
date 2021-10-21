@@ -104,6 +104,11 @@ export const apis = {
   login: (loginInfo) => instance.post('/user/login', loginInfo),
   signup: (registerInfo) => instance.post('/user/register', registerInfo),
 
+  // 유저 관련 api
+  updateProfileImg: (imageUrl) => instance.put(`/user/image`, imageUrl),
+  getUserInfo: () => instance.get('/user/info'),
+  getAllUserList: () => instance.get('/user/list'),
+
   //포스트 관련 api
   getPost: (page) => instance.get(`/post?page=${page}`),
   //data.json용
