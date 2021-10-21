@@ -14,7 +14,7 @@ import {
   AiFillCaretDown,
   AiOutlineSmile,
 } from 'react-icons/ai';
-import { FaUserFriends, FaUserTag, FaMicrophone } from 'react-icons/fa';
+import { FaUserFriends, FaUserTag, FaMicrophone, FaUserSecret } from 'react-icons/fa';
 import writeTypeIcon from '../images/writetypeicon.png';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPhotos } from 'react-icons/io';
@@ -24,14 +24,24 @@ import { IconContext } from 'react-icons';
 import { FaCheck } from 'react-icons/fa';
 import { MdOutlineCancel } from 'react-icons/md';
 
-const PostWriteModal = (props) => {
+const PostWriteModal = (props) => {  
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user);
   const postPreview = useSelector((state) => state.image.postPreview);
-  const [content, setContent] = React.useState();
-  const [labelDisplay, setLabelDisplay] = React.useState('block');
-  const [previewDisplay, setPreviewDisplay] = React.useState('none');
-  const imgUrl = useSelector((state) => state.image.previewFullName);
+  const postId = useSelector(state => state.post?.detailPostId);
+  const postList = useSelector(state => state.post?.postList);
+  const detailPost = postList.find(post => post.postId === postId); 
+  const [content, setContent] = React.useState(detailPost?.content);
+  const [labelDisplay, setLabelDisplay] = React.useState(detailPost ? 'none' : 'block');
+  const [previewDisplay, setPreviewDisplay] = React.useState(detailPost ? 'block' : 'none');  
+  const imgUrl = useSelector((state) => state.image.previewFullName);  
+
+
+  React.useEffect(() => {
+    setContent(detailPost ? detailPost.content : '');
+    setLabelDisplay(detailPost ? 'none' : 'block');
+    setPreviewDisplay(detailPost ? 'block' : 'none');
+  }, [detailPost])
 
   const selectFile = (e) => {
     const fileName = e.target.files[0].name.split('.')[0];
@@ -85,7 +95,12 @@ const PostWriteModal = (props) => {
           content: content,
           imageUrl: `https://hanghae-miniproject-team2-imagebucket.s3.ap-northeast-2.amazonaws.com/${postPreview.fileFullName}`,
         };
-        dispatch(postCreators.addPostMiddleware(postInfo));
+        if(detailPost === undefined){
+          dispatch(postCreators.addPostMiddleware(postInfo));
+        } else {
+          dispatch(postCreators.updatePostMiddleware(postId, postInfo))
+        }
+        modalClose();
         setLabelDisplay('block');
         setPreviewDisplay('none');
       });
@@ -98,7 +113,8 @@ const PostWriteModal = (props) => {
 
   //모달
   const { openModal, setModal } = props;
-  const modalClose = () => {
+  const modalClose = () => {    
+    console.log(detailPost)
     setModal(false);
   };
 
@@ -118,7 +134,7 @@ const PostWriteModal = (props) => {
               <AiFillCloseCircle size='30' color='#ddd' onClick={modalClose} />
             </Grid>
             <Text align='center' size='20px' bold='800' margin='-10px 0'>
-              게시물 만들기
+              {detailPost ? '게시물 수정' : '게시물 만들기'}
             </Text>
           </Grid>
         </Grid>
@@ -151,6 +167,7 @@ const PostWriteModal = (props) => {
           <Grid width='450px'>
             <TextArea
               placeholder='무슨 생각을 하고 계신가요?'
+              value={content}
               onChange={(e) => {
                 console.log(e.target.value);
                 setContent(e.target.value);
@@ -305,7 +322,7 @@ const PostWriteModal = (props) => {
           margin='15px 0 5px 0'
           backgroundColor='#1877f2'
           color='#fff'
-          text='게시'
+          text={detailPost ? '수정' : '게시'}
           fontSize='15px'
           borderRadius='5px'
         />
@@ -343,6 +360,7 @@ const Wrap = styled.div`
     background-color: #f7f8fa;
     font-size: 0.875rem;
     text-align: center;
+    overflow: hidden;
 
     :hover {
       display: block;

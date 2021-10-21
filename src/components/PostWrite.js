@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/ConfigureStore';
 
 import styled from 'styled-components';
@@ -9,8 +9,10 @@ import { FaVideo } from 'react-icons/fa';
 import { MdPhotoLibrary } from 'react-icons/md';
 import { BsEmojiSmileFill } from 'react-icons/bs';
 import defaultUserImage from '../images/기본프로필사진.png';
+import { postCreators } from '../redux/modules/post';
 
 const PostWrite = () => {
+  const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user);
   const [openModal, setModal] = useState(false);
   const modalOpen = () => {
@@ -18,6 +20,7 @@ const PostWrite = () => {
       window.alert('로그인이 필요합니다!');
       history.push('/');
     }
+    dispatch(postCreators.setDetailPostId(null))
     setModal(true);
   };
 

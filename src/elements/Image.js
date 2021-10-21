@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Image = props => {
-  const { shape, src, size, margin, border, backgroundPosition, id, _onMouseEnter, _onMouseLeave,
-  display, } = props;
+  const { shape, src, size, margin, border, backgroundPosition, id, _onMouseEnter, _onMouseLeave, display } = props;
 
   const styles = {
     src: src,
@@ -17,20 +16,20 @@ const Image = props => {
   if (shape === 'circle') {
     return (
       <React.Fragment>
-        <ImageCircle {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave} ></ImageCircle>
+        <ImageCircle {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave}></ImageCircle>
       </React.Fragment>
     );
   }
 
   if (shape === 'TitleLogo') {
-    return <MainInner {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave} ></MainInner>;
+    return <MainInner {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave}></MainInner>;
   }
 
   if (shape === 'square') {
     return (
       <React.Fragment>
         <OuterRect>
-          <InnerRect {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave} ></InnerRect>
+          <InnerRect {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave}></InnerRect>
         </OuterRect>
       </React.Fragment>
     );
@@ -39,7 +38,7 @@ const Image = props => {
   return (
     <React.Fragment>
       <OuterRect>
-        <InnerRect {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave} ></InnerRect>
+        <InnerRect {...styles} id={id} onMouseEnter={_onMouseEnter} onMouseLeave={_onMouseLeave}></InnerRect>
       </OuterRect>
     </React.Fragment>
   );
@@ -51,7 +50,7 @@ Image.defaultProps = {
   size: 36,
   margin: false,
   border: false,
-  backgroundPosition: false,  
+  backgroundPosition: false,
   _onMouseEnter: () => {},
   _onMouseLeave: () => {},
   display: null,
@@ -68,7 +67,7 @@ const ImageCircle = styled.div`
   ${props => (props.margin ? `margin: ${props.margin}` : 'margin: 4px')};
   flex-shrink: 0;
   ${props => (props.border ? `border: ${props.border};` : '')};
-  box-sizing: border-box;  
+  box-sizing: border-box;
   display: ${props => props.display};
 `;
 
