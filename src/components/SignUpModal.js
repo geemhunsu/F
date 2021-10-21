@@ -17,51 +17,53 @@ const SignUpModal = props => {
   const [userId, setUserId] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  // const [year, setYear] = React.useState(currentYear);
-  // const [month, setMonth] = React.useState(currentMonth);
-  // const [day, setDay] = React.useState(currentDay);
+  const [year, setYear] = React.useState();
+  const [month, setMonth] = React.useState();
+  const [day, setDay] = React.useState();
+  const [option, setOption] = React.useState('');
 
   const { showModal, setShowModal } = props;
   const modalClose = () => {
     setShowModal(false);
   };
 
-  // const generateYearOptions = () => {
-  //   const arr = [];
-  //   const startYear = 1900;
-  //   const endYear = new Date().getFullYear();
-  //   for (let i = endYear; i >= startYear; i--) {
-  //     arr.push(<option value={i}>{i}</option>);
-  //   }
-  //   return arr;
-  // };
+  const yearOptions = () => {
+    const arr = [];
+    const startYear = 1900;
+    const endYear = new Date().getFullYear();
+    for (let i = endYear; i >= startYear; i--) {
+      arr.push(<option value={i}>{i}</option>);
+    }
+    return arr;
+  };
 
-  // const generateMonthOptions = () => {
-  //   const arr = [];
-  //   const startMonth = 1;
-  //   const endMonth = 12;
-  //   for (let i = endMonth; i >= startMonth; i--) {
-  //     arr.push(<option value={i}>{i}월</option>);
-  //   }
-  //   return arr;
-  // };
+  const monthOptions = () => {
+    const arr = [];
+    const startMonth = 1;
+    const endMonth = 12;
+    for (let i = endMonth; i >= startMonth; i--) {
+      arr.push(<option value={i}>{i}월</option>);
+    }
+    return arr;
+  };
 
-  // const generateDayOptions = () => {
-  //   const arr = [];
-  //   const startDay = 1;
-  //   const endDay = 31;
-  //   for (let i = endDay; i >= startDay; i--) {
-  //     arr.push(<option value={i}>{i}</option>);
-  //   }
-  //   return arr;
-  // };
+  const dayOptions = () => {
+    const arr = [];
+    const startDay = 1;
+    const endDay = 31;
+    for (let i = endDay; i >= startDay; i--) {
+      arr.push(<option value={i}>{i}</option>);
+    }
+    return arr;
+  };
+
   const signUp = () => {
     const signupInfo = {
       firstName: firstName,
       lastName: lastName,
       userId: userId,
       pwd: password,
-      birth: '1992-01-30',
+      birth: `${year}-${month}-${day}`,
       sex: 'man',
     };
     console.log(signupInfo);
@@ -162,14 +164,29 @@ const SignUpModal = props => {
                   <Image size='15' src={question} />
                 </Grid>
                 <Grid width='460px' display='flex' flexDirection='row' justifyContent='space-between'>
-                  <Select>
-                    <option selected>연도</option>
+                  <Select
+                    onChange={e => {
+                      setYear(e.target.value);
+                    }}
+                  >
+                    <option value='0'>연도</option>
+                    {yearOptions()}
                   </Select>
-                  <Select>
-                    <option selected>월</option>
+                  <Select
+                    onChange={e => {
+                      setMonth(e.target.value);
+                    }}
+                  >
+                    <option value='0'>월</option>
+                    {monthOptions()}
                   </Select>
-                  <Select>
-                    <option selected>일</option>
+                  <Select
+                    onChange={e => {
+                      setDay(e.target.value);
+                    }}
+                  >
+                    <option value='0'>일</option>
+                    {dayOptions()}
                   </Select>
                 </Grid>
               </Grid>
@@ -236,5 +253,12 @@ const Select = styled.select`
   -moz-appearance: none;
   appearance: none;
 `;
+
+// const Radio = styled.input`
+//  type: 'radio';
+//  value: 'option1'
+//  checked: {true}
+
+// `;
 
 export default SignUpModal;

@@ -59,22 +59,25 @@ instance.interceptors.response.use(
     return success;
   },
   error => {
-    console.log(error.response);
+    console.log(error.response.data);
     //비밀번호가 비워있을 떄
-    if (error.statusCode === 400 && error.responseMessage === '비밀번호를 입력해주세요') {
-      window.alert('비밀번호를 입력해주세요');
+    if (error.response.data.statusCode === 400 && error.response.data.responseMessage === '비밀번호를 입력해주세요') {
+      return window.alert('비밀번호를 입력해주세요');
+    }
+    if (error.response.data.statusCode === 400 && error.response.data.responseMessage === '회원 정보를 찾을 수 없습니다.') {
+      return window.alert('회원 정보를 찾을 수 없습니다');
     }
 
-    if (error.statusCode === 400 && error.responseMessage === '이름을 입력해주세요') {
-      window.alert('이름을 입력해주세요');
+    if (error.response.data.statusCode === 400 && error.response.data.responseMessage === '이름을 입력해주세요') {
+      return window.alert('이름을 입력해주세요');
     }
     //올바르지 않은 이메일 형식
-    if (error.statusCode === 400 && error.responseMessage === '이메일 형식이 올바르지 않습니다') {
-      window.alert('이메일 형식이 올바르지 않습니다');
+    if (error.response.data.statusCode === 400 && error.response.data.responseMessage === '이메일 형식이 올바르지 않습니다') {
+      return window.alert('이메일 형식이 올바르지 않습니다');
     }
 
-    if (error.statusCode === 400 && error.responseMessage === '비밀번호는 6~20자리로 해주세요') {
-      window.alert('비밀번호는 6~20자리로 해주세요');
+    if (error.response.data.statusCode === 400 && error.response.data.responseMessage === '비밀번호는 6~20자리로 해주세요') {
+      return window.alert('비밀번호는 6~20자리로 해주세요');
     }
 
     return error;
