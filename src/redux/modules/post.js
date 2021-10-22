@@ -192,6 +192,13 @@ export default handleActions(
       produce(state, draft => {
         let idx = draft.postList.indexOf(p => p.postId === action.payload.postId);
         draft.postList[idx + 1] = action.payload.post;
+        
+        // draft.postList.map(post => {
+        //   if(post.postId === action.payload.postId){
+        //     console.log(post.postId, action.payload.postId);
+        //     post = action.payload.post;            
+        //   }          
+        // })
       }),
     [SET_DETAILPOSTID]: (state, action) =>
       produce(state, draft => {

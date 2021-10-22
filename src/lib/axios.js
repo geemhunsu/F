@@ -94,6 +94,28 @@ instance.interceptors.response.use(
     ) {
       window.alert('비밀번호는 6~20자리로 해주세요');
     }
+    
+    if (
+      error.response.status === 401 &&
+      error.response.data.responseMessage === '로그인이 필요합니다.'
+    ) {
+      window.alert('로그인이 필요합니다.');
+      // history.replace('/');
+    }
+
+    if (
+      error.response.status === 403 &&
+      error.response.responseMessage === '권한이 없습니다.'
+    ) {
+      window.alert('권한이 없습니다.');
+    }
+
+    if (
+      error.response.status === 404 &&
+      error.response.responseMessage === '게시글을 찾을 수 없습니다.'
+    ) {
+      window.alert('게시글을 찾을 수 없습니다.');
+    }
 
     return error;
   }

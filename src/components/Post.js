@@ -16,6 +16,7 @@ const Post = () => {
   const inputs = React.useRef([]);
   const dispatch = useDispatch();
   const loginInfo = useSelector((state) => state.user.userId);
+  const is_me = useSelector(state => state.user.userId);
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware());
   }, []);
@@ -57,12 +58,12 @@ const Post = () => {
   const [openModal, setModal] = React.useState(false);
   const modalOpen = (postId) => {
     dispatch(postCreators.setDetailPostId(postId));
-    setTimeout(setModal(true), 5000);    
+    setTimeout(setModal(true), 5000);
   };
 
   return (
     <React.Fragment>
-      <PostWriteModal openModal={openModal} setModal={setModal}  />
+      <PostWriteModal openModal={openModal} setModal={setModal} />
       {postList.map((val, idx) => {
         return (
           <div key={val.postId}>
@@ -97,7 +98,7 @@ const Post = () => {
                       modalOpen(val.postId)
                     }}
                   >
-                    <AiFillEdit color='black' display='inline' />
+                    <AiFillEdit color='black' display={is_me === val.userId ? 'inline' : 'none'} />
                   </Button>
                   <Button
                     width='30px'
@@ -111,7 +112,7 @@ const Post = () => {
                       toggleDelete(idx);
                     }}
                   >
-                    <AiFillDelete color='black' display='inline' />
+                    <AiFillDelete color='black' display={is_me === val.userId ? 'inline' : 'none'} />
                   </Button>
                 </Grid>
               </Grid>
@@ -362,6 +363,7 @@ const Post = () => {
                               width='20%'
                             >
                               <Button
+                                display={val.userId === is_me ? 'block' : 'none'}
                                 width='30px'
                                 height='30px'
                                 padding='0px'
@@ -377,6 +379,7 @@ const Post = () => {
                                 <AiFillEdit color='black' display='inline' />
                               </Button>
                               <Button
+                                display={val.userId === is_me ? 'block' : 'none'}
                                 width='30px'
                                 height='30px'
                                 padding='0px'
