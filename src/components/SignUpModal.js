@@ -7,7 +7,11 @@ import { userCreators } from '../redux/modules/user';
 
 import styled from 'styled-components';
 import question from '../images/question.png';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const SignUpModal = props => {
   const dispatch = useDispatch();
@@ -17,55 +21,65 @@ const SignUpModal = props => {
   const [userId, setUserId] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  // const [year, setYear] = React.useState(currentYear);
-  // const [month, setMonth] = React.useState(currentMonth);
-  // const [day, setDay] = React.useState(currentDay);
+  const [year, setYear] = React.useState();
+  const [month, setMonth] = React.useState();
+  const [day, setDay] = React.useState();
+  const [gender, setGender] = React.useState('woman');
+  const [option, setOption] = React.useState('');
 
+  //모달
   const { showModal, setShowModal } = props;
   const modalClose = () => {
     setShowModal(false);
   };
+  //생년월일기능
+  const yearOptions = () => {
+    const arr = [];
+    const startYear = 1900;
+    const endYear = new Date().getFullYear();
+    for (let i = endYear; i >= startYear; i--) {
+      arr.push(<option value={i}>{i}</option>);
+    }
+    return arr;
+  };
 
-  // const generateYearOptions = () => {
-  //   const arr = [];
-  //   const startYear = 1900;
-  //   const endYear = new Date().getFullYear();
-  //   for (let i = endYear; i >= startYear; i--) {
-  //     arr.push(<option value={i}>{i}</option>);
-  //   }
-  //   return arr;
-  // };
+  const monthOptions = () => {
+    const arr = [];
+    const startMonth = 1;
+    const endMonth = 12;
+    for (let i = endMonth; i >= startMonth; i--) {
+      arr.push(<option value={i}>{i}월</option>);
+    }
+    return arr;
+  };
 
-  // const generateMonthOptions = () => {
-  //   const arr = [];
-  //   const startMonth = 1;
-  //   const endMonth = 12;
-  //   for (let i = endMonth; i >= startMonth; i--) {
-  //     arr.push(<option value={i}>{i}월</option>);
-  //   }
-  //   return arr;
-  // };
-
-  // const generateDayOptions = () => {
-  //   const arr = [];
-  //   const startDay = 1;
-  //   const endDay = 31;
-  //   for (let i = endDay; i >= startDay; i--) {
-  //     arr.push(<option value={i}>{i}</option>);
-  //   }
-  //   return arr;
-  // };
+  const dayOptions = () => {
+    const arr = [];
+    const startDay = 1;
+    const endDay = 31;
+    for (let i = endDay; i >= startDay; i--) {
+      arr.push(<option value={i}>{i}</option>);
+    }
+    return arr;
+  };
+  //성별기능
+  const genderChange = e => {
+    console.log(e.target.value);
+    setGender(e.target.value);
+  };
+  //미들웨어전송
   const signUp = () => {
     const signupInfo = {
       firstName: firstName,
       lastName: lastName,
       userId: userId,
       pwd: password,
-      birth: '1992-01-30',
-      sex: 'man',
+      birth: `${year}-${month}-${day}`,
+      sex: gender,
     };
     console.log(signupInfo);
     dispatch(userCreators.signupMiddleware(signupInfo));
+    modalClose();
   };
 
   return (
@@ -103,6 +117,7 @@ const SignUpModal = props => {
                   borderRadius='5px'
                   inputFocusOutline='none'
                   inputFocusBorder='1px solid red'
+                  fontSize='15px'
                   _onChange={e => {
                     setfirstName(e.target.value);
                   }}
@@ -119,6 +134,7 @@ const SignUpModal = props => {
                   borderRadius='5px'
                   inputFocusOutline='none'
                   inputFocusBorder='1px solid red'
+                  fontSize='15px'
                   _onChange={e => {
                     setlastName(e.target.value);
                   }}
@@ -136,6 +152,7 @@ const SignUpModal = props => {
                 borderRadius='5px'
                 inputFocusOutline='none'
                 inputFocusBorder='1px solid red'
+                fontSize='15px'
                 _onChange={e => {
                   setUserId(e.target.value);
                 }}
@@ -146,48 +163,83 @@ const SignUpModal = props => {
                 padding='15px 10px'
                 backgroundColor='#F5F6F7'
                 placeholder='새 비밀번호'
+                type='password'
                 width='460px'
                 padding='10px'
                 height='50px'
                 borderRadius='5px'
                 inputFocusOutline='none'
                 inputFocusBorder='1px solid red'
+                fontSize='15px'
                 _onChange={e => {
                   setPassword(e.target.value);
                 }}
               />
-              <Grid margin='0 0 -30px 0'>
+              <Grid margin='0 0 -20px 0'>
                 <Grid display='flex' flexDirection='row' justifyContent='flex-start' alignItems='center'>
-                  <Text size='12px'>생일</Text>
+                  <Text size='14px'>생일</Text>
                   <Image size='15' src={question} />
                 </Grid>
                 <Grid width='460px' display='flex' flexDirection='row' justifyContent='space-between'>
-                  <Select>
-                    <option selected>연도</option>
+                  <Select
+                    onChange={e => {
+                      setYear(e.target.value);
+                    }}
+                  >
+                    <option value='0'>연도</option>
+                    {yearOptions()}
                   </Select>
-                  <Select>
-                    <option selected>월</option>
+                  <Select
+                    onChange={e => {
+                      setMonth(e.target.value);
+                    }}
+                  >
+                    <option value='0'>월</option>
+                    {monthOptions()}
                   </Select>
-                  <Select>
-                    <option selected>일</option>
+                  <Select
+                    onChange={e => {
+                      setDay(e.target.value);
+                    }}
+                  >
+                    <option value='0'>일</option>
+                    {dayOptions()}
                   </Select>
                 </Grid>
               </Grid>
               <Grid margin='30px 0 10px 0'>
                 <Grid display='flex' flexDirection='row' justifyContent='flex-start' alignItems='center' margin='0'>
-                  <Text size='12px'>성별</Text>
+                  <Text size='14px'>성별</Text>
                   <Image size='15' src={question} />
                 </Grid>
-                <Grid width='460px' display='flex' flexDirection='row' justifyContent='space-between'>
-                  <Select>
-                    <option selected>남성</option>
-                  </Select>
-                  <Select>
-                    <option selected>여성</option>
-                  </Select>
-                  <Select>
-                    <option selected>직접지정</option>
-                  </Select>
+                <Grid>
+                  <FormControl component='fieldset'>
+                    <RadioGroup row aria-label='gender' value={gender} onChange={genderChange}>
+                      <Grid margin='0px'>
+                        <FormControlLabel
+                          value='woman'
+                          control={<Radio color='primary' />}
+                          style={{ paddingLeft: '10px', border: '1px solid #ddd', width: '133px', margin: '0', borderRadius: '5px', justifyContent: 'space-between' }}
+                          label='여성'
+                          labelPlacement='start'
+                        />
+                        <FormControlLabel
+                          value='man'
+                          control={<Radio color='primary' />}
+                          style={{ paddingLeft: '10px', border: '1px solid #ddd', width: '133px', margin: '0', margin: '0 13px', borderRadius: '5px', justifyContent: 'space-between' }}
+                          label='남성'
+                          labelPlacement='start'
+                        />
+                        <FormControlLabel
+                          value='other'
+                          control={<Radio color='primary' />}
+                          style={{ paddingLeft: '10px', border: '1px solid #ddd', width: '133px', margin: '0', borderRadius: '5px', justifyContent: 'space-between' }}
+                          label='직접 지정'
+                          labelPlacement='start'
+                        />
+                      </Grid>
+                    </RadioGroup>
+                  </FormControl>
                 </Grid>
                 {/* <Grid display='flex' flexDirection='column'>
                 <Select>
@@ -227,7 +279,8 @@ const ModalWrap = styled.div`
 
 const Select = styled.select`
   width: 145px; /* 원하는 너비설정 */
-  padding: 0.8em 0.5em; /* 여백으로 높이 설정 */
+  padding: 0.5em 0.5em; /* 여백으로 높이 설정 */
+  font-size: 17px;
   font-family: inherit; /* 폰트 상속 */
   background: url() no-repeat 95% 50%;
   border: 1px solid #ddd;
@@ -236,5 +289,12 @@ const Select = styled.select`
   -moz-appearance: none;
   appearance: none;
 `;
+
+// const Radio = styled.input`
+//  type: 'radio';
+//  value: 'option1'
+//  checked: {true}
+
+// `;
 
 export default SignUpModal;
