@@ -1,8 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = props => {
-  const { color, text, _onClick, isFloat, children, margin, width, padding, backgroundColor, height, fontSize, borderRadius } = props;
+const Button = (props) => {
+  const {
+    color,
+    text,
+    _onClick,
+    isFloat,
+    children,
+    margin,
+    width,
+    padding,
+    backgroundColor,
+    height,
+    fontSize,
+    borderRadius,
+    top,
+    bottom,
+    left,
+    right,
+    hover,
+    display,
+  } = props;
 
   if (isFloat) {
     return (
@@ -13,14 +32,20 @@ const Button = props => {
   }
 
   const styles = {
-    margin: margin,
-    width: width,
-    padding: padding,
-    backgroundColor: backgroundColor,
-    color: color,
-    height: height,
-    fontSize: fontSize,
-    borderRadius: borderRadius,
+    margin,
+    width,
+    padding,
+    backgroundColor,
+    color,
+    height,
+    fontSize,
+    borderRadius,
+    top,
+    bottom,
+    left,
+    right,
+    hover,
+    display,
   };
 
   return (
@@ -43,6 +68,12 @@ Button.defaultProps = {
   padding: '12px 0px',
   color: 'white',
   height: '50px',
+  top: null,
+  bottom: null,
+  left: null,
+  right: null,
+  hover: null,
+  display: null,  
 };
 
 const ElButton = styled.button`
@@ -58,7 +89,6 @@ const ElButton = styled.button`
       : 'background-color: blue'};
   box-sizing: border-box;
   border-radius: 5px;
-  font-size: 17px;
   font-weight: bold;
   border: none;
   ${(props) =>
@@ -68,16 +98,23 @@ const ElButton = styled.button`
   cursor: pointer;
   flex-shrink: 0;
   &:hover {
-    background-color: whitesmoke;
+    background-color: ${(props) => props.hover};
   }
   vertical-align: middle;
+  top: ${(props) => props.top};
+  bottom: ${(props) => props.bottom};
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
+  position: ${(props) => props.position};
+  flex-shrink: 0;
+  display: ${props => props.display};
 `;
 
 const FloatButton = styled.div`
   width: 50px;
   height: 50px;
   background-color: #ffffff;
-  color: ${props => props.color};
+  color: ${(props) => props.color};
   box-sizing: border-box;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.24);
   font-size: 36px;
@@ -89,6 +126,7 @@ const FloatButton = styled.div`
   vertical-align: middle;
   border: none;
   border-radius: 50px;
+  display: ${props => props.display};
 `;
 
 export default Button;

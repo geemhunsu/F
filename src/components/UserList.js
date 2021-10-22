@@ -1,10 +1,20 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { Grid, Image, Text } from '../elements'
 import defaultUserImage from '../images/기본프로필사진.png';
+import { userCreators } from '../redux/modules/user';
 
-const userList = (props) => {
+const UserList = (props) => {
+  const dispatch = useDispatch();
+  const users = useSelector(state => state.user.userList);
+
+  React.useEffect(() => {
+    dispatch(userCreators.setUserMiddleware());
+    dispatch(userCreators.setAllUserMiddleware());
+  }, [])
+
   return (
     <React.Fragment>
       <Grid position='fixed' top='56px' right='0' width='293.5px'
@@ -13,24 +23,28 @@ const userList = (props) => {
           <Text bold color='#75777b'>유저 목록</Text>
           <Grid width='40%' height='auto' display='flex' justifyContent='space-between'>
             <Grid width='28px' height='28px' hover='rgba(0, 0, 0, 0.05)' borderRadius='20px'
-            display='flex' alignItems='center' justifyContent='center'>
+              display='flex' alignItems='center' justifyContent='center'>
               <NewRooms />
             </Grid>
             <Grid width='28px' height='28px' hover='rgba(0, 0, 0, 0.05)' borderRadius='20px'
-            display='flex' alignItems='center' justifyContent='center'>
+              display='flex' alignItems='center' justifyContent='center'>
               <Search />
             </Grid>
             <Grid width='28px' height='28px' hover='rgba(0, 0, 0, 0.05)' borderRadius='20px'
-            display='flex' alignItems='center' justifyContent='center'>
+              display='flex' alignItems='center' justifyContent='center'>
               <Option />
             </Grid>
           </Grid>
         </Grid>
-        <Grid display='flex' alignItems='center' height='auto' hover='rgba(0, 0, 0, 0.05)'
-          borderRadius='10px'>
-          <Image src={defaultUserImage} />
-          <Text margin='0 0 0 8px' size='0.85rem'>유저이름</Text>
-        </Grid>
+        {users.map((user, idx) => {
+          return (
+            <Grid display='flex' alignItems='center' height='auto' hover='rgba(0, 0, 0, 0.05)'
+              borderRadius='10px' key={user.userId}>
+              <Image src={user.imageUrl ? user.imageUrl : defaultUserImage} />
+              <Text margin='0 0 0 8px' size='0.85rem'>{user.firstName + user.lastName}</Text>
+            </Grid>
+          )
+        })}
       </Grid>
     </React.Fragment>
   );
@@ -64,4 +78,4 @@ const Option = styled.i`
   display: inline-block;
 `;
 
-export default userList;
+export default UserList;
