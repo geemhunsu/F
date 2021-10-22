@@ -12,13 +12,21 @@ const LoginPage = () => {
   const [userId, setUserId] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const RegExUserId = /^[a-zA-Z0-9!@#$%^&*]{4,12}$/;
-  const RegExPassword = /^[a-zA-Z0-9!@#$%^&*]{6,18}$/;
+  const regExUserId = /^[a-zA-Z0-9!@#$%^&*]{4,12}$/;
+  const regExPassword = /^[a-zA-Z0-9!@#$%^&*]{6,18}$/;
+
+  console.log(regExUserId.test(userId));
+  console.log(regExPassword.test(password));
 
   const [showModal, setShowModal] = useState(false);
   const modalOpen = () => {
     setShowModal(true);
   };
+
+  // if(regExUserId.test(userId) === false )
+  // { userIdError = " 이메일 형식이 유효하지 않습니다"
+  // }
+  // if(userIdError)
 
   const login = () => {
     if (userId === '' || password === '') {
@@ -136,6 +144,7 @@ const Responsivelogin = styled.div`
   @media screen and (max-width: 875px) {
     display: flex;
     flex-direction: column;
+    padding: '150px 0 150px 0';
   } ;
 `;
 export default LoginPage;

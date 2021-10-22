@@ -56,10 +56,16 @@ instance.interceptors.response.use(
       return response.posts;
     }
 
+    if (response.statusCode === 200 && response.responseMessage === '회원가입 성공') {
+      window.alert('회원가입성공');
+      history.push('/');
+      return response.posts;
+    }
+
     return success;
   },
   error => {
-    console.log(error.response.data);
+    console.log(error.response);
     //비밀번호가 비워있을 떄
     if (error.response.data.statusCode === 400 && error.response.data.responseMessage === '비밀번호를 입력해주세요') {
       return window.alert('비밀번호를 입력해주세요');
