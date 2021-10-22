@@ -2,10 +2,12 @@ import React from 'react';
 import { Grid, Image, Text, Button, Input } from '../elements/index';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import { DeleteModal } from '.';
 import PostWriteModal from './PostWriteModal';
 import { postCreators } from '../redux/modules/post';
+import { useLockBodyScroll } from '../shared/ScrollLock';
 
 import { AiOutlineLike, AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { RiShareForwardLine } from 'react-icons/ri';
@@ -14,6 +16,7 @@ import { VscRunAll, VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 
 const Post = () => {
   const inputs = React.useRef([]);
+  const history = useHistory();
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.user?.userList);
   const loginInfo = useSelector((state) => state.user.userId);
@@ -427,6 +430,7 @@ const Post = () => {
                                 margin='5px'
                                 hover='whitesmoke'
                                 _onClick={() => {
+                                  console.log(loginInfo, val.userId);
                                   if (loginInfo !== val.userId) {
                                     return alert('권한이 없습니다.');
                                   }
@@ -460,6 +464,7 @@ const Post = () => {
                           <DeleteModal
                             onClose={() => {
                               toggleCommentDelete(idx);
+                              history.replace('/main');
                             }}
                             commentId={val.commentId}
                             type='comment'

@@ -4,24 +4,28 @@ import styled from 'styled-components';
 import { postCreators } from '../redux/modules/post';
 import { useDispatch } from 'react-redux';
 import { Grid, Text, Button } from '../elements';
+import { useLockBodyScroll } from '../shared/ScrollLock';
 
 const DeleteModal = (props) => {
   const dispatch = useDispatch();
+  const [lock, setLock] = React.useState(true);
 
   const { onClose, postId, commentId, type } = props;
 
-  function useLockBodyScroll() {
-    React.useLayoutEffect(() => {
-      // Get original body overflow
-      const originalStyle = window.getComputedStyle(document.body).overflow;
-      // Prevent scrolling on mount
-      document.body.style.overflow = 'hidden';
-      // Re-enable scrolling when component unmounts
-      return () => (document.body.style.overflow = originalStyle);
-    }, []); // Empty array ensures effect is only run on mount and unmount
-  }
+  // function useLockBodyScroll() {
+  //   React.useLayoutEffect(() => {
+  //     // Get original body overflow
+  //     const originalStyle = window.getComputedStyle(document.body).overflow;
+  //     // Prevent scrolling on mount
+  //     document.body.style.overflow = 'hidden';
+  //     // Re-enable scrolling when component unmounts
+  //     return () => (document.body.style.overflow = originalStyle);
+  //   }, []); // Empty array ensures effect is only run on mount and unmount
+  // }
 
-  useLockBodyScroll();
+  // useLockBodyScroll();
+
+  useLockBodyScroll('hidden');
 
   console.log(type);
 
@@ -81,6 +85,7 @@ const DeleteModal = (props) => {
                 _onClick={() => {
                   console.log(commentId);
                   dispatch(postCreators.deleteCommentMiddleware(commentId));
+                  setLock(false);
                   onClose();
                 }}
               >
@@ -148,6 +153,7 @@ const DeleteModal = (props) => {
               _onClick={() => {
                 console.log(postId);
                 dispatch(postCreators.deletePostMiddleware(postId));
+                setLock(false);
                 onClose();
               }}
             >
