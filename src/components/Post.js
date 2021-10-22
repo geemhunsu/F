@@ -17,7 +17,7 @@ const Post = () => {
   const dispatch = useDispatch();
   const userList = useSelector(state => state.user?.userList);
   const loginInfo = useSelector((state) => state.user.userId);
-  const is_me = useSelector(state => state.user.userId);
+  const is_me = useSelector((state) => state.user.userId);
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware());
   }, []);
@@ -104,7 +104,10 @@ const Post = () => {
                       console.log(Array.isArray(userList));
                     }}
                   >
-                    <AiFillEdit color='black' display={is_me === val.userId ? 'inline' : 'none'} />
+                    <AiFillEdit
+                      color='black'
+                      display={is_me === val.userId ? 'inline' : 'none'}
+                    />
                   </Button>
                   <Button
                     width='30px'
@@ -118,7 +121,10 @@ const Post = () => {
                       toggleDelete(idx);
                     }}
                   >
-                    <AiFillDelete color='black' display={is_me === val.userId ? 'inline' : 'none'} />
+                    <AiFillDelete
+                      color='black'
+                      display={is_me === val.userId ? 'inline' : 'none'}
+                    />
                   </Button>
                 </Grid>
               </Grid>
@@ -244,7 +250,29 @@ const Post = () => {
                   hover='whitesmoke'
                   fontSize='0.93rem'
                   _onClick={() => {
-                    alert('링크 복사 완료!');
+                    // 흐름 1.
+                    if (!document.queryCommandSupported('copy')) {
+                      return alert('복사하기가 지원되지 않는 브라우저입니다.');
+                    }
+
+                    // 흐름 2.
+                    const textarea = document.createElement('textarea');
+                    textarea.value = window.location.href;
+                    textarea.style.top = 0;
+                    textarea.style.left = 0;
+                    textarea.style.position = 'fixed';
+
+                    // 흐름 3.
+                    document.body.appendChild(textarea);
+                    // focus() -> 사파리 브라우저 서포팅
+                    textarea.focus();
+                    // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
+                    textarea.select();
+                    // 흐름 4.
+                    document.execCommand('copy');
+                    // 흐름 5.
+                    document.body.removeChild(textarea);
+                    alert('클립보드에 복사되었습니다.');
                   }}
                 >
                   <RiShareForwardLine color='gray' />
@@ -388,7 +416,9 @@ const Post = () => {
                               width='20%'
                             >
                               <Button
-                                display={val.userId === is_me ? 'block' : 'none'}
+                                display={
+                                  val.userId === is_me ? 'block' : 'none'
+                                }
                                 width='30px'
                                 height='30px'
                                 padding='0px'
@@ -407,7 +437,9 @@ const Post = () => {
                                 <AiFillEdit color='black' display='inline' />
                               </Button>
                               <Button
-                                display={val.userId === is_me ? 'block' : 'none'}
+                                display={
+                                  val.userId === is_me ? 'block' : 'none'
+                                }
                                 width='30px'
                                 height='30px'
                                 padding='0px'
