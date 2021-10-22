@@ -12,8 +12,8 @@ const LoginPage = () => {
   const [userId, setUserId] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const regExUserId = /^[a-zA-Z0-9!@#$%^&*]{4,12}$/;
-  const regExPassword = /^[a-zA-Z0-9!@#$%^&*]{6,18}$/;
+  const regExUserId = /^[a-zA-Z0-9!@#$%^&*]{4,20}$/g;
+  const regExPassword = /^[a-zA-Z0-9!@#$%^&*]{6,20}$/g;
 
   console.log(regExUserId.test(userId));
   console.log(regExPassword.test(password));
@@ -22,11 +22,6 @@ const LoginPage = () => {
   const modalOpen = () => {
     setShowModal(true);
   };
-
-  // if(regExUserId.test(userId) === false )
-  // { userIdError = " 이메일 형식이 유효하지 않습니다"
-  // }
-  // if(userIdError)
 
   const login = () => {
     if (userId === '' || password === '') {
@@ -54,22 +49,31 @@ const LoginPage = () => {
             </Grid>
             <Grid display='flex' flexDirection='column' textAlign='center' margin='0px 50px' width='400px'>
               <Grid backgroundColor='#ffff' padding='20px' textAlign='center' borderRadius='8px' margin='auto' boxShadow='rgba(0, 0, 0, 0.2) 0px 2px 10px'>
-                <Input
-                  height='60px'
-                  padding='14px 16px'
-                  border='1px solid #ddd'
-                  margin='7px 0'
-                  borderRadius='5px'
-                  inputFocusBoxShadow='0px 0px 1px 1px #c4ddfd'
-                  inputFocusOutline='none'
-                  inputFocusBorder='1px solid #1877f2'
-                  fontSize='20px'
-                  placeholder='이메일 또는 전화번호'
-                  _onChange={e => {
-                    console.log(e.target.value);
-                    setUserId(e.target.value);
-                  }}
-                />
+                <Grid>
+                  <Input
+                    height='60px'
+                    padding='14px 16px'
+                    border='1px solid #ddd'
+                    margin='7px 0'
+                    borderRadius='5px'
+                    inputFocusBoxShadow='0px 0px 1px 1px #c4ddfd'
+                    inputFocusOutline='none'
+                    inputFocusBorder='1px solid #1877f2'
+                    fontSize='20px'
+                    placeholder='이메일 또는 전화번호'
+                    _onChange={e => {
+                      console.log(e.target.value);
+                      setUserId(e.target.value);
+                    }}
+                  />
+                </Grid>
+                {/* {userId.length <= 4 && regExUserId.test(userId) === false ? (
+                  <Text color='#fa3c3c'>
+                    입력하신 이메일 주소 또는 휴대폰 번호가 계정에 연결되지 않았습니다. <b>회원님의 계정을 찾아서 로그인하세요.</b>
+                  </Text>
+                ) : (
+                  ''
+                )} */}
                 <Input
                   height='60px'
                   padding='14px 16px'
@@ -87,6 +91,13 @@ const LoginPage = () => {
                     setPassword(e.target.value);
                   }}
                 />
+                {/* {password.length <= 6 && regExPassword.test(password) === false ? (
+                  <Text color='#fa3c3c'>
+                    입력된 비밀번호가 올바르지 않습니다. <b>비밀번호를 잊으셨나요?</b>
+                  </Text>
+                ) : (
+                  ''
+                )} */}
                 <LoginButton
                   onClick={() => {
                     login();
