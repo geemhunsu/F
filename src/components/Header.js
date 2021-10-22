@@ -5,16 +5,16 @@ import { HeaderSub, HeaderCenter, HeaderLeft, UserInfoModal } from "../component
 const Header = (props) => {
   return (
     <React.Fragment>
-      <Grid width='100%' height='56px' boxShadow='rgba(0, 0, 0, 0.1) 0px 2px 12px;'
+      <Grid width='100vw' height='50px' boxShadow='rgba(0, 0, 0, 0.1) 0px 2px 12px;'
         display='flex' justifyContent="space-between" alignItems='center' position='fixed' 
-        top='0' left='0' bg='white'>
-        <Grid width='auto'>
+        top='0' left='0' bg='white' padding='0 0px 0 12px'>
+        <Grid width='auto' height='auto'>
           <HeaderLeft/>
         </Grid>
-        <Grid width='auto'>
+        <Grid width='auto' height='auto'>
           <HeaderCenter />
         </Grid>
-        <Grid width='auto'>
+        <Grid width='auto' height='auto'>
           <HeaderSub />
         </Grid>
       </Grid>

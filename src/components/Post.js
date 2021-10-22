@@ -16,6 +16,7 @@ const Post = () => {
   const inputs = React.useRef([]);
   const dispatch = useDispatch();
   const loginInfo = useSelector((state) => state.user.userId);
+  const is_me = useSelector(state => state.user.userId);
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware());
   }, []);
@@ -97,7 +98,7 @@ const Post = () => {
                       modalOpen(val.postId);
                     }}
                   >
-                    <AiFillEdit color='black' display='inline' />
+                    <AiFillEdit color='black' display={is_me === val.userId ? 'inline' : 'none'} />
                   </Button>
                   <Button
                     width='30px'
@@ -111,7 +112,7 @@ const Post = () => {
                       toggleDelete(idx);
                     }}
                   >
-                    <AiFillDelete color='black' display='inline' />
+                    <AiFillDelete color='black' display={is_me === val.userId ? 'inline' : 'none'} />
                   </Button>
                 </Grid>
               </Grid>
@@ -381,6 +382,7 @@ const Post = () => {
                               width='20%'
                             >
                               <Button
+                                display={val.userId === is_me ? 'block' : 'none'}
                                 width='30px'
                                 height='30px'
                                 padding='0px'
@@ -399,6 +401,7 @@ const Post = () => {
                                 <AiFillEdit color='black' display='inline' />
                               </Button>
                               <Button
+                                display={val.userId === is_me ? 'block' : 'none'}
                                 width='30px'
                                 height='30px'
                                 padding='0px'

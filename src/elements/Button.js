@@ -20,6 +20,7 @@ const Button = (props) => {
     left,
     right,
     hover,
+    display,
   } = props;
 
   if (isFloat) {
@@ -44,6 +45,7 @@ const Button = (props) => {
     left,
     right,
     hover,
+    display,
   };
 
   return (
@@ -71,6 +73,7 @@ Button.defaultProps = {
   left: null,
   right: null,
   hover: null,
+  display: null,  
 };
 
 const ElButton = styled.button`
@@ -104,6 +107,7 @@ const ElButton = styled.button`
   right: ${(props) => props.right};
   position: ${(props) => props.position};
   flex-shrink: 0;
+  display: ${props => props.display};
 `;
 
 const FloatButton = styled.div`
@@ -122,6 +126,7 @@ const FloatButton = styled.div`
   vertical-align: middle;
   border: none;
   border-radius: 50px;
+  display: ${props => props.display};
 `;
 
 export default Button;

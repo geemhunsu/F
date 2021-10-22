@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Post, Header, SideBar, UserList } from '../components';
@@ -9,13 +9,17 @@ import { userCreators } from '../redux/modules/user';
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  
-  // useEffect(() => {
-  //   dispatch(userCreators.setUserMiddleware());
-  // }, [])
+  const userModalState = useSelector(state => state.user.userModalState);
+  const [modalDisplay, setModalDisplay] = React.useState('flex');
+
+  const hideModal = () => {
+    dispatch(userCreators.setUserModal('none'));
+    console.log('닫는 중')
+    document.getElementById('userModal').style.display = userModalState;
+  }
 
   return (
-    <React.Fragment>
+    <div>
       <ResponsiveSidebar>
         <SideBar />
       </ResponsiveSidebar>
@@ -29,7 +33,7 @@ const MainPage = () => {
         <PostWrite />
         <Post />
       </Grid>
-    </React.Fragment>
+    </div>
   );
 };
 
