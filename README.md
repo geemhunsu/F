@@ -70,9 +70,9 @@ Diagrams
 </details>
 
 <details markdown = "1">
-<sumary>
-컴포넌트 플로우
-</sumary>
+<summary>
+한 주를 
+</summary>
 
 ## (김현수) 컴포넌트 플로우 - 헤더, 사이드바, 이미지 업로드
 1. 헤더
