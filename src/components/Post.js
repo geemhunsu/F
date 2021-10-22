@@ -102,16 +102,14 @@ const Post = () => {
                     backgroundColor='white'
                     margin='5px'
                     hover='whitesmoke'
+                    display={is_me === val.userId ? 'inline' : 'none'}
                     _onClick={() => {
                       modalOpen(val.postId);
                       console.log(val.userId);
                       console.log(Array.isArray(userList));
                     }}
                   >
-                    <AiFillEdit
-                      color='black'
-                      display={is_me === val.userId ? 'inline' : 'none'}
-                    />
+                    <AiFillEdit color='black' />
                   </Button>
                   <Button
                     width='30px'
@@ -121,14 +119,12 @@ const Post = () => {
                     backgroundColor='white'
                     margin='5px'
                     hover='whitesmoke'
+                    display={is_me === val.userId ? 'inline' : 'none'}
                     _onClick={() => {
                       toggleDelete(idx);
                     }}
                   >
-                    <AiFillDelete
-                      color='black'
-                      display={is_me === val.userId ? 'inline' : 'none'}
-                    />
+                    <AiFillDelete color='black' />
                   </Button>
                 </Grid>
               </Grid>
