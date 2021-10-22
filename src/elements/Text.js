@@ -14,6 +14,7 @@ const Text = (props) => {
     border,
     _onClick,
     cursor,
+    hover,
   } = props;
   const styles = {
     color,

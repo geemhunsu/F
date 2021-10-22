@@ -95,6 +95,13 @@ instance.interceptors.response.use(
       window.alert('비밀번호는 6~20자리로 해주세요');
     }
 
+    if (
+      error.response.data.statusCode === 403 &&
+      error.response.data.responseMessage === '권한이 없습니다.'
+    ) {
+      return window.alert('권한이 없습니다.');
+    }
+
     return error;
   }
 );
