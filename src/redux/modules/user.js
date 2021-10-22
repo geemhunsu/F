@@ -6,10 +6,12 @@ import { apis } from '../../lib/axios';
 const SET_USER = 'SET_USER';
 const UPDATE_PROFILE = 'UPDATE_PROFILE';
 const SET_USERLIST = 'SET_USERLIST';
+const SET_USERMODAL = 'SET_USERMODAL';
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setUserList = createAction(SET_USERLIST, (userList) => ({ userList }));
 const updateProfile = createAction(UPDATE_PROFILE, (imageUrl) => ({ imageUrl }));
+const setUserModal = createAction(SET_USERMODAL, state => ({state}));
 
 const initialState = {
   name: 'guest',
@@ -19,6 +21,7 @@ const initialState = {
   imageUrl: null,
   is_login: false,
   userList: [],
+  userModalState: 'none',
 };
 
 // 프로필 사진 수정
@@ -108,6 +111,9 @@ export default handleActions(
     }),
     [SET_USERLIST]: (state, action) => produce(state, (draft) => {
       draft.userList = action.payload.userList;
+    }),
+    [SET_USERMODAL]: (state, action) => produce(state, draft => {
+      draft.userModalState = action.payload.state;      
     })
   },
   initialState
@@ -120,6 +126,7 @@ const userCreators = {
   setUserMiddleware,
   setAllUserMiddleware,
   setUser,
+  setUserModal,
 };
 
 export { userCreators };

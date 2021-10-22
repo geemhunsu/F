@@ -22,7 +22,9 @@ const UserInfoModal = (props) => {
   }
 
   return (
-    <Wrap>
+    <Wrap onClick={(e) => {
+      e.stopPropagation();
+    }}>
       <Grid position='fixed' top='54px' right='20px' width='auto' height='auto' bg='white'
         borderRadius='10px' boxShadow='rgba(0, 0, 0, 0.2) 0px 10px 36px 0px, 
         rgba(0, 0, 0, 0.06) 0px 0px 0px 1px' padding='12px 12px 12px 6px'
@@ -64,7 +66,7 @@ const UserInfoModal = (props) => {
 };
 
 const Wrap = styled.div`
-
+ 
 `;
 
 export default UserInfoModal;

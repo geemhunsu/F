@@ -6,7 +6,7 @@ import searchIcon from '../images/headerMore/searchicon.png'
 
 const HeaderLeft = (props) => {
   return (
-    <Grid display="flex" alignItems='center' width="auto" padding='0  0 0 16px'>
+    <Grid display="flex" alignItems='center' width="auto">
       <i style={{
         backgroundImage: "url('https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/9hjSjlsfbAc.png')",
         backgroundPosition: '-73px -11px', backgroundSize: 'auto', width: '36px', height: '36px',
@@ -20,14 +20,13 @@ const HeaderLeft = (props) => {
 };
 
 const ElInput = styled.input`
-  width: 190px;
-  height: 40px;
+  width: 165px;
+  height: 36px;
   border-radius: 50px;
   border: none;
   background: #f0f2f5;
   padding: 0 16px 0 36px;
-  margin: 0 0 0 6px;
-  font-weight: bold;  
+  margin: 0 0 0 6px;  
   background-image: url(${searchIcon});
   background-repeat: no-repeat;
   background-position: 10px 12px;

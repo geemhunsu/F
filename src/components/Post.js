@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { DeleteModal } from '.';
+import PostWriteModal from './PostWriteModal';
 import { postCreators } from '../redux/modules/post';
 
 import { AiOutlineLike, AiFillEdit, AiFillDelete } from 'react-icons/ai';
@@ -15,10 +16,11 @@ const Post = () => {
   const inputs = React.useRef([]);
   const dispatch = useDispatch();
   const loginInfo = useSelector((state) => state.user.userId);
+  const is_me = useSelector((state) => state.user.userId);
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware());
   }, []);
-  const postList = useSelector((state) => state.post.postList);
+  const postList = useSelector((state) => state.post?.postList);
   const [shownComments, setShownComments] = React.useState({});
   const toggleComment = (id) => {
     setShownComments((prevShownComments) => ({
@@ -53,8 +55,15 @@ const Post = () => {
 
   const [comment, setComment] = React.useState('');
 
+  const [openModal, setModal] = React.useState(false);
+  const modalOpen = (postId) => {
+    dispatch(postCreators.setDetailPostId(postId));
+    setTimeout(setModal(true), 5000);
+  };
+
   return (
     <React.Fragment>
+      <PostWriteModal openModal={openModal} setModal={setModal} />
       {postList.map((val, idx) => {
         return (
           <div key={val.postId}>
@@ -85,8 +94,14 @@ const Post = () => {
                     backgroundColor='white'
                     margin='5px'
                     hover='whitesmoke'
+                    _onClick={() => {
+                      modalOpen(val.postId);
+                    }}
                   >
-                    <AiFillEdit color='black' display='inline' />
+                    <AiFillEdit
+                      color='black'
+                      display={is_me === val.userId ? 'inline' : 'none'}
+                    />
                   </Button>
                   <Button
                     width='30px'
@@ -100,7 +115,10 @@ const Post = () => {
                       toggleDelete(idx);
                     }}
                   >
-                    <AiFillDelete color='black' display='inline' />
+                    <AiFillDelete
+                      color='black'
+                      display={is_me === val.userId ? 'inline' : 'none'}
+                    />
                   </Button>
                 </Grid>
               </Grid>
@@ -130,7 +148,13 @@ const Post = () => {
                   >
                     👍
                   </Button>
-                  <span>{val.likeCount}</span>
+                  <span
+                    style={{
+                      paddingTop: '3px',
+                    }}
+                  >
+                    {val.likeCount}
+                  </span>
                 </BtnWrapper>
                 <Grid display='flex' justifyContent='flex-end'>
                   <Text margin='10px'>좋아요 {val.likeCount}개</Text>
@@ -220,7 +244,29 @@ const Post = () => {
                   hover='whitesmoke'
                   fontSize='0.93rem'
                   _onClick={() => {
-                    alert('링크 복사 완료!');
+                    // 흐름 1.
+                    if (!document.queryCommandSupported('copy')) {
+                      return alert('복사하기가 지원되지 않는 브라우저입니다.');
+                    }
+
+                    // 흐름 2.
+                    const textarea = document.createElement('textarea');
+                    textarea.value = window.location.href;
+                    textarea.style.top = 0;
+                    textarea.style.left = 0;
+                    textarea.style.position = 'fixed';
+
+                    // 흐름 3.
+                    document.body.appendChild(textarea);
+                    // focus() -> 사파리 브라우저 서포팅
+                    textarea.focus();
+                    // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
+                    textarea.select();
+                    // 흐름 4.
+                    document.execCommand('copy');
+                    // 흐름 5.
+                    document.body.removeChild(textarea);
+                    alert('클립보드에 복사되었습니다.');
                   }}
                 >
                   <RiShareForwardLine color='gray' />
@@ -269,7 +315,8 @@ const Post = () => {
                         {/* {console.log(loginInfo, val.userId, editComment[idx])} */}
                         {loginInfo === val.userId && editComment[idx] ? (
                           <Grid
-                            width='100%'
+                            width='90%'
+                            margin='auto'
                             display='flex'
                             alignItems='center'
                             padding='0px 10px'
@@ -279,42 +326,54 @@ const Post = () => {
                               margin='10px'
                               src={val.userImageUrl}
                             />
-                            <Input
-                              width='90%'
-                              height='30px'
-                              bg='whitesmoke'
-                              border='none'
-                              borderRadius='10px'
-                              edit
-                              placeholder={val.content}
-                              innerRef={(input) =>
-                                (inputs.current[idx] = input)
-                              }
-                              _onChange={(e) => {
-                                // console.log(e.target.value);
-                                setComment(e.target.value);
-                              }}
-                              onSubmit={() => {
-                                console.log('onSubmit');
-                                if (comment === '') {
-                                  return;
+                            <Grid display='flex' flexDirection='column'>
+                              <Input
+                                width='78%'
+                                height='30px'
+                                bg='whitesmoke'
+                                border='none'
+                                borderRadius='10px'
+                                edit
+                                placeholder={val.content}
+                                innerRef={(input) =>
+                                  (inputs.current[idx] = input)
                                 }
-                                setComment('');
-                                console.log(val.commentId, comment);
-                                const commentInfo = {
-                                  content: comment,
-                                };
-                                dispatch(
-                                  postCreators.editCommentMiddleware(
-                                    val.commentId,
-                                    commentInfo
-                                  )
-                                );
+                                _onChange={(e) => {
+                                  // console.log(e.target.value);
+                                  setComment(e.target.value);
+                                }}
+                                onSubmit={() => {
+                                  console.log('onSubmit');
+                                  if (comment === '') {
+                                    return;
+                                  }
+                                  setComment('');
+                                  console.log(val.commentId, comment);
+                                  const commentInfo = {
+                                    content: comment,
+                                  };
+                                  dispatch(
+                                    postCreators.editCommentMiddleware(
+                                      val.commentId,
+                                      commentInfo
+                                    )
+                                  );
 
-                                inputs.current[idx].value = '';
-                                toggleEditComment(idx);
-                              }}
-                            />
+                                  inputs.current[idx].value = '';
+                                  toggleEditComment(idx);
+                                }}
+                              />
+                              <Text
+                                size='10px'
+                                color='dodgerblue'
+                                cursor='pointer'
+                                _onClick={() => {
+                                  toggleEditComment(idx);
+                                }}
+                              >
+                                취소
+                              </Text>
+                            </Grid>
                           </Grid>
                         ) : (
                           <Grid
@@ -351,6 +410,9 @@ const Post = () => {
                               width='20%'
                             >
                               <Button
+                                display={
+                                  val.userId === is_me ? 'block' : 'none'
+                                }
                                 width='30px'
                                 height='30px'
                                 padding='0px'
@@ -359,13 +421,19 @@ const Post = () => {
                                 margin='5px'
                                 hover='whitesmoke'
                                 _onClick={() => {
-                                  // setEditComment(true);
+                                  if (loginInfo !== val.userId) {
+                                    return alert('권한이 없습니다.');
+                                  }
+                                  // console.log(loginInfo, val.userId)
                                   toggleEditComment(idx);
                                 }}
                               >
                                 <AiFillEdit color='black' display='inline' />
                               </Button>
                               <Button
+                                display={
+                                  val.userId === is_me ? 'block' : 'none'
+                                }
                                 width='30px'
                                 height='30px'
                                 padding='0px'
@@ -412,7 +480,7 @@ const Post = () => {
                       }
                     />
                     <Grid
-                      width='90%'
+                      width='68%'
                       height='40px'
                       margin='10px 0px 0px 0px'
                       bg='whitesmoke'
@@ -451,36 +519,42 @@ const Post = () => {
                   </Grid>
                 ) : null}
                 <Grid
-                  width='100%'
+                  width='90%'
                   display='flex'
                   alignItems='center'
                   padding='0px 10px'
+                  margin='auto'
                 >
                   <Image shape='circle' margin='10px' src={val.userImageUrl} />
-                  <Input
-                    width='90%'
-                    height='30px'
-                    bg='whitesmoke'
-                    border='none'
-                    borderRadius='10px'
-                    innerRef={(input) => (inputs.current[idx] = input)}
-                    _onChange={(e) => {
-                      setComment(e.target.value);
-                    }}
-                    onSubmit={() => {
-                      console.log('onSubmit');
-                      if (comment === '') {
-                        return;
-                      }
-                      setComment('');
-                      const commentInfo = {
-                        postId: val.postId,
-                        content: comment,
-                      };
-                      dispatch(postCreators.addCommentMiddleware(commentInfo));
-                      inputs.current[idx].value = '';
-                    }}
-                  />
+                  <Grid display='flex' flexDirection='column'>
+                    <Input
+                      width='78%'
+                      height='30px'
+                      bg='whitesmoke'
+                      border='none'
+                      borderRadius='10px'
+                      innerRef={(input) => (inputs.current[idx] = input)}
+                      _onChange={(e) => {
+                        setComment(e.target.value);
+                      }}
+                      onSubmit={() => {
+                        console.log('onSubmit');
+                        if (comment === '') {
+                          return;
+                        }
+                        setComment('');
+                        const commentInfo = {
+                          postId: val.postId,
+                          content: comment,
+                        };
+                        dispatch(
+                          postCreators.addCommentMiddleware(commentInfo)
+                        );
+                        inputs.current[idx].value = '';
+                      }}
+                    />
+                    <Text size='10px'>글을 게시하려면 Enter키를 누르세요.</Text>
+                  </Grid>
                 </Grid>
               </Grid>
             </PostWrapper>

@@ -47,7 +47,7 @@ instance.interceptors.response.use(
     if (response.statusCode === 200 && response.responseMessage === '로그인 성공') {
       let userCookie = success.data.token;
       console.log(userCookie);
-      setCookie('user_id', userCookie, 3);
+      setCookie('user_id', userCookie, 30);
       window.alert('로그인성공');
       history.push('/main');
     }
@@ -86,6 +86,23 @@ instance.interceptors.response.use(
       return window.alert('비밀번호는 6~20자리로 해주세요');
     }
 
+    if (error.response.status === 401 && error.response.data.responseMessage === '로그인이 필요합니다.') {
+      window.alert('로그인이 필요합니다.');
+      // history.replace('/');
+    }
+
+    if (error.response.status === 403 && error.response.responseMessage === '권한이 없습니다.') {
+      window.alert('권한이 없습니다.');
+    }
+
+    if (error.response.status === 404 && error.response.responseMessage === '게시글을 찾을 수 없습니다.') {
+      window.alert('게시글을 찾을 수 없습니다.');
+    }
+
+    if (error.response.data.statusCode === 403 && error.response.data.responseMessage === '권한이 없습니다.') {
+      return window.alert('권한이 없습니다.');
+    }
+
     return error;
   }
 );
@@ -104,7 +121,8 @@ export const apis = {
   getPost: () => instance.get('/post'),
   //data.json용
   // getPost: () => instance.get(`/post`),
-  addPost: postInfo => instance.post(`/post`),
+  addPost: postInfo => instance.post(`/post`, postInfo),
+  updatePost: (postId, postInfo) => instance.put(`/post/${postId}`, postInfo),
   deletePost: postId => instance.delete(`/post/${postId}`),
   clickLike: postId => instance.post(`/post/${postId}/like`),
   addComment: commentInfo => instance.post('/comment', commentInfo),
