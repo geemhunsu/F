@@ -24,7 +24,7 @@ const SignUpModal = props => {
   const [year, setYear] = React.useState();
   const [month, setMonth] = React.useState();
   const [day, setDay] = React.useState();
-  const [gender, setGender] = React.useState('female');
+  const [gender, setGender] = React.useState('woman');
   const [option, setOption] = React.useState('');
 
   //모달
@@ -217,7 +217,7 @@ const SignUpModal = props => {
                     <RadioGroup row aria-label='gender' value={gender} onChange={genderChange}>
                       <Grid margin='0px'>
                         <FormControlLabel
-                          value='female'
+                          value='woman'
                           control={<Radio color='primary' />}
                           style={{ paddingLeft: '10px', border: '1px solid #ddd', width: '133px', margin: '0', borderRadius: '5px', justifyContent: 'space-between' }}
                           label='여성'
