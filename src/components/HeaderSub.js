@@ -28,29 +28,15 @@ const HeaderSub = (props) => {
     document.getElementById('userModal').style.display = modalDisplay;
   }
 
-  
+  const closeModal = (e) => {    
+    if(modalDisplay !== 'none') {
+      return ;
+    }
+    console.log(e.target);
+    toggleModal();
+  }
 
-  // const closeModal = (e) => {    
-  //   if(modalDisplay === 'none') {
-  //     return ;
-  //   }
-  //   if(e.target === document.getElementById('userModal')){
-  //     return ;
-  //   }    
-  //   if(e.target === document.getElementById('userModal').querySelectorAll('div')){
-  //     return ;
-  //   }    
-  //   if(e.target === document.getElementById('userModal').querySelectorAll('input')){
-  //     return ;
-  //   }    
-  //   if(e.target === document.getElementById('userModal').querySelectorAll('ul')){
-  //     return ;
-  //   }    
-  //   console.log(e.target);
-  //   toggleModal();
-  // }
-
-  // document.addEventListener('click' , closeModal);
+  document.addEventListener('click' , closeModal);
 
 
   return (
