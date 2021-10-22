@@ -15,8 +15,9 @@ import { VscRunAll, VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 const Post = () => {
   const inputs = React.useRef([]);
   const dispatch = useDispatch();
-  const userList = useSelector(state => state.user?.userList);
+  const userList = useSelector((state) => state.user?.userList);
   const loginInfo = useSelector((state) => state.user.userId);
+  const userImageUrl = useSelector((state) => state.user.imageUrl);
   const is_me = useSelector((state) => state.user.userId);
   React.useEffect(() => {
     dispatch(postCreators.getPostMiddleware());
@@ -77,10 +78,13 @@ const Post = () => {
                 alignItems='center'
                 padding='20px 10px'
               >
-                <Image shape='circle' src={
-                  val.userImageUrl
-                  // userList.find(user => user.userId === val.userId).imageUrl
-                } />
+                <Image
+                  shape='circle'
+                  src={
+                    val.userImageUrl
+                    // userList.find(user => user.userId === val.userId).imageUrl
+                  }
+                />
                 <Grid width='70%' height='100%'>
                   <Text margin='5px 0px 0px 0px' bold>
                     {`${val.lastName}  ${val.firstName}`}
@@ -98,16 +102,14 @@ const Post = () => {
                     backgroundColor='white'
                     margin='5px'
                     hover='whitesmoke'
+                    display={is_me === val.userId ? 'inline' : 'none'}
                     _onClick={() => {
                       modalOpen(val.postId);
                       console.log(val.userId);
                       console.log(Array.isArray(userList));
                     }}
                   >
-                    <AiFillEdit
-                      color='black'
-                      display={is_me === val.userId ? 'inline' : 'none'}
-                    />
+                    <AiFillEdit color='black' />
                   </Button>
                   <Button
                     width='30px'
@@ -117,14 +119,12 @@ const Post = () => {
                     backgroundColor='white'
                     margin='5px'
                     hover='whitesmoke'
+                    display={is_me === val.userId ? 'inline' : 'none'}
                     _onClick={() => {
                       toggleDelete(idx);
                     }}
                   >
-                    <AiFillDelete
-                      color='black'
-                      display={is_me === val.userId ? 'inline' : 'none'}
-                    />
+                    <AiFillDelete color='black' />
                   </Button>
                 </Grid>
               </Grid>
@@ -531,7 +531,11 @@ const Post = () => {
                   padding='0px 10px'
                   margin='auto'
                 >
-                  <Image shape='circle' margin='10px' src={val.userImageUrl} />
+                  {loginInfo !== null ? (
+                    <Image shape='circle' margin='10px' src={userImageUrl} />
+                  ) : (
+                    <Image shape='circle' margin='10px' />
+                  )}
                   <Grid display='flex' flexDirection='column'>
                     <Input
                       width='78%'

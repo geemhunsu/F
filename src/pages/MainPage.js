@@ -8,15 +8,6 @@ import PostWrite from '../components/PostWrite';
 import { userCreators } from '../redux/modules/user';
 
 const MainPage = () => {
-  const dispatch = useDispatch();
-  const userModalState = useSelector(state => state.user.userModalState);
-  const [modalDisplay, setModalDisplay] = React.useState('flex');
-
-  const hideModal = () => {
-    dispatch(userCreators.setUserModal('none'));
-    console.log('닫는 중')
-    document.getElementById('userModal').style.display = userModalState;
-  }
 
   return (
     <div>
