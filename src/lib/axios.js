@@ -117,6 +117,13 @@ instance.interceptors.response.use(
       window.alert('게시글을 찾을 수 없습니다.');
     }
 
+    if (
+      error.response.data.statusCode === 403 &&
+      error.response.data.responseMessage === '권한이 없습니다.'
+    ) {
+      return window.alert('권한이 없습니다.');
+    }
+
     return error;
   }
 );
