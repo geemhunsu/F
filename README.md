@@ -69,7 +69,7 @@ Diagrams
 
 </details>
 
-<details markdown = "2">
+<details markdown = "1">
 <sumary>
 컴포넌트 플로우
 </sumary>
