@@ -15,6 +15,7 @@ import { VscRunAll, VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 const Post = () => {
   const inputs = React.useRef([]);
   const dispatch = useDispatch();
+  const userList = useSelector(state => state.user?.userList);
   const loginInfo = useSelector((state) => state.user.userId);
   const is_me = useSelector((state) => state.user.userId);
   React.useEffect(() => {
@@ -76,7 +77,10 @@ const Post = () => {
                 alignItems='center'
                 padding='20px 10px'
               >
-                <Image shape='circle' src={val.userImageUrl} />
+                <Image shape='circle' src={
+                  val.userImageUrl
+                  // userList.find(user => user.userId === val.userId).imageUrl
+                } />
                 <Grid width='70%' height='100%'>
                   <Text margin='5px 0px 0px 0px' bold>
                     {`${val.lastName}  ${val.firstName}`}
@@ -96,6 +100,8 @@ const Post = () => {
                     hover='whitesmoke'
                     _onClick={() => {
                       modalOpen(val.postId);
+                      console.log(val.userId);
+                      console.log(Array.isArray(userList));
                     }}
                   >
                     <AiFillEdit
